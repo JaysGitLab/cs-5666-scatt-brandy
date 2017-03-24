@@ -17,6 +17,7 @@ public class HelloWorld
      */
     public static void main(String[] args)
     {
-        System.out.println("Changed for Testing, Hello Team!");
+        System.out.println("Changed for Testing, Hello Team!"
+        		+ " added some more for further testing - Chad");
     }
 }
