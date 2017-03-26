@@ -3,10 +3,12 @@ package scatt.gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * @author Matt Stone
@@ -20,15 +22,21 @@ public class Gui
 {
 
     private JFrame frame;
-    private JFileChooser jFileChooser;
+    private JFileChooser dirChooser;
+    private JFileChooser fileChooser;
 
     /**
      * Create the GUI application.
      */
     public Gui()
     {
-        jFileChooser = new JFileChooser();
-        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        dirChooser = new JFileChooser();
+        dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        fileChooser = new JFileChooser();
+        fileChooser
+                .setFileFilter(new FileNameExtensionFilter("sb2 file", "sb2"));
+
         initialize();
 
     }
@@ -60,12 +68,26 @@ public class Gui
     /**
      * Test method that opens up a file chooser.
      */
-    protected void openFileMenu()
+    protected void openDirectoryFromFileMenu()
     {
         // open file chooser and then check if they approved a file
-        if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+        if (dirChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
         {
-            jFileChooser.getCurrentDirectory();
+            File dir = dirChooser.getCurrentDirectory();
+            System.out.println(dir.getAbsolutePath());
+        }
+    }
+
+    /**
+     * Test method that opens up a single file from the file menu.
+     */
+    protected void openFileFromFileMenu()
+    {
+        // open file chooser and then check if they approved a file
+        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+        {
+            File openedSb2 = fileChooser.getCurrentDirectory();
+            System.out.println(openedSb2.getAbsolutePath());
         }
     }
 
@@ -79,18 +101,28 @@ public class Gui
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
-        JButton btnJfilechoser = new JButton("jfilechoser");
+        JButton btnJfilechoser = new JButton(".sb2 directory");
 
         // The function called when the button is pressed.
         btnJfilechoser.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent arg0)
             {
-                openFileMenu();
+                openDirectoryFromFileMenu();
             }
         });
-        btnJfilechoser.setBounds(154, 108, 97, 25);
+        btnJfilechoser.setBounds(157, 46, 133, 25);
         frame.getContentPane().add(btnJfilechoser);
-    }
 
+        JButton btnSinglesb = new JButton("single .sb2");
+        btnSinglesb.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent arg0)
+            {
+                openFileFromFileMenu();
+            }
+        });
+        btnSinglesb.setBounds(173, 121, 97, 25);
+        frame.getContentPane().add(btnSinglesb);
+    }
 }
