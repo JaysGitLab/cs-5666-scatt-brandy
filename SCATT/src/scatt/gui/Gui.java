@@ -73,8 +73,21 @@ public class Gui
         // open file chooser and then check if they approved a file
         if (dirChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
         {
-            File dir = dirChooser.getCurrentDirectory();
-            System.out.println(dir.getAbsolutePath());
+            File dir = dirChooser.getSelectedFile();
+            System.out.println("opened: " + dir.getAbsolutePath());
+            System.out.println("printing found .sb2 files in directory");
+
+            // find every .sb2 in this directory and load them into memory
+            // TODO (INCOMPLETE)
+            for (File file : dir.listFiles())
+            {
+                String path = file.getAbsolutePath();
+                if (path.substring(path.length() - 4).equals(".sb2"))
+                {
+                    // create a student object? printing for now
+                    System.out.println(file.getAbsolutePath());
+                }
+            }
         }
     }
 
@@ -86,9 +99,13 @@ public class Gui
         // open file chooser and then check if they approved a file
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
         {
-            File openedSb2 = fileChooser.getCurrentDirectory();
+            File openedSb2 = fileChooser.getSelectedFile();
+            // below is an example of how it might look to create a student
+            // Student student = new Student(openedSb2.getAbsolutePath());
             System.out.println(openedSb2.getAbsolutePath());
+
         }
+
     }
 
     /**
