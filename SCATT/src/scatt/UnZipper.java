@@ -90,8 +90,7 @@ public class UnZipper
      */
     private boolean alreadyUnZipped()
     {
-        // todo implment this
-        return false;
+        return outputDir != null;
     }
 
     /**
@@ -119,6 +118,7 @@ public class UnZipper
                     }
                 }
                 outputDir.delete();
+                outputDir = null;
             }
         }
     }
