@@ -13,7 +13,7 @@ public class Sprite {
 	 * @param jsonFile String representation of the json file
 	 * @return number of sprites, -1 if spriteCount not found
 	 */
-	public static int getCountFromString(String jsonFile){
+	public static int getSpriteCount(String jsonFile){
 		if(!jsonFile.contains("spriteCount")){
 			return -1;
 		}
@@ -28,7 +28,7 @@ public class Sprite {
 	 * @param jsonTextFile json file
 	 * @return number of sprites, -1 if spriteCount not found, -2 if IOException 
 	 */
-	public static int getCountFromFile(File jsonTextFile){
+	public static int getSpriteCount(File jsonTextFile){
 		try {
 			FileReader fr = new FileReader(jsonTextFile);
 			BufferedReader br = new BufferedReader(fr);
@@ -40,7 +40,7 @@ public class Sprite {
 			}
 			br.close();
 			fr.close();
-			return getCountFromString(fileStr);
+			return getSpriteCount(fileStr);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			return -2;

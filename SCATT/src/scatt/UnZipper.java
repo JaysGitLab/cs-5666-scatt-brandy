@@ -62,7 +62,7 @@ public class UnZipper
                 byte data[] = new byte[BUFFER];
                 // write the files to the disk
                 FileOutputStream fos = new FileOutputStream(unzipedFilePath
-                        + "\\" + entry.getName());
+                        + File.separator + entry.getName());
                 dest = new BufferedOutputStream(fos, BUFFER);
                 while ((count = zis.read(data, 0, BUFFER)) != -1)
                 {
