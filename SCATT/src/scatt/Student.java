@@ -62,7 +62,8 @@ public class Student
     {
         String curPath = Paths.get("").toAbsolutePath().toString();
         String fileName = "Pong Starter.sb2";
-        String zippedDirLocStr = curPath + File.separator + "TestData" + File.separator + fileName;
+        String zippedDirLocStr = curPath + File.separator + "TestData"
+                + File.separator + fileName;
 
         Student test = new Student(zippedDirLocStr);
         System.out.printf("Sprite Count: %d", test.getSpriteCount());
