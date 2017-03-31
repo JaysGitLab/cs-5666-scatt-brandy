@@ -4,21 +4,23 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+
 /**
- * A basic test for the application.
+ * Class that tests the script count.
  * 
  * @author Matt Stone
- * @version 1.0
+ * @author
+ * @version 0.5
  * 
  */
-public class TestBasicApp1
+public class TestScriptCount
 {
 
     /**
-     * Basic test 1.
+     * Test 1 for script count.
      */
     @Test
-    public void test()
+    public void testBasicScriptCount1()
     {
         fail("Not yet implemented");
     }
