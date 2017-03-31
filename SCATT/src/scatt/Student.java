@@ -1,5 +1,8 @@
 package scatt;
 
+import java.io.File;
+import java.nio.file.Paths;
+
 /**
  * This class encapsulates an individual student's submission.
  * 
@@ -20,6 +23,9 @@ package scatt;
  */
 public class Student
 {
+    private UnZipper unZipper;
+    private int spriteCount = 0;
+
     /**
      * Construct a student object from a .sb2 file path.
      * 
@@ -28,6 +34,15 @@ public class Student
     public Student(String zippedSb2FilePath)
     {
         // TODO - .json through the pipeline
+        unZipper = new UnZipper(zippedSb2FilePath);
+        String folderPath = unZipper.unZip();
+        File jsonFile = new File(folderPath + "/project.json");
+
+        // pipeline starts
+        spriteCount = Sprite.getSpriteCount(jsonFile);
+
+        // clean up created directory
+        unZipper.clean();
     }
 
     /**
@@ -35,7 +50,22 @@ public class Student
      */
     public int getSpriteCount()
     {
-        // TODO implment this
-        return -1;
+        return spriteCount;
+    }
+
+    /**
+     * Main method for in-class example.
+     * 
+     * @param args command line arguments
+     */
+    public static void main(String[] args)
+    {
+        String curPath = Paths.get("").toAbsolutePath().toString();
+        String fileName = "Pong Starter.sb2";
+        String zippedDirLocStr = curPath + File.separator + "TestData"
+                + File.separator + fileName;
+
+        Student test = new Student(zippedDirLocStr);
+        System.out.printf("Sprite Count: %d", test.getSpriteCount());
     }
 }
