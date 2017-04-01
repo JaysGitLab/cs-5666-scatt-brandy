@@ -18,12 +18,12 @@ default:
 
 compile:# ./scatt/student.java ./src/scatt/test/*.java ./src/scatt/test/app/unzipper/*.java\
 ./src/scatt/test/gui/*.java ./src/scatt/*.java ./src/scatt/gui/*.java
-	javac -cp .:$(JUNIT_JAR) ./scatt/test/*.java
 	javac -cp .:$(JUNIT_JAR) ./scatt/test/app/*.java
 	javac -cp .:$(JUNIT_JAR) ./scatt/test/app/unzipper/*.java
 	javac -cp .:$(JUNIT_JAR) ./scatt/test/gui/*.java	
 	javac ./scatt/*.java
 	javac ./scatt/gui/*.java
+#	javac ./scatt/test/suite/*.java #student machine's junit is too old for modern suite imports.
 
 	
 
@@ -40,7 +40,7 @@ clean:
 # ie scatt/test/app will not work; it must be scatt.test.app
 # see this link: http://stackoverflow.com/questions/15548580/junit-cannot-find-class
 test: # .scatt/test/*.class ./scatt/test/app/*.class ./scatt/test/app/*.class 
-	java -cp .:$(JUNIT_JAR):$(HAMCREST_JAR) org.junit.runner.JUnitCore scatt.test.AllTests
+	java -cp .:$(JUNIT_JAR):$(HAMCREST_JAR) org.junit.runner.JUnitCore scatt.test.suite.AllTests
 	
 testio:
 	java -cp .:$(JUNIT_JAR):$(HAMCREST_JAR) org.junit.runner.JUnitCore scatt.test.app.unzipper.TestUnZipper

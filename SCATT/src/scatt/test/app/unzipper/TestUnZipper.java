@@ -4,11 +4,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.io.File;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import scatt.UnZipper;
+
 
 /**
  * @author Matt, Broderick
@@ -28,7 +30,7 @@ public class TestUnZipper
         
         String curPath = Paths.get("").toAbsolutePath().toString();
         String fileName = "Pong Starter.sb2";
-        TestUnZipper.zippedDirectory = curPath + "\\TestData\\" + fileName;
+        TestUnZipper.zippedDirectory = curPath + File.separator + "TestData" + File.separator + fileName;
         //System.out.println(TestUnZipper.zippedDirectory);
 
     }
