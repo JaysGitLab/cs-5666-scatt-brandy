@@ -40,8 +40,10 @@ clean:
 # ie scatt/test/app will not work; it must be scatt.test.app
 # see this link: http://stackoverflow.com/questions/15548580/junit-cannot-find-class
 test: # .scatt/test/*.class ./scatt/test/app/*.class ./scatt/test/app/*.class 
-	#java -cp .:$(JUNIT_JAR):$(HAMCREST_JAR) org.junit.runner.JUnitCore scatt.test.suite.AllTests
-	java -cp .:$(JUNIT_JAR):$(HAMCREST_JAR) org.junit.runner.JUnitCore scatt.test.app.TestSpriteCount
+	#test suties do not seem to work with student machine's junit version -- manually add tests here
+	java -cp .:$(JUNIT_JAR):$(HAMCREST_JAR) org.junit.runner.JUnitCore scatt.test.app.TestSpriteCount\
+	 scatt.test.app.unzipper.TestUnZipper
+	
 	
 	
 testio:
