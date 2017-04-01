@@ -42,7 +42,7 @@ clean:
 test: # .scatt/test/*.class ./scatt/test/app/*.class ./scatt/test/app/*.class 
 	#test suties do not seem to work with student machine's junit version -- manually add tests here
 	java -cp .:$(JUNIT_JAR):$(HAMCREST_JAR) org.junit.runner.JUnitCore scatt.test.app.TestSpriteCount\
-	 scatt.test.app.unzipper.TestUnZipper
+	 scatt.test.app.unzipper.TestUnZipper scatt.test.app.TestGrader
 	
 	
 	

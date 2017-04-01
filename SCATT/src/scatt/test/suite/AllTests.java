@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import scatt.test.app.TestGrader;
 import scatt.test.app.TestSpriteCount;
 import scatt.test.app.unzipper.TestUnZipper;
 
@@ -14,7 +15,7 @@ import scatt.test.app.unzipper.TestUnZipper;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({ TestSpriteCount.class, TestUnZipper.class })
+@SuiteClasses({ TestSpriteCount.class, TestUnZipper.class, TestGrader.class})
 public class AllTests
 {
 
