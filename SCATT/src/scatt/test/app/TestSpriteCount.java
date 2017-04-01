@@ -21,7 +21,7 @@ public class TestSpriteCount
 {
 
     /**
-     * Tests the sprite count.
+     * Tests the sprite count. 
      */
     @Test
     public void testSpriteCount()

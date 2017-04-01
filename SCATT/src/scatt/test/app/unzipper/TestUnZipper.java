@@ -29,7 +29,7 @@ public class TestUnZipper
 
         String curPath = Paths.get("").toAbsolutePath().toString();
         
-        // fix file path for unix machine
+        // fix file path for unix machine 
         if (curPath.substring(curPath.length() - 4).equals(
                 File.separator + "src"))
         {
