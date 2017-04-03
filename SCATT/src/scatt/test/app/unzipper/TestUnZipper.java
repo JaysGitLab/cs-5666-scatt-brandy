@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.io.File;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,11 +26,20 @@ public class TestUnZipper
     @BeforeClass
     public static void setUp()
     {
-        
+
         String curPath = Paths.get("").toAbsolutePath().toString();
+        
+        // fix file path for unix machine 
+        if (curPath.substring(curPath.length() - 4).equals(
+                File.separator + "src"))
+        {
+            curPath = curPath.substring(0, curPath.length() - 4);
+        }
+        
         String fileName = "Pong Starter.sb2";
-        TestUnZipper.zippedDirectory = curPath + "\\TestData\\" + fileName;
-        //System.out.println(TestUnZipper.zippedDirectory);
+        TestUnZipper.zippedDirectory = curPath + File.separator + "TestData"
+                + File.separator + fileName;
+        // System.out.println(TestUnZipper.zippedDirectory);
 
     }
 
@@ -44,7 +54,7 @@ public class TestUnZipper
 
         // extract the zip
         String unZippedDir = unZipper.unZip();
-        
+
         System.out.println(zippedDirectory);
         System.out.println(unZippedDir);
 
@@ -53,7 +63,7 @@ public class TestUnZipper
                 zippedDirectory.length() - 4);
         assertTrue("the directories didn't match",
                 expectedDir.equals(unZippedDir));
-        
+
         unZipper.clean();
     }
 

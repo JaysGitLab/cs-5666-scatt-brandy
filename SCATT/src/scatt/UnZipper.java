@@ -18,7 +18,7 @@ public class UnZipper
     private final static int BUFFER = 2048;
     private File outputDir;
     private String zippedFilePath;
-    private String unzipedFilePath;
+    private String unzippedFilePath;
     private boolean success;
 
     /**
@@ -37,14 +37,14 @@ public class UnZipper
     {
         if (alreadyUnZipped())
         {
-            return unzipedFilePath;
+            return unzippedFilePath;
         }
 
         try
         {
-            this.unzipedFilePath = zippedFilePath.substring(0,
+            this.unzippedFilePath = zippedFilePath.substring(0,
                     zippedFilePath.length() - 4);
-            outputDir = new File(unzipedFilePath);
+            outputDir = new File(unzippedFilePath);
             outputDir.mkdir();
 
             // feed bos to file
@@ -61,7 +61,7 @@ public class UnZipper
                 int count;
                 byte data[] = new byte[BUFFER];
                 // write the files to the disk
-                FileOutputStream fos = new FileOutputStream(unzipedFilePath
+                FileOutputStream fos = new FileOutputStream(unzippedFilePath
                         + File.separator + entry.getName());
                 dest = new BufferedOutputStream(fos, BUFFER);
                 while ((count = zis.read(data, 0, BUFFER)) != -1)
@@ -73,7 +73,7 @@ public class UnZipper
             }
             zis.close();
             success = true;
-            return unzipedFilePath;
+            return unzippedFilePath;
         }
         catch (Exception e)
         {
@@ -105,7 +105,7 @@ public class UnZipper
         if (success)
         {
             // only clean if the file path to remove matches the zipped file.
-            if (unzipedFilePath.equals(zippedFilePath.substring(0,
+            if (unzippedFilePath.equals(zippedFilePath.substring(0,
                     zippedFilePath.length() - 4)))
             {
                 // System.out.println("to be implmented");
