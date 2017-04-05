@@ -36,6 +36,8 @@ clean:
 	rm -f ./scatt/test/app/*.class
 	rm -f ./scatt/test/gui/*.class
 	rm -f ./scatt/test/app/unzipper/*.class
+	rm -f ./scatt/test/app/gradermodules/*.class
+	
 	
 
 # java packages are part of class name; when specifying the directory (going through package folders) use dots like below
