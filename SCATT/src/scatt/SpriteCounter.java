@@ -12,7 +12,7 @@ import java.io.IOException;
  * @version 1.0
  * 
  */
-public class Sprite
+public class SpriteCounter
 {
 
     /**
