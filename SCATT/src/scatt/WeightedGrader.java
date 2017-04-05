@@ -19,19 +19,21 @@ public class WeightedGrader
      * components should sum to 1 +- 0.0001.
      * 
      * @param args The pre-configured Weighted Components.
-     * @throws IllegalArgumentException Weights do not sum to 1 +- 0.0001
+     * @throws IllegalArgumentException Weights do not sum to 1 +- 0.1
      */
     public WeightedGrader(GraderWeightedComponent... args)
             throws IllegalArgumentException
     {
         components = new ArrayList<GraderWeightedComponent>(args.length);
-        float sum = 0f;
-        for (GraderWeightedComponent currentComponent : components)
+        double sum = 0f;
+
+        for (int i = 0; i < args.length; ++i)
         {
-            sum += currentComponent.getWeightFrom0To1();
+            components.add(args[i]);
+            sum += args[i].getWeightFrom0To1();
         }
 
-        if (Math.abs(sum - 1) > 0.0001)
+        if (Math.abs(sum - 1) > 0.1)
         {
             throw new IllegalArgumentException(String.format(
                     "Grades do not sum to 1, but %f", sum));
@@ -43,7 +45,7 @@ public class WeightedGrader
      * @param objectToGrade an object that implements Gradeable
      * @return the weighted average grade.
      */
-    public float grade(Gradeable objectToGrade)
+    public double grade(Gradeable objectToGrade)
     {
         float weightedGrade = 0f;
         // sum up each component of the grade.

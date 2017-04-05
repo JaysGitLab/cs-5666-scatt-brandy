@@ -16,7 +16,7 @@ public abstract class GraderWeightedComponent
     private final String moduleName;
 
     /** The variable that represents the grade weight of this module. */
-    private float weight;
+    private double weight;
 
     /** A flag that allows modules to give scores over 100, if implemented. */
     private boolean allowExtraCredit = false;
@@ -43,7 +43,7 @@ public abstract class GraderWeightedComponent
      * 
      * @return a grade from 0 to 100 based on the concrete implementation
      */
-    public abstract float getGradeFrom0To100(Gradeable objectToGrade);
+    public abstract double getGradeFrom0To100(Gradeable objectToGrade);
 
     /**
      * Get the weight of the given component. Weight represents what fraction of
@@ -58,7 +58,7 @@ public abstract class GraderWeightedComponent
      * 
      * @return the weight of this component.
      */
-    public float getWeightFrom0To1()
+    public double getWeightFrom0To1()
     {
         return weight;
     }
@@ -78,7 +78,7 @@ public abstract class GraderWeightedComponent
      * @param newWeight the new value of the weight.
      * 
      */
-    public void setWeight(float newWeight)
+    public void setWeight(double newWeight)
     {
         if (newWeight < 0)
         {
@@ -106,7 +106,7 @@ public abstract class GraderWeightedComponent
      * 
      * @return The weighted grade of this component; ie Weight * Grade.
      */
-    public abstract float getWeightedGrade(Gradeable objectToGrade);
+    public abstract double getWeightedGrade(Gradeable objectToGrade);
 
     /**
      * Determines if the argument's concrete type is valid for grading within

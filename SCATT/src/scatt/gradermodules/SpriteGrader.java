@@ -55,14 +55,14 @@ public class SpriteGrader extends GraderWeightedComponent
      * 
      * @return A grade between 0 and 100.
      */
-    public float getGradeFrom0To100(Gradeable objectToGrade)
+    public double getGradeFrom0To100(Gradeable objectToGrade)
     {
 
         if (objectToGrade instanceof Student)
         {
             Student toGrade = (Student) objectToGrade;
-            float numberOfSprites = toGrade.getSpriteCount();
-            float grade = 100 * numberOfSprites / (float) required;
+            double numberOfSprites = toGrade.getSpriteCount();
+            double grade = 100 * numberOfSprites / required;
 
             if (!getExtraCreditMode() && grade > 100f)
             {
@@ -87,7 +87,7 @@ public class SpriteGrader extends GraderWeightedComponent
      * @param objectToGrade is the object that will be graded.
      * @return returns the weight * grade for a weighted component grade.
      */
-    public float getWeightedGrade(Gradeable objectToGrade)
+    public double getWeightedGrade(Gradeable objectToGrade)
     {
         return getWeightFrom0To1() * getGradeFrom0To100(objectToGrade);
     }
