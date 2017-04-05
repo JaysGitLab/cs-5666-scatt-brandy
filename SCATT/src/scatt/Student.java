@@ -25,6 +25,7 @@ public class Student
 {
     private UnZipper unZipper;
     private int spriteCount = 0;
+    private int scriptCount = 0;
 
     /**
      * Construct a student object from a .sb2 file path.
@@ -39,7 +40,8 @@ public class Student
         File jsonFile = new File(folderPath + "/project.json");
 
         // pipeline starts
-        spriteCount = Sprite.getSpriteCount(jsonFile);
+        spriteCount = SpriteCounter.getSpriteCount(jsonFile);
+        scriptCount = ScriptCounter.getScriptCount(jsonFile);
 
         // clean up created directory
         unZipper.clean();
@@ -52,7 +54,15 @@ public class Student
     {
         return spriteCount;
     }
-
+    
+    /**
+     * @return the number of sprites in the student's .sb2 file.
+     */
+    public int getScriptCount()
+    {
+        return scriptCount;
+    }
+    
     /**
      * Main method for in-class example.
      * 
