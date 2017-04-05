@@ -12,9 +12,6 @@ import java.util.ArrayList;
  */
 public class WeightedGrader
 {
-
-    // private HashMap<GraderWeightedComponent, GraderWeightedComponent>
-    // components;
     private ArrayList<GraderWeightedComponent> components;
 
     /**

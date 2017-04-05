@@ -10,17 +10,32 @@ package scatt;
  * 
  * 
  */
-public interface GraderWeightedComponent
+public abstract class GraderWeightedComponent
 {
+
+    protected float weight;
+
+    /**
+     * This requires any subclass to call super to set the initial weight.
+     * 
+     * @param initialWeight the initial weight for module is required.
+     */
+    public GraderWeightedComponent(float initialWeight)
+    {
+        setWeight(weight);
+    }
+
     /**
      * Get a grade for a given component. Grades should be between 0 and 100.
      * 
      * This method can be used in conjunction with with the component's weight
      * value.
      * 
+     * @param objectToGrade is the object that will be graded.
+     * 
      * @return a grade from 0 to 100 based on the concrete implementation
      */
-    public float getGradeFrom0To100();
+    public abstract float getGradeFrom0To100(Gradeable objectToGrade);
 
     /**
      * Get the weight of the given component. Weight represents what fraction of
@@ -35,7 +50,10 @@ public interface GraderWeightedComponent
      * 
      * @return the weight of this component.
      */
-    public float getWeightFrom0To1();
+    public float getWeightFrom0To1()
+    {
+        return weight;
+    }
 
     /**
      * Changes the weight of a component.
@@ -45,13 +63,26 @@ public interface GraderWeightedComponent
      * 0.25 is the weight of A, 0.5 is the weight of B, and 0.25 is the weight
      * of C.
      * 
+     * if the newWeight is below zero, the weight will be set to 0. If the
+     * newWeight is greater than 1, then the weight will be set to.
+     * 
      * @precondition weight is between 0 (inclusive) and 1 (inclusive).
      * @param newWeight the new value of the weight.
-     * @throws IllegalArgumentException new eight was either: newWeight < 0 ||
-     *             newWeight > 1.
      * 
      */
-    public void setWeight(float newWeight) throws IllegalArgumentException;
+    public void setWeight(float newWeight)
+    {
+        if (newWeight < 0)
+        {
+            newWeight = 0;
+        }
+        else if (newWeight > 1)
+        {
+            newWeight = 1;
+        }
+
+        this.weight = newWeight;
+    }
 
     /**
      * Get the weighted grade of the component.
@@ -67,7 +98,7 @@ public interface GraderWeightedComponent
      * 
      * @return The weighted grade of this component; ie Weight * Grade.
      */
-    public float getWeightedGrade(Gradeable objectToGrade);
+    public abstract float getWeightedGrade(Gradeable objectToGrade);
 
     /**
      * Determines if the argument's concrete type is valid for grading within
@@ -76,6 +107,6 @@ public interface GraderWeightedComponent
      * @param objectToGrade is the object to check.
      * @return true if concrete class can grade the object based on type.
      */
-    public boolean validType(Gradeable objectToGrade);
+    public abstract boolean validType(Gradeable objectToGrade);
 
 }
