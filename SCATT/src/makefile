@@ -36,7 +36,7 @@ clean:
 	rm -f ./scatt/test/app/*.class
 	rm -f ./scatt/test/gui/*.class
 	rm -f ./scatt/test/app/unzipper/*.class
-	rm -f ./scatt/test/app/gradermodules/*.class
+	rm -f ./scatt/gradermodules/*.class
 	
 	
 
