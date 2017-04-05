@@ -12,17 +12,25 @@ package scatt;
  */
 public abstract class GraderWeightedComponent
 {
+    /** A module name suitable for graphical user interfaces. */
+    private final String moduleName;
 
-    protected float weight;
+    /** The variable that represents the grade weight of this module. */
+    private float weight;
+
+    /** A flag that allows modules to give scores over 100, if implemented. */
+    private boolean allowExtraCredit = false;
 
     /**
      * This requires any subclass to call super to set the initial weight.
      * 
      * @param initialWeight the initial weight for module is required.
+     * @param moduleName the name of the module for GUI based applications.
      */
-    public GraderWeightedComponent(float initialWeight)
+    public GraderWeightedComponent(float initialWeight, String moduleName)
     {
-        setWeight(weight);
+        setWeight(initialWeight);
+        this.moduleName = moduleName;
     }
 
     /**
@@ -108,5 +116,35 @@ public abstract class GraderWeightedComponent
      * @return true if concrete class can grade the object based on type.
      */
     public abstract boolean validType(Gradeable objectToGrade);
+
+    /**
+     * The concrete title set by programmer for this module.
+     * 
+     * @return The title of the module that is suitable for a column header in
+     *         the graphical user interface.
+     */
+    public String getModuleName()
+    {
+        return moduleName;
+    }
+
+    /**
+     * @return true if module is allowing extra credit, false otherwise
+     */
+    public boolean getExtraCreditMode()
+    {
+        return allowExtraCredit;
+    }
+
+    /**
+     * Sets this module to allow extra credit (scores over 100) or no allow
+     * extra credit.
+     * 
+     * @param allowExtraCredit set the value of extra credit.
+     */
+    public void setExtraCreditMode(boolean allowExtraCredit)
+    {
+        this.allowExtraCredit = allowExtraCredit;
+    }
 
 }

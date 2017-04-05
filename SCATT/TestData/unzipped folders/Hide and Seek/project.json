@@ -1,0 +1,153 @@
+{
+	"objName": "Stage",
+	"variables": [{
+			"name": "score",
+			"value": 0,
+			"isPersistent": false
+		}],
+	"sounds": [{
+			"soundName": "pop",
+			"soundID": 0,
+			"md5": "83a9787d4cb6f3b7632b4ddfebf74367.wav",
+			"sampleCount": 258,
+			"rate": 11025,
+			"format": ""
+		}],
+	"costumes": [{
+			"costumeName": "backdrop1",
+			"baseLayerID": 4,
+			"baseLayerMD5": "510da64cf172d53750dffd23fbf73563.png",
+			"bitmapResolution": 1,
+			"rotationCenterX": 240,
+			"rotationCenterY": 180
+		},
+		{
+			"costumeName": "moon",
+			"baseLayerID": 5,
+			"baseLayerMD5": "08cdb3eaf7f3c5e0623f6fd5aca28275.png",
+			"bitmapResolution": 2,
+			"rotationCenterX": 480,
+			"rotationCenterY": 360
+		}],
+	"currentCostumeIndex": 1,
+	"penLayerMD5": "5c81a336fab8be57adc039a8a2b33ca9.png",
+	"penLayerID": 0,
+	"tempoBPM": 60,
+	"videoAlpha": 0.5,
+	"children": [{
+			"target": "Stage",
+			"cmd": "getVar:",
+			"param": "score",
+			"color": 15629590,
+			"label": "score",
+			"mode": 1,
+			"sliderMin": 0,
+			"sliderMax": 100,
+			"isDiscrete": true,
+			"x": 9,
+			"y": 14,
+			"visible": true
+		},
+		{
+			"target": "Stage",
+			"cmd": "timer",
+			"param": null,
+			"color": 2926050,
+			"label": "timer",
+			"mode": 1,
+			"sliderMin": 0,
+			"sliderMax": 100,
+			"isDiscrete": true,
+			"x": 10,
+			"y": 328,
+			"visible": false
+		},
+		{
+			"objName": "Gobo",
+			"scripts": [[64,
+					28,
+					[["whenGreenFlag"],
+						["setVar:to:", "score", 0],
+						["gotoX:y:", 0, 0],
+						["show"],
+						["say:duration:elapsed:from:", "Click me to score points", 2],
+						["doForever",
+							[["hide"],
+								["wait:elapsed:from:", 1],
+								["gotoX:y:", ["randomFrom:to:", -200, 200], ["randomFrom:to:", -140, 140]],
+								["show"],
+								["wait:elapsed:from:", 0.7]]]]],
+				[67, 342, [["whenClicked"], ["changeVar:by:", "score", 1], ["playSound:", "zoop"]]]],
+			"scriptComments": [[483, 268, 267, 50, true, 12, "Type a smaller number of seconds to make it harder to catch Gobo (such as 0.5)."],
+				[181, 397, 223, 60, true, -1, "You can change what happens when Gobo is clicked."]],
+			"sounds": [{
+					"soundName": "pop",
+					"soundID": 0,
+					"md5": "83a9787d4cb6f3b7632b4ddfebf74367.wav",
+					"sampleCount": 258,
+					"rate": 11025,
+					"format": ""
+				},
+				{
+					"soundName": "finger snap",
+					"soundID": 1,
+					"md5": "70eed05d85954e8374da9617e467b12e.wav",
+					"sampleCount": 832,
+					"rate": 11025,
+					"format": ""
+				},
+				{
+					"soundName": "zoop",
+					"soundID": 2,
+					"md5": "5bb2e2d832f8fbfb12069d0839ae0df3.wav",
+					"sampleCount": 1600,
+					"rate": 11025,
+					"format": ""
+				}],
+			"costumes": [{
+					"costumeName": "gobo-a",
+					"baseLayerID": 1,
+					"baseLayerMD5": "1f5ea0d12f85aed2e471cdd21b0bd6d7.svg",
+					"bitmapResolution": 1,
+					"rotationCenterX": 47,
+					"rotationCenterY": 55
+				},
+				{
+					"costumeName": "gobo-b",
+					"baseLayerID": 2,
+					"baseLayerMD5": "73e493e4abd5d0954b677b97abcb7116.svg",
+					"bitmapResolution": 1,
+					"rotationCenterX": 47,
+					"rotationCenterY": 55
+				},
+				{
+					"costumeName": "gobo-c",
+					"baseLayerID": 3,
+					"baseLayerMD5": "bc68a6bdf300df7b53d73b38f74c844e.svg",
+					"bitmapResolution": 1,
+					"rotationCenterX": 47,
+					"rotationCenterY": 55
+				}],
+			"currentCostumeIndex": 1,
+			"scratchX": -83,
+			"scratchY": 0,
+			"scale": 0.8,
+			"direction": 90,
+			"rotationStyle": "normal",
+			"isDraggable": false,
+			"indexInLibrary": 1,
+			"visible": true,
+			"spriteInfo": {
+			}
+		}],
+	"info": {
+		"projectID": "10128368",
+		"flashVersion": "WIN 25,0,0,127",
+		"scriptCount": 2,
+		"swfVersion": "v454",
+		"spriteCount": 1,
+		"hasCloudData": false,
+		"userAgent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/56.0.2924.87 Safari\/537.36",
+		"videoOn": false
+	}
+}

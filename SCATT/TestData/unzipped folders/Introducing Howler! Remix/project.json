@@ -1,0 +1,184 @@
+{
+	"objName": "Stage",
+	"scripts": [[37,
+			57,
+			[["whenGreenFlag"], ["startScene", "background1"], ["wait:elapsed:from:", 3], ["startScene", "background2"]]]],
+	"sounds": [{
+			"soundName": "pop",
+			"soundID": 1,
+			"md5": "83a9787d4cb6f3b7632b4ddfebf74367.wav",
+			"sampleCount": 258,
+			"rate": 11025,
+			"format": ""
+		}],
+	"costumes": [{
+			"costumeName": "background1",
+			"baseLayerID": 7,
+			"baseLayerMD5": "9f52f792ee45d4f2a0f79b5cdb3a32f3.svg",
+			"bitmapResolution": 1,
+			"rotationCenterX": 240,
+			"rotationCenterY": 180
+		},
+		{
+			"costumeName": "background2",
+			"baseLayerID": 8,
+			"baseLayerMD5": "d51deb56d4a5d8ab11be78c42d76ea3e.svg",
+			"bitmapResolution": 1,
+			"rotationCenterX": 240,
+			"rotationCenterY": 180
+		}],
+	"currentCostumeIndex": 1,
+	"penLayerMD5": "5c81a336fab8be57adc039a8a2b33ca9.png",
+	"penLayerID": 0,
+	"tempoBPM": 60,
+	"videoAlpha": 0.5,
+	"children": [{
+			"objName": "Howler2",
+			"scripts": [[35, 13, [["whenGreenFlag"], ["hide"]]],
+				[27,
+					101,
+					[["whenSceneStarts", "background2"],
+						["show"],
+						["doForever",
+							[["lookLike:", "Howler1"],
+								["wait:elapsed:from:", 3],
+								["lookLike:", "Howler2"],
+								["wait:elapsed:from:", 1],
+								["lookLike:", "Howler3"],
+								["wait:elapsed:from:", 0.5],
+								["lookLike:", "Howler4"],
+								["wait:elapsed:from:", 3.5],
+								["lookLike:", "Howler2"],
+								["wait:elapsed:from:", 1]]]]],
+				[280,
+					179,
+					[["whenSceneStarts", "background2"],
+						["doRepeat",
+							10,
+							[["wait:elapsed:from:", 4], ["setVolumeTo:", 50], ["doPlaySoundAndWait", "WolfHowl"], ["wait:elapsed:from:", 1]]]]]],
+			"sounds": [{
+					"soundName": "WolfHowl",
+					"soundID": 0,
+					"md5": "2286270ad2b286fcd546b159a3e5607d.wav",
+					"sampleCount": 43008,
+					"rate": 11025,
+					"format": "adpcm"
+				}],
+			"costumes": [{
+					"costumeName": "Howler1",
+					"baseLayerID": 1,
+					"baseLayerMD5": "3622a4d5e872ef7480dd7d94ac378f9c.png",
+					"bitmapResolution": 1,
+					"rotationCenterX": 89,
+					"rotationCenterY": 126
+				},
+				{
+					"costumeName": "Howler2",
+					"baseLayerID": 2,
+					"baseLayerMD5": "d3331e64cccf2b0310314a5c161b8130.png",
+					"bitmapResolution": 1,
+					"rotationCenterX": 89,
+					"rotationCenterY": 127
+				},
+				{
+					"costumeName": "Howler3",
+					"baseLayerID": 3,
+					"baseLayerMD5": "118f025a4818103d4b8b63b91becc407.png",
+					"bitmapResolution": 1,
+					"rotationCenterX": 89,
+					"rotationCenterY": 127
+				},
+				{
+					"costumeName": "Howler4",
+					"baseLayerID": 4,
+					"baseLayerMD5": "2bb801e879de9783b27841986ba692d4.png",
+					"bitmapResolution": 1,
+					"rotationCenterX": 89,
+					"rotationCenterY": 127
+				}],
+			"currentCostumeIndex": 0,
+			"scratchX": 124,
+			"scratchY": -14,
+			"scale": 1.0000000002328306,
+			"direction": 90,
+			"rotationStyle": "normal",
+			"isDraggable": false,
+			"indexInLibrary": 2,
+			"visible": true,
+			"spriteInfo": {
+			}
+		},
+		{
+			"objName": "Howler",
+			"scripts": [[37, 16, [["whenGreenFlag"], ["show"]]],
+				[37, 97, [["whenSceneStarts", "background2"], ["hide"]]]],
+			"sounds": [{
+					"soundName": "pop",
+					"soundID": 1,
+					"md5": "83a9787d4cb6f3b7632b4ddfebf74367.wav",
+					"sampleCount": 258,
+					"rate": 11025,
+					"format": ""
+				}],
+			"costumes": [{
+					"costumeName": "Screen Shot 2013-01-30 at 12.48.58 PM",
+					"baseLayerID": 5,
+					"baseLayerMD5": "7e969458b0f7e1adca1387dbd92c9ca2.svg",
+					"bitmapResolution": 1,
+					"rotationCenterX": 194,
+					"rotationCenterY": 157
+				}],
+			"currentCostumeIndex": 0,
+			"scratchX": 22,
+			"scratchY": -32,
+			"scale": 1,
+			"direction": 90,
+			"rotationStyle": "normal",
+			"isDraggable": false,
+			"indexInLibrary": 1,
+			"visible": false,
+			"spriteInfo": {
+			}
+		},
+		{
+			"objName": "Profile",
+			"scripts": [[30, 19, [["whenGreenFlag"], ["hide"]]],
+				[33, 100, [["whenSceneStarts", "background2"], ["comeToFront"], ["show"]]]],
+			"costumes": [{
+					"costumeName": "costume2",
+					"baseLayerID": 6,
+					"baseLayerMD5": "53e2cb14fafcb47a09918ada0d6f2c41.svg",
+					"bitmapResolution": 1,
+					"rotationCenterX": 205,
+					"rotationCenterY": 150
+				}],
+			"currentCostumeIndex": 0,
+			"scratchX": -77,
+			"scratchY": -18,
+			"scale": 0.6809513399931785,
+			"direction": 90,
+			"rotationStyle": "normal",
+			"isDraggable": false,
+			"indexInLibrary": 3,
+			"visible": true,
+			"spriteInfo": {
+			}
+		}],
+	"info": {
+		"os-version": "NT",
+		"flashVersion": "WIN 25,0,0,127",
+		"hasCloudData": false,
+		"platform": "Win32",
+		"userAgent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/56.0.2924.87 Safari\/537.36",
+		"videoOn": false,
+		"projectID": "10063757",
+		"scratch-version": "1.4 of 30-Jun-09",
+		"language": "en",
+		"scriptCount": 8,
+		"history": "2009-8-30 12:52:02\tsave\tIntroducing Howler!\tWolfie1996\tWolfie1996\r2009-8-30 13:16:15\tsave\tIntroducing Howler!\tWolfie1996\tWolfie1996\r2009-8-30 13:30:57\tshare\tIntroducing Howler!\tWolfie1996\tWolfie1996\r",
+		"author": "Wolfie1996",
+		"comment": "Howler is Wolfie's (very annoying) little sister. She is based on my brother, and Wolfie, he's based on me (even though I'm a girl). Anyway, enjoy this new footage of Howler! (If you want to use the sprites, just tag Howler projects with \"howler!!!!!!!!\" and Wolfie Projects with \"wolfie!!!!!!!!\".",
+		"swfVersion": "v454",
+		"spriteCount": 3
+	}
+}

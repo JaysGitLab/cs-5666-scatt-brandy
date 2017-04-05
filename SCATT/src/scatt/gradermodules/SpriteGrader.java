@@ -23,7 +23,7 @@ public class SpriteGrader extends GraderWeightedComponent
     public SpriteGrader(float weight, int requiredSprites)
     {
         // must call abstract constructor
-        super(weight);
+        super(weight, "Sprite Grade");
         setNewRequiredSprites(requiredSprites);
     }
 
@@ -36,10 +36,14 @@ public class SpriteGrader extends GraderWeightedComponent
      * fraction is the denominator. This method is used to configure how the
      * sprite grader works.
      * 
-     * @param newRequired of the fraction used to grade.
+     * @param newRequired denominator of the fraction used for grading.
      */
     public void setNewRequiredSprites(int newRequired)
     {
+        if (newRequired < 1)
+        {
+            newRequired = 1;
+        }
         this.required = newRequired;
     }
 
@@ -58,7 +62,14 @@ public class SpriteGrader extends GraderWeightedComponent
         {
             Student toGrade = (Student) objectToGrade;
             float numberOfSprites = toGrade.getSpriteCount();
-            return numberOfSprites / (float) required;
+            float grade = 100 * numberOfSprites / (float) required;
+
+            if (!getExtraCreditMode() && grade > 100f)
+            {
+                grade = 100;
+            }
+            
+            return grade;
         }
         else
         {
@@ -94,5 +105,4 @@ public class SpriteGrader extends GraderWeightedComponent
     {
         return objectToGrade instanceof Student;
     }
-
 }
