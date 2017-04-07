@@ -1,0 +1,12 @@
+<svg version="1.1" width="42" height="41" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <radialGradient id="grad_1" cx="0.4473" cy="0.3625" r="0.82875">
+      <stop offset="0" stop-color="#00FF55" stop-opacity="1"/>
+      <stop offset="1" stop-color="#006622" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <!-- Exported by Scratch - http://scratch.mit.edu/ -->
+  <image id="ID0.2533576153218746" width="2" height="2" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAADklEQVR42mNhgAIWGAMAAH4ACYwGaSAAAAAtdEVYdFNvZnR3YXJlAGJ5LmJsb29kZHkuY3J5cHRvLmltYWdlLlBORzI0RW5jb2RlcqgGf+4AAAAASUVORK5CYII=" transform="matrix(0.5, 0, 0, 0.5, 29, 23)"/>
+  <path id="ID0.7141920467838645" fill="#0033CC" stroke="none" d="M 211.500 157 C 211.500 157 211.500 157.014 211.500 157.037 C 211.500 157.059 211.500 157.091 211.500 157.125 C 211.500 157.159 211.500 157.191 211.500 157.213 C 211.500 157.236 211.500 157.250 211.500 157.250 C 211.500 157.250 211.500 157.236 211.500 157.213 C 211.500 157.191 211.500 157.159 211.500 157.125 C 211.500 157.091 211.500 157.059 211.500 157.037 C 211.500 157.014 211.500 157 211.500 157 Z " transform="matrix(1, 0, 0, 1, -211, -157)"/>
+  <path id="ID0.8762733032926917" fill="url(#grad_1)" stroke="none" d="M 239.750 155.500 C 248.785 155.500 256.973 159.170 262.902 165.098 C 268.830 171.027 272.500 179.215 272.500 188.250 C 272.500 197.285 268.830 205.473 262.902 211.402 C 256.973 217.330 248.785 221 239.750 221 C 230.715 221 222.527 217.330 216.598 211.402 C 210.670 205.473 207 197.285 207 188.250 C 207 179.215 210.670 171.027 216.598 165.098 C 222.527 159.170 230.715 155.500 239.750 155.500 Z " transform="matrix(0.4770992696285248, 0, 0, 0.4770992696285248, -88.85, -64.55)"/>
+</svg>

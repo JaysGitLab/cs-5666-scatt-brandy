@@ -21,7 +21,7 @@ import java.nio.file.Paths;
  * 
  * @version 1.0
  */
-public class Student
+public class Student implements Gradeable
 {
     private UnZipper unZipper;
     private int spriteCount = 0;

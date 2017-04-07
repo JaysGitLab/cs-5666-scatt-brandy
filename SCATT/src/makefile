@@ -23,6 +23,8 @@ compile:# ./scatt/student.java ./src/scatt/test/*.java ./src/scatt/test/app/unzi
 	javac -cp .:$(JUNIT_JAR) ./scatt/test/gui/*.java	
 	javac ./scatt/*.java
 	javac ./scatt/gui/*.java
+	javac ./scatt/gradermodules/*.java
+	
 #	javac ./scatt/test/suite/*.java #student machine's junit is too old for modern suite imports.
 
 	
@@ -34,6 +36,8 @@ clean:
 	rm -f ./scatt/test/app/*.class
 	rm -f ./scatt/test/gui/*.class
 	rm -f ./scatt/test/app/unzipper/*.class
+	rm -f ./scatt/gradermodules/*.class
+	
 	
 
 # java packages are part of class name; when specifying the directory (going through package folders) use dots like below
@@ -42,7 +46,8 @@ clean:
 test: # .scatt/test/*.class ./scatt/test/app/*.class ./scatt/test/app/*.class 
 	#test suties do not seem to work with student machine's junit version -- manually add tests here
 	java -cp .:$(JUNIT_JAR):$(HAMCREST_JAR) org.junit.runner.JUnitCore scatt.test.app.TestSpriteCount\
-	 scatt.test.app.unzipper.TestUnZipper scatt.test.app.TestGrader
+	 scatt.test.app.unzipper.TestUnZipper scatt.test.app.TestGrader scatt.test.app.TestSpriteGrader\
+	 scatt.test.app.WeightedGrader
 	
 	
 	

@@ -6,13 +6,12 @@ import java.util.Scanner;
  * The main command line grader.
  * 
  * @author Matt Stone
- * 
  * @version 1.0
  * 
+ * 
  */
-public class Grader
+public class CommandLineGrader
 {
-
     /**
      * @param args the command line arguments
      */

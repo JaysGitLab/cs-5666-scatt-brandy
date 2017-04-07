@@ -12,7 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import scatt.Grader;
+import scatt.CommandLineGrader;
 
 /**
  * The class responsible for testing grader.
@@ -21,7 +21,7 @@ import scatt.Grader;
  * @version 1.0
  * 
  */
-public class TestGrader
+public class TestCommandLineGrader
 {
     ByteArrayOutputStream baos;
     PrintStream originalOut;
@@ -93,7 +93,7 @@ public class TestGrader
      * contingent, so this method passes if the grader outputs anything at all.
      */
     @Test
-    public void testGraderArgumentCorrect()
+    public void testCMDGraderArgumentCorrect()
     {
         String zippedDataPath = TestUtils.getFilePathMultiOSSafe()
                 + File.separator + "TestData" + File.separator
@@ -101,7 +101,7 @@ public class TestGrader
 
         // emulate the command prompt @formatter:off
         // (java first argument is the word after classname)
-        Grader.main(new String[] {zippedDataPath });
+        CommandLineGrader.main(new String[] {zippedDataPath });
         // @formatter:on
 
         String captured = baos.toString().trim().split("\n")[0];
@@ -121,7 +121,7 @@ public class TestGrader
      * contingent, so this method passes if the grader outputs anything at all.
      */
     @Test
-    public void testGraderArgumentInCorrect()
+    public void testCMDGraderArgumentInCorrect()
     {
         String zippedDataPath = TestUtils.getFilePathMultiOSSafe()
                 + File.separator + "TestData" + File.separator
@@ -129,7 +129,7 @@ public class TestGrader
 
         // emulate the command prompt @formatter:off
         // (java first argument is the word after classname)
-        Grader.main(new String[] {zippedDataPath });
+        CommandLineGrader.main(new String[] {zippedDataPath });
         // @formatter:on
 
         String captured = baos.toString().trim().split("\n")[0];
@@ -148,10 +148,10 @@ public class TestGrader
      * Test that the grader can handle multiple files.
      */
     @Test
-    public void testGraderPollUser()
+    public void testCMDGraderPollUser()
     {
         // main will poll user until quit is accessed
-        Grader.main(null);
+        CommandLineGrader.main(null);
 
         // process what was output by the main method.
         String[] captured = baos.toString().trim().split("\n");
@@ -167,11 +167,11 @@ public class TestGrader
 
         // check that strings were valid.
         String badPathMsh = "Please enter a valid file with a .sb2 extension.";
-        //1 not 0 to skip enter file prompt
+        // 1 not 0 to skip enter file prompt
         assertTrue(!captured[1].equals(badPathMsh));
-        //3 not 2 to skip enter file prompt
+        // 3 not 2 to skip enter file prompt
         assertTrue(!captured[3].equals(badPathMsh));
-        //5 not 4 to skip enter file prompt
+        // 5 not 4 to skip enter file prompt
         assertTrue(captured[5].equals(badPathMsh));
 
     }

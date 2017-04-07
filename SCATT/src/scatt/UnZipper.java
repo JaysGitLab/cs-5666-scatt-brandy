@@ -5,6 +5,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -40,11 +42,23 @@ public class UnZipper
             return unzippedFilePath;
         }
 
+        // error check
+        if (!zippedFilePath.substring(zippedFilePath.length() - 4).equals(
+                ".sb2")
+                || zippedFilePath == null
+                || !Files.exists(Paths.get(zippedFilePath)))
+        {
+            System.out.println("Failed to unzip " + zippedFilePath);
+            return null;
+        }
+
         try
         {
+
             this.unzippedFilePath = zippedFilePath.substring(0,
                     zippedFilePath.length() - 4);
             outputDir = new File(unzippedFilePath);
+
             outputDir.mkdir();
 
             // feed bos to file
@@ -111,7 +125,7 @@ public class UnZipper
                 // System.out.println("to be implmented");
                 for (File c : outputDir.listFiles())
                 {
-                    //System.out.println(c.toString());
+                    // System.out.println(c.toString());
                     if (!c.delete())
                     {
                         System.out.println("failed to delete" + c.toString());
