@@ -1,6 +1,6 @@
 package scatt.gui;
 
-import java.awt.EventQueue;
+import java.awt.EventQueue; 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -8,6 +8,7 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -18,17 +19,21 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @version 1.0
  * 
  */
-public class Gui
+public class FileHandler extends JFrame
 {
 
-    private JFrame frame;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 931158606870083108L;
+	private JFrame frame;
     private JFileChooser dirChooser;
     private JFileChooser fileChooser;
 
     /**
      * Create the GUI application.
      */
-    public Gui()
+    public FileHandler()
     {
         dirChooser = new JFileChooser();
         dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -54,7 +59,7 @@ public class Gui
             {
                 try
                 {
-                    Gui window = new Gui();
+                    FileHandler window = new FileHandler();
                     window.frame.setVisible(true);
                 }
                 catch (Exception e)
