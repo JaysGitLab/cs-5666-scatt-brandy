@@ -1,6 +1,6 @@
 package scatt.test.app;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals; 
 
 import java.io.File;
 import java.nio.file.Paths;

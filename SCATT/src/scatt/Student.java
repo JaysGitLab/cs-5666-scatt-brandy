@@ -26,6 +26,7 @@ public class Student implements Gradeable
     private UnZipper unZipper;
     private int spriteCount = 0;
     private int scriptCount = 0;
+    private int tempo = 0;
 
     /**
      * Construct a student object from a .sb2 file path.
@@ -42,7 +43,7 @@ public class Student implements Gradeable
         // pipeline starts
         spriteCount = SpriteCounter.getSpriteCount(jsonFile);
         scriptCount = ScriptCounter.getScriptCount(jsonFile);
-
+        tempo 		= Tempo.getTempo(jsonFile);
         // clean up created directory
         unZipper.clean();
     }
@@ -63,6 +64,13 @@ public class Student implements Gradeable
         return scriptCount;
     }
     
+    /**
+     * @return the tempo in the student's .sb2 file.
+     */
+    public int getTempo()
+    {
+        return tempo;
+    }
     /**
      * Main method for in-class example.
      * 

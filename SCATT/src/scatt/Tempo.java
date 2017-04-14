@@ -5,31 +5,29 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-/**
- * Class that obtains the sprite count for a given project.json file.
- * 
- * @author Mikeal
- * @version 1.0
- * 
- */
-public class SpriteCounter
-{
 
-    /**
+
+/**
+ * @author Mikeal
+ *
+ * Tempo class with tempo-related method(s).
+ */
+public class Tempo {
+	/**
      * Static method to get sprite count from json file STRING.
      * 
      * @param jsonFile String representation of the json file
      * @return number of sprites, -1 if spriteCount not found
      */
-    public static int getSpriteCount(String jsonFile)
+    public static int getTempo(String jsonFile)
     {
-        if (!jsonFile.contains("spriteCount"))
+        if (!jsonFile.contains("tempoBPM"))
         {
             return -1;
         }
-        int scIndex = jsonFile.lastIndexOf("\"spriteCount\":");
+        int scIndex = jsonFile.lastIndexOf("\"tempoBPM\":");
         int comma = jsonFile.indexOf(',', scIndex);
-        String ss = jsonFile.substring(scIndex + 15, comma);
+        String ss = jsonFile.substring(scIndex + 12, comma);
         return Integer.parseInt(ss);
 
     }
@@ -40,7 +38,7 @@ public class SpriteCounter
      * @param jsonTextFile json file
      * @return number of sprites, -1 if spriteCount not found, -2 if IOException
      */
-    public static int getSpriteCount(File jsonTextFile)
+    public static int getTempo(File jsonTextFile)
     {
         try
         {
@@ -55,13 +53,13 @@ public class SpriteCounter
             }
             br.close();
             fr.close();
-            return getSpriteCount(fileStr);
+            return getTempo(fileStr);
         }
         catch (IOException e)
         {
             // TODO Auto-generated catch block
+        	e.printStackTrace();
             return -2;
         }
     }
-
 }
