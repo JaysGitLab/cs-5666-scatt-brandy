@@ -1,6 +1,6 @@
 package scatt.test.app;
 
-import static org.junit.Assert.assertEquals; 
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -10,21 +10,17 @@ import org.junit.Test;
 import scatt.Student;
 
 /**
- * Class that tests the script count.
- * 
- * @author Matt Stone
- * @author
- * @version 0.5
- * 
+ * @author Mikeal Tests getTempo.
+ * @version 1.0
  */
-public class TestScriptCount
+public class TestTempo
 {
 
     /**
-     * Test 1 for script count.
+     * Test 1 for Tempo count.
      */
     @Test
-    public void testBasicScriptCount1()
+    public void testTempo1()
     {
         String curPath = Paths.get("").toAbsolutePath().toString();
 
@@ -35,12 +31,12 @@ public class TestScriptCount
             curPath = curPath.substring(0, curPath.length() - 4);
         }
 
-        String fileName = "Pong Starter.sb2";
+        String fileName = "Dress Up Tera.sb2";
         String zippedDirLocStr = curPath + File.separator + "TestData"
                 + File.separator + fileName;
 
         Student test = new Student(zippedDirLocStr);
-        assertEquals("Script count didnt match.", 4, test.getScriptCount());
+        assertEquals("Tempo didn't match.", 60, test.getTempo());
     }
 
 }
