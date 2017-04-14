@@ -1,6 +1,6 @@
 package scatt.test.app;
 
-import static org.junit.Assert.assertEquals; 
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -9,36 +9,34 @@ import org.junit.Test;
 
 import scatt.Student;
 
-
 /**
- * @author Mikeal
- * Tests getTempo.
+ * @author Mikeal Tests getTempo.
+ * @version 1.0
  */
-public class TestTempo 
+public class TestTempo
 {
 
+    /**
+     * Test 1 for Tempo count.
+     */
+    @Test
+    public void testTempo1()
+    {
+        String curPath = Paths.get("").toAbsolutePath().toString();
 
-	/**
-	 * Test 1 for script count.
-	 */
-	@Test
-	public void testTempo1()
-	{
-		String curPath = Paths.get("").toAbsolutePath().toString();
+        // fix file path for unix machine
+        if (curPath.substring(curPath.length() - 4).equals(
+                File.separator + "src"))
+        {
+            curPath = curPath.substring(0, curPath.length() - 4);
+        }
 
-		// fix file path for unix machine
-		if (curPath.substring(curPath.length() - 4).equals(
-				File.separator + "src"))
-		{
-			curPath = curPath.substring(0, curPath.length() - 4);
-		}
+        String fileName = "Dress Up Tera.sb2";
+        String zippedDirLocStr = curPath + File.separator + "TestData"
+                + File.separator + fileName;
 
-		String fileName = "Dress Up Tera.sb2";
-		String zippedDirLocStr = curPath + File.separator + "TestData"
-				+ File.separator + fileName;
-
-		Student test = new Student(zippedDirLocStr);
-		assertEquals("Tempo didn't match.", 60, test.getTempo());
-	}
+        Student test = new Student(zippedDirLocStr);
+        assertEquals("Tempo didn't match.", 60, test.getTempo());
+    }
 
 }

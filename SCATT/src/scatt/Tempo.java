@@ -1,19 +1,19 @@
 package scatt;
 
-import java.io.BufferedReader; 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-
-
 /**
  * @author Mikeal
- *
- * Tempo class with tempo-related method(s).
+ * @version 1.0
+ * 
+ *         Tempo class with tempo-related method(s).
  */
-public class Tempo {
-	/**
+public class Tempo
+{
+    /**
      * Static method to get sprite count from json file STRING.
      * 
      * @param jsonFile String representation of the json file
@@ -58,7 +58,7 @@ public class Tempo {
         catch (IOException e)
         {
             // TODO Auto-generated catch block
-        	e.printStackTrace();
+            e.printStackTrace();
             return -2;
         }
     }

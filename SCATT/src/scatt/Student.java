@@ -43,7 +43,7 @@ public class Student implements Gradeable
         // pipeline starts
         spriteCount = SpriteCounter.getSpriteCount(jsonFile);
         scriptCount = ScriptCounter.getScriptCount(jsonFile);
-        tempo 		= Tempo.getTempo(jsonFile);
+        tempo = Tempo.getTempo(jsonFile);
         // clean up created directory
         unZipper.clean();
     }
