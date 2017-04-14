@@ -29,6 +29,8 @@ public class SpriteCounter
         }
         int scIndex = jsonFile.lastIndexOf("\"spriteCount\":");
         int comma = jsonFile.indexOf(',', scIndex);
+        
+        //TODO: fix; throws exception for howler project.json
         String ss = jsonFile.substring(scIndex + 15, comma);
         return Integer.parseInt(ss);
 
