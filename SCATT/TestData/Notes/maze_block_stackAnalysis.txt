@@ -1,0 +1,14 @@
+					[ //+1
+						"whenGreenFlag"],
+					[ //+1
+						"doForever", [ //+0
+							[ //+1
+								"doIf", [ //+0
+									"touchingColor:", -15399425],
+								[ //+1
+									[//+1
+										"forward:", -10]						//BLOCK 4
+								]
+							]
+						]
+					]														//***end position wrapper bracket contents
