@@ -1,6 +1,6 @@
 package scatt.gui;
 
-import java.awt.EventQueue; 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -8,7 +8,6 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -25,8 +24,8 @@ public class FileHandler extends JFrame
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 931158606870083108L;
-	private JFrame frame;
+    private static final long serialVersionUID = 931158606870083108L;
+    private JFrame frame;
     private JFileChooser dirChooser;
     private JFileChooser fileChooser;
 
