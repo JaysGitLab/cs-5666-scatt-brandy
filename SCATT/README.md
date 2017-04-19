@@ -1,5 +1,5 @@
 I. TO RUN THE COMMAND LINE PROTOTYPE
-	Please run the "ScratchGrader.jar"
+	Please run the "CMDGrader.jar"
 		i. navigate to the folder with the jar file
 			a. follow prompt method
 			 	java -jar ScratchGrader.jar
@@ -9,7 +9,7 @@ I. TO RUN THE COMMAND LINE PROTOTYPE
 				
 				
 II. TO RUN THE GUI BASED APPLICATION
-	A minimal GUI exists, but not enough to warrant creating a standalone executable jar for it yet.
+	The GUI does not currently grade .sb2 files, but a prototype of what it will look like is 	usable. Please run the GuiGrader.jar. 
 	
 	
 III. IMPORTING THE PROJECT TO ECLIPSE
