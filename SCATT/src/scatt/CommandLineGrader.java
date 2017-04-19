@@ -122,7 +122,7 @@ public class CommandLineGrader
     private static void grade(Student student)
     {
         //System.out.println("Sprite Count: " + student.getSpriteCount());
-        sg.getGradeFrom0To100(student);
+        System.out.println(sg.getGradeFrom0To100(student));
     }
 
     /**
