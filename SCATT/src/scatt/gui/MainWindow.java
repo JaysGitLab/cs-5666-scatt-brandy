@@ -72,7 +72,8 @@ public class MainWindow extends JFrame
         configure.add(textField);
         textField.setColumns(10);
 
-        JPanel grade = new JPanel();
+        // JPanel grade = new JPanel();
+        JPanel grade = new GradePanel();
         tabbedPane.addTab("Grade", null, grade, null);
 
         // dirChooser = new JFileChooser();
