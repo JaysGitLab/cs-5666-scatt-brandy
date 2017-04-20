@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,10 +19,16 @@ import java.util.regex.Pattern;
  */
 public class BlockCounter
 {
-    private static HashMap<String, Integer> scriptSectionHolder;
+    //@formatter:off
+    private static HashMap<String,
+        HashMap<String, Integer>> scriptSectionHolder;
+    private static HashMap<String, Integer> blockHolder;
+    //@formatter:on
+
     private static Pattern scriptRegex;
     private static Matcher scriptMatcher;
-    private static int counter = 0;
+
+    // private static int counter = 0;
 
     /**
      * Static method to get sounds count from json file STRING.
@@ -29,7 +36,7 @@ public class BlockCounter
      * @param jsonFile String representation of the json file
      * @return number of sounds, -1 if spriteCount not found
      */
-    public static int mapBlocks(String jsonFile)
+    public static BlockData mapBlocks(String jsonFile)
     {
         setUp(jsonFile);
 
@@ -41,24 +48,21 @@ public class BlockCounter
         while (scriptMatcher.find())
         {
             // get region
-            // start = scriptMatcher.start();
             endPlus1 = scriptMatcher.end();
 
-            // String scriptSection = jsonFile.substring(start, endPlus1);
-            // System.out.println(scriptSection);
+            HashMap<String, Integer> scriptData = getBlockNamesInScript(
+                    jsonFile, endPlus1);
 
-            int count = countBlocksInScript(jsonFile, endPlus1);
-
-            scriptSectionHolder.put("script" + i++, count);
+            scriptSectionHolder.put("script" + i++, scriptData);
         }
 
-        int runningTotal = 0;
-        for (Integer entryCount : scriptSectionHolder.values())
-        {
-            runningTotal += entryCount;
-        }
+        // int runningTotal = 0;
+        // for (Integer entryCount : scriptSectionHolder.values())
+        // {
+        // runningTotal += entryCount;
+        // }
 
-        return runningTotal;
+        return new BlockData(scriptSectionHolder);
     }
 
     /**
@@ -72,112 +76,98 @@ public class BlockCounter
      *            section.
      * @return the number of blocks in the script section.
      */
-    private static int countBlocksInScript(String jsonFile,
-            int indexForStartOfBracket)
+    private static HashMap<String, Integer> getBlockNamesInScript(
+            String jsonFile, int indexForStartOfBracket)
     {
         int index = indexForStartOfBracket;
-        index++;
-        counter = 0;
 
-        // loop over floating scripts
-        while (jsonFile.charAt(index) != ']')
-        {
+        index = countBlocksOfPositionedScript(jsonFile, index);
+        HashMap<String, Integer> result = blockHolder;
 
-            // walk over the two '['s for the block's (X,Y) position
-            index = walkOverXChars(jsonFile, index, 2, '[');
+        // prepare block holder for next round
+        blockHolder = new HashMap<String, Integer>();
 
-            // count internal blocks - position wrapper is stepped over.
-            index = countBlocks(jsonFile, index);
+        return result;
 
-            // walk over the closing two ']' for the block's (X,Y) position.
-            index = walkOverXChars(jsonFile, index, 2, ']');
-        }
-
-        return counter;
+        // counter = 0;
+        // for (Integer count : blockHolder.values())
+        // {
+        // counter += count;
+        // }
     }
 
     /**
-     * Counts the number of blocks in a positioned section.
+     * Count blocks that have "names" surrounded in quotes.
      * 
-     * @precondition The position wrapper has been removed and the first bracket
-     *               belongs to the first block.
-     * @param jsonFile the file to scan over
-     * @param index the index of the first [ of the first block.
-     * @return the index after the last ] of the last block.
+     * @precondition fist index is first opening bracket of the script section.
+     * @param jsonFile the file to count blocks on
+     * @param index the index of the of the first opening bracket ('[') for a
+     *            script section
+     * @return the INDEX of the last immediately following the last ']' of the
+     *         script collection of blocks.
      */
-    private static int countBlocks(String jsonFile, int index)
+    private static int countBlocksOfPositionedScript(String jsonFile, int index)
     {
-        // TODO incomplete
 
-        // iterate over all blocks in the subbloc
-        while (jsonFile.charAt(index) != ']')
+        Stack<Character> brackets = new Stack<Character>();
+        brackets.push(jsonFile.charAt(index++));
+
+        Stack<Character> quotes = new Stack<Character>();
+        int startIndex = -1;
+        int endIndex = -1;
+
+        // loop until all brackets have been matched
+        while (brackets.size() != 0)
         {
-            boolean ignoreCountForNextBracket = false;
-
-            // walk to next block_start or the end_block for current block.
-            while (jsonFile.charAt(index) != '['
-                    && jsonFile.charAt(index) != ']')
-            {
-                if (jsonFile.charAt(index) == ',')
-                {
-                    ignoreCountForNextBracket = true;
-                }
-                index++;
-            }
-
-            // register block and search for internal blocks recursively
             if (jsonFile.charAt(index) == '[')
             {
-                if (!ignoreCountForNextBracket)
-                {
-                    counter++;
-                }
-                index++;
-                index = countBlocks(jsonFile, index);
+                brackets.push('[');
             }
-            // end of a sub-block
-            // else if (jsonFile.charAt(index) == ']')
-            while (jsonFile.charAt(index) == ']')
+            else if (jsonFile.charAt(index) == ']')
             {
-                // get passed the , to prevent non-counting flag from happening.
-                index++;
-                if (jsonFile.charAt(index) == ',')
-                {
-                    index++;
-                }
-                return index;
+                brackets.pop();
             }
+            else if (jsonFile.charAt(index) == '"')
+            {
+                if (quotes.size() == 0)
+                {
+                    // block name started
+                    quotes.push('"');
+                    startIndex = index;
+                }
+                else if (quotes.size() == 1)
+                {
+                    // block name end, pop and
+                    quotes.pop();
+                    endIndex = index;
+
+                    // store the name with quotes trimmed off.
+                    addToHashMap(jsonFile.substring(startIndex + 1, endIndex));
+                }
+            }
+            index++;
         }
+
         return index;
     }
 
     /**
-     * Walk over X number of character Y starting at index in the string str.
+     * Intelligently adds a script's name to the HashMap. Either adds with count
+     * of 1 or increments the previous count.
      * 
-     * @param str the string to analyze
-     * @param index the start index
-     * @param numToWalkOver the number of times to step over a particular
-     *            character
-     * @param character the target character
-     * @return the index immediately after the character to walk over.
+     * @param scriptName the scripts name to add.
      */
-    public static int walkOverXChars(String str, int index, int numToWalkOver,
-            char character)
+    private static void addToHashMap(String scriptName)
     {
-        int itemsSeen = 0;
-        while (itemsSeen < numToWalkOver)
+        if (blockHolder.get(scriptName) == null)
         {
-            if (str.charAt(index) == character)
-            {
-                itemsSeen++;
-                index++;
-            }
-            else
-            {
-                index++;
-            }
+            blockHolder.put(scriptName, 1);
         }
-        return index;
+        else
+        {
+            int count = blockHolder.get(scriptName);
+            blockHolder.put(scriptName, ++count);
+        }
     }
 
     /**
@@ -187,43 +177,33 @@ public class BlockCounter
      */
     private static void setUp(String fileToParse)
     {
-
-        // String interiorString = "[\\[*\\]]*";
         String rawScriptRegexStr = "\"scripts\": ";
         String scriptRegexStr = rawScriptRegexStr;
 
         // find the script location
-        scriptSectionHolder = new HashMap<String, Integer>();
+        createNewHashMaps();
+
         scriptRegex = Pattern.compile(scriptRegexStr);
         scriptMatcher = scriptRegex.matcher(fileToParse);
 
     }
 
     /**
-     * Finds the total number of script blocks used within a project.
-     * 
-     * @param jsonTextFile the File containing the json to parse.
-     * @return the number of blocks in various locations. Conditions are
-     *         considered blocks.
+     * Creates new hash maps for the calculation.
      */
-    public static int getTotalBlocksUsed(File jsonTextFile)
+    private static void createNewHashMaps()
     {
-        String fileStr = convertFileToString(jsonTextFile);
-        return getTotalBlocksUsed(fileStr);
+        scriptSectionHolder = new HashMap<String, HashMap<String, Integer>>();
+        blockHolder = new HashMap<String, Integer>();
     }
 
     /**
-     * Finds the total number of script blocks used within a project.
-     * 
-     * @param jsonTextFileAsStr the File containing the json to parse.
-     * @return the number of blocks in various locations. Conditions are
-     *         considered blocks.
+     * Creates new hash maps for the calculation.
      */
-    private static int getTotalBlocksUsed(String jsonTextFileAsStr)
+    private static void dereferenceHashMaps()
     {
-        int total = mapBlocks(jsonTextFileAsStr);
-
-        return total;
+        scriptSectionHolder = null;
+        blockHolder = null;
     }
 
     /**
@@ -255,5 +235,30 @@ public class BlockCounter
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * Get the block data for the file.
+     * 
+     * @param jsonFile the file to parse
+     * @return the block data for the file.
+     */
+    public static BlockData getBlockData(File jsonFile)
+    {
+        String fileStr = convertFileToString(jsonFile);
+        return getBlockData(fileStr);
+    }
+
+    /**
+     * Get the block data for the file.
+     * 
+     * @param jsonTextFileAsStr the file to parse
+     * @return the block data for the file.
+     */
+    public static BlockData getBlockData(String jsonTextFileAsStr)
+    {
+        BlockData data = mapBlocks(jsonTextFileAsStr);
+        dereferenceHashMaps();
+        return data;
     }
 }
