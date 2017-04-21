@@ -27,6 +27,8 @@ public class Student implements Gradeable
     private int spriteCount = 0;
     private int scriptCount = 0;
     private int tempo = 0;
+    private int uniqueSoundCount = 0;
+    private int totalSoundsUsed;
 
     /**
      * Construct a student object from a .sb2 file path.
@@ -44,6 +46,11 @@ public class Student implements Gradeable
         spriteCount = SpriteCounter.getSpriteCount(jsonFile);
         scriptCount = ScriptCounter.getScriptCount(jsonFile);
         tempo = Tempo.getTempo(jsonFile);
+
+        // inefficient to call both simultaneously
+        uniqueSoundCount = SoundCounter.getUniqueSounds(jsonFile);
+        totalSoundsUsed = SoundCounter.getTotalNonUniqueSounds(jsonFile);
+
         // clean up created directory
         unZipper.clean();
     }
@@ -55,7 +62,7 @@ public class Student implements Gradeable
     {
         return spriteCount;
     }
-    
+
     /**
      * @return the number of sprites in the student's .sb2 file.
      */
@@ -63,7 +70,7 @@ public class Student implements Gradeable
     {
         return scriptCount;
     }
-    
+
     /**
      * @return the tempo in the student's .sb2 file.
      */
@@ -71,6 +78,7 @@ public class Student implements Gradeable
     {
         return tempo;
     }
+
     /**
      * Main method for in-class example.
      * 
@@ -85,5 +93,28 @@ public class Student implements Gradeable
 
         Student test = new Student(zippedDirLocStr);
         System.out.printf("Sprite Count: %d", test.getSpriteCount());
+    }
+
+    /**
+     * Get the number of sounds in the student's project.json.
+     * 
+     * @return the number of sounds in the student's project.json.
+     */
+    public int getUniqueSoundCount()
+    {
+
+        return uniqueSoundCount;
+    }
+
+    /**
+     * Get the number of sounds added to scripts. This isn't the unique number
+     * of sounds. If a project has two sounds "pop" and "meow", and "pop" is
+     * used 2 times and "meow" is used 100 times, then this method returns 102.
+     * 
+     * @return the total number of times any sound is used.
+     */
+    public int getTotalSoundCount()
+    {
+        return totalSoundsUsed;
     }
 }

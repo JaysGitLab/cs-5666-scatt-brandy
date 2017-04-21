@@ -28,6 +28,7 @@ public class SpriteCounter
             return -1;
         }
         int scIndex = jsonFile.lastIndexOf("\"spriteCount\":");
+
         int end = scIndex + 16;
         String ss = jsonFile.substring(scIndex + 15, end);
         return Integer.parseInt(ss);
