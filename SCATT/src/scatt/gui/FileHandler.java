@@ -18,9 +18,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @version 1.0
  * 
  */
-public class Gui
+public class FileHandler extends JFrame
 {
 
+    /**
+	 * 
+	 */
+    private static final long serialVersionUID = 931158606870083108L;
     private JFrame frame;
     private JFileChooser dirChooser;
     private JFileChooser fileChooser;
@@ -28,7 +32,7 @@ public class Gui
     /**
      * Create the GUI application.
      */
-    public Gui()
+    public FileHandler()
     {
         dirChooser = new JFileChooser();
         dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -54,7 +58,7 @@ public class Gui
             {
                 try
                 {
-                    Gui window = new Gui();
+                    FileHandler window = new FileHandler();
                     window.frame.setVisible(true);
                 }
                 catch (Exception e)
