@@ -1,5 +1,5 @@
-I. TO RUN THE COMMAND LINE PROTOTYPE
-	Please run the "ScratchGrader.jar"
+### I. TO RUN THE COMMAND LINE PROTOTYPE
+	Please run the "CMDGrader.jar"
 		i. navigate to the folder with the jar file
 			a. follow prompt method
 			 	java -jar ScratchGrader.jar
@@ -7,12 +7,12 @@ I. TO RUN THE COMMAND LINE PROTOTYPE
 				java -jar SctachGrader.jar arg.sb2
 		ii. follow the prompts (if you chose to not provide an argument)
 				
-				
-II. TO RUN THE GUI BASED APPLICATION
-	A minimal GUI exists, but not enough to warrant creating a standalone executable jar for it yet.
+---------------				
+### II. TO RUN THE GUI BASED APPLICATION
+	The GUI does not currently grade .sb2 files, but a prototype of what it will look like is usable. Please run the GuiGrader.jar. 
 	
-	
-III. IMPORTING THE PROJECT TO ECLIPSE
+---------------
+### III. IMPORTING THE PROJECT TO ECLIPSE
 	1. Clone the repository to your eclipse "git repositories" (press "control + 3" and type "git" to bring up this menu
 		1. Get to the Git Repositories view
 		2. Click "clone a repository"
@@ -29,7 +29,7 @@ III. IMPORTING THE PROJECT TO ECLIPSE
 		2. Click on local branchs (you can create new ones here)
 		3. When you switch branches, the eclipse project (in project explorer) should automatically update files
 	
-	
-IV. USING THE PROJECT VIA COMMAND LINE
+---------------
+### IV. USING THE PROJECT VIA COMMAND LINE
 	This isn't recommended, but it is do-able. Navigate to the src folder. and type "make compile" to compile the 
 	required java classes. Type "make test" to run the tests suite. Type "make clean" to clear the old .class files.
