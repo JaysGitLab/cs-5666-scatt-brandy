@@ -28,8 +28,9 @@ public class ScriptCounter
             return -1;
         }
         int scriptIndex = jsonFile.lastIndexOf("\"scriptCount\":");
-        int comma = jsonFile.indexOf(',', scriptIndex);
-        String ss = jsonFile.substring(scriptIndex + 15, comma);
+        int end = scriptIndex + 16;
+        //int comma = jsonFile.indexOf(',', scriptIndex);
+        String ss = jsonFile.substring(scriptIndex + 15, end);
         return Integer.parseInt(ss);
 
     }
