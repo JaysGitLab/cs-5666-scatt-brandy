@@ -29,12 +29,17 @@ public class GradePanel extends JPanel
     private static final long serialVersionUID = -3925933517802098991L;
     private JTable gradeTable;
     private DefaultTableModel tableModel;
+    private GraderContext context;
 
     /**
-     * Create the panel.
+     * Create the panel for grading.
+     * 
+     * @param context - an object that is used to store/retrieve grading related
+     *            context.
      */
-    public GradePanel()
+    public GradePanel(GraderContext context)
     {
+        this.context = context;
         setLayout(new MigLayout("", "[97px,grow]", "[25px][grow]"));
 
         JButton btnNewButton = new JButton("Grade");
@@ -51,13 +56,10 @@ public class GradePanel extends JPanel
         add(scrollPane, "cell 0 1,grow");
 
         gradeTable = new JTable();
-        gradeTable.setModel(new DefaultTableModel(
-            new Object[][] {
-            },
-            new String[] {
-                "Student Name", "Grade"
-            }
-        ));
+        //@formatter:off
+        gradeTable.setModel(new DefaultTableModel(new Object[][] {},
+                new String[] {"Student Name", "Grade" }));
+        //@formatter:on
         scrollPane.setViewportView(gradeTable);
         tableModel = (DefaultTableModel) gradeTable.getModel();
 

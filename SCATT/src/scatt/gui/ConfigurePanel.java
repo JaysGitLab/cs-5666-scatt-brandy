@@ -22,12 +22,17 @@ public class ConfigurePanel extends JPanel
 
     private static final long serialVersionUID = 8757410256026038342L;
     private JPanel buttonPanel;
+    private GraderContext context;
 
     /**
      * Create the panel.
+     * 
+     * @param context - an object that is used to store/retrieve grading related
+     *            context.
      */
-    public ConfigurePanel()
+    public ConfigurePanel(GraderContext context)
     {
+        this.context = context;
         setLayout(new GridLayout(0, 1, 0, 0));
 
         JScrollPane scrollPane = new JScrollPane();
