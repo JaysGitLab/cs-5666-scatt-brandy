@@ -30,7 +30,7 @@ public class MainWindow extends JFrame
      */
     public MainWindow()
     {
-        context = new GraderContext();
+        context = GraderContextFactory.getContext();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 700);

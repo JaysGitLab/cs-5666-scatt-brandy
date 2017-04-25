@@ -13,6 +13,7 @@ import scatt.Student;
  */
 public class SpriteGrader extends GraderWeightedComponent
 {
+    public static final String MODULE_NAME = "Sprite Grader";
     private int required = 0;
 
     /**
@@ -23,7 +24,7 @@ public class SpriteGrader extends GraderWeightedComponent
     public SpriteGrader(float weight, int requiredSprites)
     {
         // must call abstract constructor
-        super(weight, "Sprite Grade");
+        super(weight, SpriteGrader.MODULE_NAME);
         setNewRequiredSprites(requiredSprites);
     }
 
@@ -62,13 +63,13 @@ public class SpriteGrader extends GraderWeightedComponent
         {
             Student toGrade = (Student) objectToGrade;
             double numberOfSprites = toGrade.getSpriteCount();
-            double grade = 100 * numberOfSprites / required;
+            double grade = 100 * numberOfSprites / getRequiredSprites();
 
             if (!getExtraCreditMode() && grade > 100f)
             {
                 grade = 100;
             }
-            
+
             return grade;
         }
         else
@@ -105,4 +106,15 @@ public class SpriteGrader extends GraderWeightedComponent
     {
         return objectToGrade instanceof Student;
     }
+
+    /**
+     * Get the number of required sprites.
+     * 
+     * @return the number of required sprites to get a grade of 100.
+     */
+    public int getRequiredSprites()
+    {
+        return required;
+    }
+
 }

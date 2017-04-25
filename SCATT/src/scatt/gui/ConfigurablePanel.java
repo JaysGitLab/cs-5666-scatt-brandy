@@ -12,6 +12,26 @@ import javax.swing.JPanel;
 public abstract class ConfigurablePanel extends JPanel
 {
     private static final long serialVersionUID = 4234616041214753769L;
+    protected GraderContext context;
+
+    /**
+     * Lock the no-arg constructor.
+     */
+    @SuppressWarnings("unused")
+    private ConfigurablePanel()
+    {
+        System.out.println("this constructor is forbidden.");
+    }
+
+    /**
+     * Argument constructor required for instantiation.
+     * 
+     * @param context the grader context for the field to use.
+     */
+    protected ConfigurablePanel(GraderContext context)
+    {
+        this.context = context;
+    }
 
     /**
      * Used to signal that changes should be updated in the grader.
@@ -27,5 +47,4 @@ public abstract class ConfigurablePanel extends JPanel
      * @param context - the object encompassing the grader and grader modules.
      */
     public abstract void resetOptionsToDefault(GraderContext context);
-
 }

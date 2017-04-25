@@ -51,7 +51,7 @@ public class ConfigureControlPanel extends JPanel
         // popupTest = new ConfigurableOld(owner, "Test", true);
         // popupTest = new SpriteConfigurableOld(owner, "Sprite Configuration");
         popupTest = new ConfigureDialog(owner, "Sprite Configuration", true,
-                new SpriteConfigurablePanel(), context);
+                new SpriteConfigurablePanel(context), context);
 
         // for now, demo that buttons can be generated
         // will be done based on grader.

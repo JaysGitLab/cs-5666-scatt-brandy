@@ -1,6 +1,7 @@
 package scatt.gui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import scatt.GraderWeightedComponent;
 
@@ -18,6 +19,16 @@ public class GraderContext
 {
     private ArrayList<String> fileList = null;
     private ArrayList<GraderWeightedComponent> components = null;
+    private HashMap<String, GraderWeightedComponent> componentMap = null;
+
+    /**
+     * No arg constructor.
+     */
+    public GraderContext()
+    {
+        components = new ArrayList<GraderWeightedComponent>();
+        componentMap = new HashMap<String, GraderWeightedComponent>();
+    }
 
     /**
      * Set a list of valid .sb2 files.
@@ -50,6 +61,19 @@ public class GraderContext
     public void addComponent(GraderWeightedComponent newComponent)
     {
         components.add(newComponent);
+        componentMap.put(newComponent.getModuleName(), newComponent);
+    }
+
+    /**
+     * Finds a module with the given name.
+     * 
+     * @param moduleName the name of the component to attempt to retrieve.
+     * @return a reference to the module or null if there is no module.
+     */
+    public GraderWeightedComponent getComponent(String moduleName)
+    {
+        GraderWeightedComponent ret = componentMap.get(moduleName);
+        return ret;
     }
 
 }

@@ -114,6 +114,18 @@ public class ConfigureDialog extends JDialog
         this.setVisible(false);
     }
 
+    @Override
+    public void setVisible(boolean arg0)
+    {
+        super.setVisible(arg0);
+
+        //re-load defaults if making the dialog visible again.
+        if (arg0)
+        {
+            panelUsedToSetConfiguration.resetOptionsToDefault(context);
+        }
+    }
+
     // /**
     // * Launch the application.
     // *
