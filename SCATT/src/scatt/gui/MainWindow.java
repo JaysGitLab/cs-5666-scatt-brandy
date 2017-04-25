@@ -21,6 +21,7 @@ public class MainWindow extends JFrame
 {
 
     private static final long serialVersionUID = -39970827731145361L;
+    private static MainWindow singleton;
     private JPanel contentPane;
     private GraderContext context;
 
@@ -30,7 +31,7 @@ public class MainWindow extends JFrame
     public MainWindow()
     {
         context = new GraderContext();
-        
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 700);
         contentPane = new JPanel();
@@ -58,14 +59,26 @@ public class MainWindow extends JFrame
         JPanel loader = new LoaderPanel(context);
         load.add(loader);
 
-        // JPanel configure = new JPanel();
-        JPanel configure = new ConfigurePanel(context);
+        JPanel configure = new ConfigurePanel(context, this);
         tabbedPane.addTab("Configure", null, configure, null);
 
-        // JPanel grade = new JPanel();
         JPanel grade = new GradePanel(context);
         tabbedPane.addTab("Grade", null, grade, null);
-        
+
+    }
+
+    /**
+     * Get the main window object; instantiates object if no such object exists.
+     * 
+     * @return the singleton object for the main window.
+     */
+    public static MainWindow getInstance()
+    {
+        if (singleton == null)
+        {
+            MainWindow.singleton = new MainWindow();
+        }
+        return singleton;
     }
 
     /**
@@ -81,7 +94,7 @@ public class MainWindow extends JFrame
             {
                 try
                 {
-                    MainWindow frame = new MainWindow();
+                    MainWindow frame = MainWindow.getInstance();
                     frame.setVisible(true);
                 }
                 catch (Exception e)
