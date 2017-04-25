@@ -21,7 +21,7 @@ import javax.swing.JScrollPane;
  * @version 1.0
  * 
  */
-public class ConfigurePanel extends JPanel
+public class ConfigureControlPanel extends JPanel
 {
 
     private static final long serialVersionUID = 8757410256026038342L;
@@ -36,7 +36,7 @@ public class ConfigurePanel extends JPanel
      *            context.
      * @param owner - owner window for the configuratin panel.
      */
-    public ConfigurePanel(GraderContext context, JFrame owner)
+    public ConfigureControlPanel(GraderContext context, JFrame owner)
     {
         this.context = context;
         setLayout(new GridLayout(0, 1, 0, 0));
@@ -48,9 +48,10 @@ public class ConfigurePanel extends JPanel
         scrollPane.setViewportView(buttonPanel);
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
-        popupTest = new Configurable(owner, "Test", true);
-        popupTest = new SpriteConfigurable(owner, "Sprite Configuration");
-
+        // popupTest = new ConfigurableOld(owner, "Test", true);
+        // popupTest = new SpriteConfigurableOld(owner, "Sprite Configuration");
+        popupTest = new ConfigureDialog(owner, "Sprite Configuration", true,
+                new SpriteConfigurablePanel());
 
         // for now, demo that buttons can be generated
         // will be done based on grader.

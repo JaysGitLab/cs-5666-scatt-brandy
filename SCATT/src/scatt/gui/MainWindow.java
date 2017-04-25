@@ -59,7 +59,7 @@ public class MainWindow extends JFrame
         JPanel loader = new LoaderPanel(context);
         load.add(loader);
 
-        JPanel configure = new ConfigurePanel(context, this);
+        JPanel configure = new ConfigureControlPanel(context, this);
         tabbedPane.addTab("Configure", null, configure, null);
 
         JPanel grade = new GradePanel(context);
