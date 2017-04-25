@@ -30,7 +30,7 @@ public class SpriteConfigurablePanel extends ConfigurablePanel
      */
     public SpriteConfigurablePanel(GraderContext context)
     {
-        super(context);
+        super(context, SpriteGrader.MODULE_NAME);
         SpringLayout springLayout = new SpringLayout();
         setLayout(springLayout);
 

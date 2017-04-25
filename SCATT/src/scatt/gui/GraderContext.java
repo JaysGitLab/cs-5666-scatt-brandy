@@ -76,4 +76,14 @@ public class GraderContext
         return ret;
     }
 
+    /**
+     * Get all components in a raw array.
+     * 
+     * @return All components contained in an array.
+     */
+    public Object[] getAllPanels()
+    {
+        return (Object[]) components.toArray();
+    }
+
 }

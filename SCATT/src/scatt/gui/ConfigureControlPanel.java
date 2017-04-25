@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import scatt.GraderWeightedComponent;
+
 /**
  * A class that represents the configuration panel in the GUI.
  * http://stackoverflow
@@ -55,20 +57,31 @@ public class ConfigureControlPanel extends JPanel
 
         // for now, demo that buttons can be generated
         // will be done based on grader.
-        for (int i = 0; i < 10; ++i)
+        Object[] graderComponents = context.getAllPanels();
+        // for (int i = 0; i < 10; ++i)
+        for (Object compObj : graderComponents)
         {
-            insertButtonRow();
+            //@formatter:off
+            GraderWeightedComponent comp = (GraderWeightedComponent) compObj;
+            String name = comp.getModuleName();
+            ConfigurablePanel panel = ConfigurablePanel.get(name);
+            insertButtonRow(panel, name);
+            
+            //@formatter:on
         }
 
     }
 
     /**
      * Insert a new row into the table.
+     * 
+     * @param panel the configuration panel that should have a button generated.
+     * @param name - the name to give the new button. 
      */
-    protected void insertButtonRow()
+    protected void insertButtonRow(ConfigurablePanel panel, String name)
     {
         //@formatter:off
-        JButton test = new JButton("test");
+        JButton test = new JButton(name);
         test.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonPanel.add(test, null);
         //@formatter:on
