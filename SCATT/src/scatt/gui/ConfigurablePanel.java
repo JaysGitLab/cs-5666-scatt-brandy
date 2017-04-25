@@ -15,13 +15,17 @@ public abstract class ConfigurablePanel extends JPanel
 
     /**
      * Used to signal that changes should be updated in the grader.
+     * 
+     * @param context - the object encompassing the grader and grader modules.
      */
-    public abstract void commitChoices();
+    public abstract void commitChoices(GraderContext context);
 
     /**
      * Used to reset the panel to the default/previous values. Used in cancel
      * operations.
+     * 
+     * @param context - the object encompassing the grader and grader modules.
      */
-    public abstract void resetOptionsToDefault();
+    public abstract void resetOptionsToDefault(GraderContext context);
 
 }

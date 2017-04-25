@@ -24,6 +24,7 @@ public class ConfigureDialog extends JDialog
     private static final long serialVersionUID = 2254627677540930088L;
     private JPanel contentPanel = new JPanel();
     private ConfigurablePanel panelUsedToSetConfiguration;
+    private GraderContext context;
 
     /**
      * Create the dialog.
@@ -34,15 +35,19 @@ public class ConfigureDialog extends JDialog
      * @param ownerWindowToLock - set true if owner window should be locked
      *            until dialog closed.
      * @param mainPanel - the panel to be displayed within the dialog.
+     * @param context - the context responsible for containing the graderModules
+     *            and grader.
      */
     public ConfigureDialog(JFrame ownerWindowToLock, String windowTitle,
-            boolean lockWindowWhileOpen, ConfigurablePanel mainPanel)
+            boolean lockWindowWhileOpen, ConfigurablePanel mainPanel,
+            GraderContext context)
     {
         super(ownerWindowToLock, windowTitle, lockWindowWhileOpen);
         this.panelUsedToSetConfiguration = mainPanel;
+        this.context = context;
         setBounds(100, 100, 600, 700);
-        //getContentPane().setLayout(new BorderLayout());
-        //contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        // getContentPane().setLayout(new BorderLayout());
+        // contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         // getContentPane().add(contentPanel, BorderLayout.CENTER);
         getContentPane().add(mainPanel, BorderLayout.CENTER);
 
@@ -88,7 +93,7 @@ public class ConfigureDialog extends JDialog
      */
     public void pressedOK()
     {
-        panelUsedToSetConfiguration.commitChoices();
+        panelUsedToSetConfiguration.commitChoices(context);
         hideWindow();
     }
 
@@ -97,7 +102,7 @@ public class ConfigureDialog extends JDialog
      */
     public void pressedCancel()
     {
-        panelUsedToSetConfiguration.resetOptionsToDefault();
+        panelUsedToSetConfiguration.resetOptionsToDefault(context);
         hideWindow();
     }
 

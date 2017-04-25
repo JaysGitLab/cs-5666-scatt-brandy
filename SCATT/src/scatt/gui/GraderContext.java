@@ -2,6 +2,8 @@ package scatt.gui;
 
 import java.util.ArrayList;
 
+import scatt.GraderWeightedComponent;
+
 /**
  * A class that wraps all grading related fields. The responsibility of this
  * class is to act as a container for grading related data. Examples of such
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 public class GraderContext
 {
     private ArrayList<String> fileList = null;
+    private ArrayList<GraderWeightedComponent> components = null;
 
     /**
      * Set a list of valid .sb2 files.
@@ -39,6 +42,14 @@ public class GraderContext
                 System.out.println(item);
             }
         }
+    }
+
+    /**
+     * @param newComponent a new grader component to add to the grader.
+     */
+    public void addComponent(GraderWeightedComponent newComponent)
+    {
+        components.add(newComponent);
     }
 
 }

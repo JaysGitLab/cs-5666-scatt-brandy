@@ -56,13 +56,13 @@ public class SpriteConfigurablePanel extends ConfigurablePanel
     }
 
     @Override
-    public void commitChoices()
+    public void commitChoices(GraderContext context)
     {
         
     }
 
     @Override
-    public void resetOptionsToDefault()
+    public void resetOptionsToDefault(GraderContext context)
     {
         
     }
