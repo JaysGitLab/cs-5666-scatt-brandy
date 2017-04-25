@@ -45,7 +45,7 @@ public class ConfigureDialog extends JDialog
         super(ownerWindowToLock, windowTitle, lockWindowWhileOpen);
         this.panelUsedToSetConfiguration = mainPanel;
         this.context = context;
-        setBounds(100, 100, 600, 700);
+        setBounds(100, 100, 600, 400);
         // getContentPane().setLayout(new BorderLayout());
         // contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         // getContentPane().add(contentPanel, BorderLayout.CENTER);
