@@ -1,9 +1,12 @@
 package scatt.gui;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import scatt.GraderWeightedComponent;
+import scatt.Student;
 import scatt.WeightedGrader;
 
 /**
@@ -22,6 +25,7 @@ public class GraderContext
     private ArrayList<GraderWeightedComponent> components = null;
     private HashMap<String, GraderWeightedComponent> componentMap = null;
     private WeightedGrader grader = null;
+    private ArrayList<String[]> gradedPairs;
 
     /**
      * No arg constructor.
@@ -96,25 +100,68 @@ public class GraderContext
 
     /**
      * Grades the files with the configured grader.
+     * 
+     * @throws WeightedGraderFailureException If grader fails to create, this
+     *             exception will be thrown.
      */
-    public void grade()
+    public void grade() throws WeightedGraderFailureException
     {
         configureGrader();
-        gradeFiles();
+        iterateOverFilesAndStoreGrade();
     }
 
     /**
      * Grade all files stored in the the fileList.
+     * 
+     * TODO: upzipper should instead pass exceptions upward - this will require
+     * a major change (at least 83 file updates).
+     * 
+     * 
+     * @precondition grader is set up
+     * @precondition all file paths are valid files.
      */
-    private void gradeFiles()
+    private void iterateOverFilesAndStoreGrade()
     {
+        gradedPairs = new ArrayList<String[]>();
+        for (String fstr : fileList)
+        {
+            String[] breakup = fstr.split(Pattern.quote(File.separator));
 
+            // keep like this in case exception occurs
+            // (update name to author field if no exception on student creation)
+            String stdFileName = breakup[breakup.length - 1];
+            double weightGrade = 0.0f;
+            try
+            {
+                Student student = new Student(fstr);
+                weightGrade = grader.grade(student);
+                // TODO: update stdFileName to author field
+            }
+            catch (Exception e)
+            {
+                // TODO currently doesn't throw an exception, change that so the
+                // student class will throw an exception if fails to open
+                // and update the exception type to match throw exception
+                weightGrade = -1;
+                stdFileName += "FAILED TO LOAD";
+            }
+
+            //@formatter:off
+            String[] pair = new String[] {stdFileName,
+                    String.format("%6.2f", weightGrade) };
+            
+            gradedPairs.add(pair);
+            //@formatter:on 
+        }
     }
 
     /**
      * Prepares the grader object for grading.
+     * 
+     * @throws WeightedGraderFailureException - signals that the grader could
+     *             not be created with the given configuration.
      */
-    private void configureGrader()
+    private void configureGrader() throws WeightedGraderFailureException
     {
         if (grader == null)
         {
@@ -136,10 +183,23 @@ public class GraderContext
             {
                 System.err.println(e.getMessage());
                 grader = null;
+                throw new WeightedGraderFailureException(
+                        "Could not create a weighted grader"
+                                + " - check that weights sum to 1.0");
             }
 
         }
 
+    }
+
+    /**
+     * Get a list of names paired with their grade.
+     * 
+     * @return An array list of {name, grade} pairs.
+     */
+    public ArrayList<String[]> getGradedPairList()
+    {
+        return gradedPairs;
     }
 
 }

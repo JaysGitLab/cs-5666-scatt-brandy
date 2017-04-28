@@ -2,6 +2,7 @@ package scatt.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -82,7 +83,7 @@ public class GradePanel extends JPanel
         tableModel
                 .insertRow(tableModel.getRowCount(), new Object[] {"test1"});
         updateFormulaLabel();
-        grade();
+        gradeAndAddEntries();
         //@formatter:on
 
     }
@@ -90,10 +91,25 @@ public class GradePanel extends JPanel
     /**
      * Grade and add graded entries to the table.
      */
-    private void grade()
+    private void gradeAndAddEntries()
     {
-        // WeightedGrader grader = context.getGrader();
-        context.grade();
+        removeAllRows();
+        try
+        {
+            context.grade();
+            ArrayList<String[]> pairs = context.getGradedPairList();
+            for (String[] pair : pairs)
+            {
+                // @formatter:off
+                tableModel.insertRow(tableModel.getRowCount(), new Object[] {
+                        pair[0], pair[1] });
+                // @formatter:on
+            }
+        }
+        catch (WeightedGraderFailureException e)
+        {
+            displayGraderFailedAsStudentEntry();
+        }
     }
 
     /**
@@ -114,6 +130,34 @@ public class GradePanel extends JPanel
             }
             newLabelStr = newLabelStr.substring(3);
             lblFormula.setText("Formula: " + newLabelStr);
+        }
+    }
+
+    /**
+     * Clears and adds a single student entry that lets user know there is a
+     * problem with grader.
+     */
+    private void displayGraderFailedAsStudentEntry()
+    {
+        //@formatter:off
+        removeAllRows();
+        tableModel
+                .insertRow(tableModel.getRowCount(), new Object[] {
+                    "Grader failed",
+                    "please check weights"});
+        updateFormulaLabel();
+        //@formatter:on
+
+    }
+
+    /**
+     * Remove all the rows from the table.
+     */
+    private void removeAllRows()
+    {
+        for (int i = tableModel.getRowCount() - 1; i >= 0; --i)
+        {
+            tableModel.removeRow(i);
         }
     }
 }

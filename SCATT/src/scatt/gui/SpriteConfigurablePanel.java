@@ -199,7 +199,7 @@ public class SpriteConfigurablePanel extends ConfigurablePanel
         if (spriteGrader != null)
         {
             // update the weight text box
-            weightTextField.setText(String.format("%5f",
+            weightTextField.setText(String.format("%5.3f",
                     spriteGrader.getWeightFrom0To1()));
         }
         else
