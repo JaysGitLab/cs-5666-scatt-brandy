@@ -110,7 +110,8 @@ public class FileHandler extends JFrame
     /**
      * Test method that opens up a single file from the file menu.
      * 
-     * @return the file path to the selected .sb2 if it is valid.
+     * @return the file path to the selected .sb2 if it is valid or null if
+     *         invalid path.
      */
     protected String openFileFromFileMenu()
     {
@@ -121,15 +122,15 @@ public class FileHandler extends JFrame
             File openedSb2 = fileChooser.getSelectedFile();
             // System.out.println(openedSb2.getAbsolutePath());
             int dotIndex = openedSb2.getAbsolutePath().lastIndexOf(".");
-            
-            //check if file has an extension
+
+            // check if file has an extension
             if (dotIndex != -1)
             {
                 String temp = openedSb2.getAbsolutePath();
-                //check if appropriate extension
+                // check if appropriate extension
                 if (temp.substring(dotIndex).equals(".sb2"))
                 {
-                    //set up result to return the path.
+                    // set up result to return the path.
                     result = temp;
                 }
             }

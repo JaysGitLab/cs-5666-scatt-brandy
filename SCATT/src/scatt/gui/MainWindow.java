@@ -1,7 +1,6 @@
 package scatt.gui;
 
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -53,11 +52,8 @@ public class MainWindow extends JFrame
         gbcTabbedPane.gridy = 0;
         contentPane.add(tabbedPane, gbcTabbedPane);
 
-        JPanel load = new JPanel();
+        JPanel load = new LoaderPanel(context);
         tabbedPane.addTab("Load", null, load, null);
-        load.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        JPanel loader = new LoaderPanel(context);
-        load.add(loader);
 
         JPanel configure = new ConfigureControlPanel(context, this);
         tabbedPane.addTab("Configure", null, configure, null);
