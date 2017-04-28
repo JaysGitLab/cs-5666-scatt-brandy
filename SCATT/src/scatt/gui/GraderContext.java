@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import scatt.GraderWeightedComponent;
+import scatt.WeightedGrader;
 
 /**
  * A class that wraps all grading related fields. The responsibility of this
@@ -20,6 +21,7 @@ public class GraderContext
     private ArrayList<String> fileList = null;
     private ArrayList<GraderWeightedComponent> components = null;
     private HashMap<String, GraderWeightedComponent> componentMap = null;
+    private WeightedGrader grader = null;
 
     /**
      * No arg constructor.
@@ -62,6 +64,12 @@ public class GraderContext
     {
         components.add(newComponent);
         componentMap.put(newComponent.getModuleName(), newComponent);
+
+        // new grader will need to be constructed, set to null to be detected.
+        if (grader != null)
+        {
+            grader = null;
+        }
     }
 
     /**
@@ -81,9 +89,57 @@ public class GraderContext
      * 
      * @return All components contained in an array.
      */
-    public Object[] getAllPanels()
+    public Object[] getAllComponents()
     {
         return (Object[]) components.toArray();
+    }
+
+    /**
+     * Grades the files with the configured grader.
+     */
+    public void grade()
+    {
+        configureGrader();
+        gradeFiles();
+    }
+
+    /**
+     * Grade all files stored in the the fileList.
+     */
+    private void gradeFiles()
+    {
+
+    }
+
+    /**
+     * Prepares the grader object for grading.
+     */
+    private void configureGrader()
+    {
+        if (grader == null)
+        {
+            // convert arraylist to raw array //@formatter:off
+            GraderWeightedComponent[] comps =
+                    new GraderWeightedComponent[components.size()];
+            //@formatter:on
+
+            for (int i = 0; i < components.size(); ++i)
+            {
+                comps[i] = components.get(i);
+            }
+
+            try
+            {
+                grader = new WeightedGrader(comps);
+            }
+            catch (IllegalArgumentException e)
+            {
+                System.err.println(e.getMessage());
+                grader = null;
+            }
+
+        }
+
     }
 
 }

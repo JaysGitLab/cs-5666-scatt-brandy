@@ -29,7 +29,7 @@ public class ConfigureControlPanel extends JPanel
     private static final long serialVersionUID = 8757410256026038342L;
     private JPanel buttonPanel;
     private JDialog popupTest;
-    private GraderContext context;
+    //private GraderContext context;
 
     /**
      * Create the panel.
@@ -40,7 +40,7 @@ public class ConfigureControlPanel extends JPanel
      */
     public ConfigureControlPanel(GraderContext context, JFrame owner)
     {
-        this.context = context;
+        //this.context = context;
         setLayout(new GridLayout(0, 1, 0, 0));
 
         JScrollPane scrollPane = new JScrollPane();
@@ -57,7 +57,7 @@ public class ConfigureControlPanel extends JPanel
 
         // for now, demo that buttons can be generated
         // will be done based on grader.
-        Object[] graderComponents = context.getAllPanels();
+        Object[] graderComponents = context.getAllComponents();
         // for (int i = 0; i < 10; ++i)
         for (Object compObj : graderComponents)
         {

@@ -4,12 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import net.miginfocom.swing.MigLayout;
+import scatt.GraderWeightedComponent;
 
 /**
  * The GUI panel for grading.
@@ -30,6 +32,7 @@ public class GradePanel extends JPanel
     private JTable gradeTable;
     private DefaultTableModel tableModel;
     private GraderContext context;
+    private JLabel lblFormula;
 
     /**
      * Create the panel for grading.
@@ -50,7 +53,7 @@ public class GradePanel extends JPanel
                 gradeButtonPressed();
             }
         });
-        add(btnNewButton, "cell 0 0,alignx left,aligny top");
+        add(btnNewButton, "flowx,cell 0 0,alignx left,aligny top");
 
         JScrollPane scrollPane = new JScrollPane();
         add(scrollPane, "cell 0 1,grow");
@@ -61,6 +64,9 @@ public class GradePanel extends JPanel
                 new String[] {"Student Name", "Grade" }));
         //@formatter:on
         scrollPane.setViewportView(gradeTable);
+
+        lblFormula = new JLabel("Formula:");
+        add(lblFormula, "cell 0 0");
         tableModel = (DefaultTableModel) gradeTable.getModel();
 
     }
@@ -75,8 +81,39 @@ public class GradePanel extends JPanel
         //@formatter:off
         tableModel
                 .insertRow(tableModel.getRowCount(), new Object[] {"test1"});
-        
+        updateFormulaLabel();
+        grade();
         //@formatter:on
 
+    }
+
+    /**
+     * Grade and add graded entries to the table.
+     */
+    private void grade()
+    {
+        // WeightedGrader grader = context.getGrader();
+        context.grade();
+    }
+
+    /**
+     * Updates the formula label to reflect weights of components.
+     */
+    private void updateFormulaLabel()
+    {
+        if (context != null)
+        {
+            Object[] allComponents = context.getAllComponents();
+            String newLabelStr = "";
+
+            for (Object obj : allComponents)
+            {
+                GraderWeightedComponent comp = (GraderWeightedComponent) obj;
+                newLabelStr += " + (" + comp.getWeightFrom0To1() + ") ";
+                newLabelStr += comp.getModuleName();
+            }
+            newLabelStr = newLabelStr.substring(3);
+            lblFormula.setText("Formula: " + newLabelStr);
+        }
     }
 }
