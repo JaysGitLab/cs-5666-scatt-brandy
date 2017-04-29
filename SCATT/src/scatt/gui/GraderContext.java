@@ -25,7 +25,7 @@ public class GraderContext
     private ArrayList<GraderWeightedComponent> components = null;
     private HashMap<String, GraderWeightedComponent> componentMap = null;
     private WeightedGrader grader = null;
-    private ArrayList<String[]> gradedPairs;
+    private ArrayList<String[]> gradedPairs = null;
 
     /**
      * No arg constructor.

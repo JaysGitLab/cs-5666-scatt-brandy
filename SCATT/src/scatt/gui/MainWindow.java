@@ -30,6 +30,8 @@ public class MainWindow extends JFrame
     public MainWindow()
     {
         context = GraderContextFactory.getContext();
+        //new ScratchConfigurePanelInitializer().initialize(context);
+
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 700);

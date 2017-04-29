@@ -1,7 +1,6 @@
 package scatt.gui;
 
 import java.awt.Component;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,8 +27,8 @@ public class ConfigureControlPanel extends JPanel
 
     private static final long serialVersionUID = 8757410256026038342L;
     private JPanel buttonPanel;
-    private JDialog popupTest;
-    //private GraderContext context;
+
+    // private GraderContext context;
 
     /**
      * Create the panel.
@@ -40,8 +39,8 @@ public class ConfigureControlPanel extends JPanel
      */
     public ConfigureControlPanel(GraderContext context, JFrame owner)
     {
-        //this.context = context;
-        setLayout(new GridLayout(0, 1, 0, 0));
+        // this.context = context;
+        new ScratchConfigurePanelInitializer().initialize(context);
 
         JScrollPane scrollPane = new JScrollPane();
         add(scrollPane);
@@ -52,8 +51,8 @@ public class ConfigureControlPanel extends JPanel
 
         // popupTest = new ConfigurableOld(owner, "Test", true);
         // popupTest = new SpriteConfigurableOld(owner, "Sprite Configuration");
-        popupTest = new ConfigureDialog(owner, "Sprite Configuration", true,
-                new SpriteConfigurablePanel(context), context);
+        // popupTest = new ConfigureDialog(owner, "Sprite Configuration", true,
+        // new SpriteConfigurablePanel(context), context);
 
         // for now, demo that buttons can be generated
         // will be done based on grader.
@@ -65,7 +64,8 @@ public class ConfigureControlPanel extends JPanel
             GraderWeightedComponent comp = (GraderWeightedComponent) compObj;
             String name = comp.getModuleName();
             ConfigurablePanel panel = ConfigurablePanel.get(name);
-            insertButtonRow(panel, name);
+            insertButtonRow(panel, name, context, owner);
+
             
             //@formatter:on
         }
@@ -76,21 +76,27 @@ public class ConfigureControlPanel extends JPanel
      * Insert a new row into the table.
      * 
      * @param panel the configuration panel that should have a button generated.
-     * @param name - the name to give the new button. 
+     * @param name - the name to give the new button.
+     * @param owner - the window to be locked by the pop up dialog.
+     * @param context - the grader context used to construct a pop up dialog.
      */
-    protected void insertButtonRow(ConfigurablePanel panel, String name)
+    protected void insertButtonRow(final ConfigurablePanel panel,
+            final String name, final GraderContext context, final JFrame owner)
     {
         //@formatter:off
         JButton test = new JButton(name);
         test.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonPanel.add(test, null);
+                
         //@formatter:on
         test.addActionListener(new ActionListener()
         {
+            JDialog dialogWrapper = new ConfigureDialog(owner, name, true,
+                    panel, context);
             public void actionPerformed(ActionEvent arg0)
             {
                 System.out.println("testing button press");
-                popupTest.setVisible(true);
+                dialogWrapper.setVisible(true);
             }
         });
     }
