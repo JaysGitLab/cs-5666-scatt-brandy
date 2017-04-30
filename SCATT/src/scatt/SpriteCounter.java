@@ -4,11 +4,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Class that obtains the sprite count for a given project.json file.
  * 
  * @author Mikeal
+ * @author Matt Stone Piano throughMusical buttons
  * @version 1.0
  * 
  */
@@ -29,9 +31,16 @@ public class SpriteCounter
         }
         int scIndex = jsonFile.lastIndexOf("\"spriteCount\":");
 
-        int end = scIndex + 16;
-        String ss = jsonFile.substring(scIndex + 15, end);
-        return Integer.parseInt(ss);
+        // int end = scIndex + 16;
+        // String ss = jsonFile.substring(scIndex + 15, end);
+        // return Integer.parseInt(ss);
+        
+        String ss = jsonFile.substring(scIndex + "\"spriteCount\":".length());
+        ss = ss.replace(',', ' ');
+        Scanner ssScan = new Scanner(ss);
+        int value = ssScan.nextInt();
+        ssScan.close();
+        return value;
 
     }
 
