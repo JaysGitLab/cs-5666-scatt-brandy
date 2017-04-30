@@ -7,6 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import scatt.test.app.TestCommandLineGrader;
 import scatt.test.app.TestScriptCount;
 import scatt.test.app.TestScriptGrader;
+import scatt.test.app.TestSoundGrader;
 import scatt.test.app.TestSoundsCount;
 import scatt.test.app.TestSpriteCount;
 import scatt.test.app.TestSpriteGrader;
@@ -24,7 +25,7 @@ import scatt.test.app.unzipper.TestUnZipper;
 @SuiteClasses({ TestSpriteCount.class, TestTempo.class, TestUnZipper.class,
         TestCommandLineGrader.class, TestScriptCount.class,
         TestWeightGraderComponentMethods.class, TestSpriteGrader.class,
-        TestScriptGrader.class,
+        TestSoundGrader.class, TestScriptGrader.class,
         // TestBlockCountGrader.class, TestCostumesGrader.class,
         TestSoundsCount.class, })
 public class AllTests

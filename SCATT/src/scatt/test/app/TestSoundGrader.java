@@ -2,6 +2,7 @@ package scatt.test.app;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 
@@ -19,7 +20,7 @@ import scatt.gradermodules.ScriptGrader;
  * @version 1.0
  * 
  */
-public class TestScriptGrader
+public class TestSoundGrader
 {
 
     private static String pianoSb2Path;
@@ -55,9 +56,10 @@ public class TestScriptGrader
      * Tests that the sprite grader returns the correct values.
      */
     @Test
-    public void testScriptGraderGetWeightedGradeValuesPiano()
+    public void testSpriteGraderGetWeightedGradeValuesPiano()
     {
-        System.out.println("piano " + student1Piano.getScriptCount());
+        System.out.println("piano total" + student1Piano.getUniqueSoundCount());
+        System.out.println("piano Unique" + student1Piano.getTotalSoundCount());
 
         // constructor(weight, #scripts for 100)
         // 100 should give 100
@@ -84,13 +86,15 @@ public class TestScriptGrader
 
         // test that extra credit doesn't allow over 100 (student:13 req:10)
         assertEquals(100f, wgcP.getWeightedGrade(student1Piano), 0.001);
+        
+        fail("not implmented - change to sounds not scripts");
     }
 
     /**
      * Tests that the sprite grader returns the correct values.
      */
     @Test
-    public void testScriptGraderGetGrade0To100ValuesPiano()
+    public void testSpriteGraderGetGrade0To100ValuesPiano()
     {
         // constructor(weight, #scripts for 100)
         // 100 should give 100 (weight doesn't matter in test)
@@ -111,6 +115,7 @@ public class TestScriptGrader
         // test that extra credit doesn't allow over 100 (student:13 req:10)
         assertEquals(100f, wgcP.getGradeFrom0To100(student1Piano), 0.001);
         // test that student doesn't have 100 (required more than obtained)
+        fail("not implmented - change to sounds not scripts");
 
 
     }
@@ -118,7 +123,7 @@ public class TestScriptGrader
      * Tests that the sprite grader returns the correct values.
      */
     @Test
-    public void testScriptGraderGetWeightedGradeValuesMaze()
+    public void testSpriteGraderGetWeightedGradeValuesMaze()
     {
         System.out.println("maze " + student2Maze.getScriptCount());
 
@@ -150,13 +155,16 @@ public class TestScriptGrader
 
         // test that student doesn't have 100 (required more than obtained)
         assertTrue(wgcM.getGradeFrom0To100(student2Maze) < 100);
+        
+        fail("not implmented - change to sounds not scripts");
+
     }
 
     /**
      * Tests that the sprite grader returns the correct values.
      */
     @Test
-    public void testScriptGraderGetGrade0To100ValuesMaze()
+    public void testSpriteGraderGetGrade0To100ValuesMaze()
     {
         // 100 should give 50 (weight doesn't matter in this test)
         GraderWeightedComponent wgcForMaze = new ScriptGrader(.5f, 7);
@@ -175,13 +183,15 @@ public class TestScriptGrader
 
         // test that student doesn't have 100 (required more than obtained)
         assertTrue(wgcM.getGradeFrom0To100(student2Maze) < 100);
+        fail("not implmented - change to sounds not scripts");
+
     }
 
     /**
      * Tests that the sprite grader returns the correct values.
      */
     @Test
-    public void testScriptGraderGetWeightedGradeValuesHide()
+    public void testSpriteGraderGetWeightedGradeValuesHide()
     {
         System.out.println("hide " + student3Hide.getScriptCount());
 
@@ -211,13 +221,16 @@ public class TestScriptGrader
 
         // test that student doesn't have 100 (required more than obtained)
         assertEquals(50f, wgcH.getWeightedGrade(student3Hide), 0.001);
+        
+        fail("not implmented - change to sounds not scripts");
+
     }
 
     /**
      * Tests that the sprite grader returns the correct values.
      */
     @Test
-    public void testScriptGraderGetGrade0To100ValuesHide()
+    public void testSpriteGraderGetGrade0To100ValuesHide()
     {
         // 100 should give 10 (weight doesn't matter in this test)
         GraderWeightedComponent wgcForHide = new ScriptGrader(.1f, 2);
@@ -237,6 +250,8 @@ public class TestScriptGrader
         // test that extra credit doesn't allow over 100 (student:13 req:10)
         // test that student doesn't have 100 (required more than obtained)
         assertEquals(50f, wgcH.getGradeFrom0To100(student3Hide), 0.001);
+        fail("not implmented - change to sounds not scripts");
+
     }
 
     /**
@@ -251,6 +266,8 @@ public class TestScriptGrader
         
         // test allowing extra credit (13f / 10f > 1f)
         assertTrue(wgcP.getWeightedGrade(student1Piano) > 100);
+        fail("not implmented - change to sounds not scripts");
+
     }
     /**
      * Tests the extraCredit mode. Tests that it works when turned on. Tests
@@ -264,6 +281,8 @@ public class TestScriptGrader
         
         // test allowing extra credit (5 / 7f > 1f)
         assertTrue(wgcP.getWeightedGrade(student2Maze) > 100);
+        fail("not implmented - change to sounds not scripts");
+
     }    /**
      * Tests the extraCredit mode. Tests that it works when turned on. Tests
      * that you cannot get over 100 when turned off.
@@ -276,5 +295,7 @@ public class TestScriptGrader
         
         // test allowing extra credit (2 / 1f > 1f)
         assertTrue(wgcP.getWeightedGrade(student3Hide) > 100);
+        fail("not implmented - change to sounds not scripts");
+
     }
 }
