@@ -43,7 +43,7 @@ public class TestCommandLineGrader
         altOutStream = new PrintStream(baos);
         System.setOut(altOutStream);
 
-        String inputString = generateInputForTestPollMulti();
+        String inputString = generateInputForTestUserPollingMulti();
         is = new ByteArrayInputStream(inputString.getBytes());
         System.setIn(is);
 
@@ -67,10 +67,41 @@ public class TestCommandLineGrader
      * 
      * @return a string with mocked user input.
      */
-    private String generateInputForTestPollMulti()
+    // private String generateInputForTestCmdArgMulti()
+    // {
+    // // valid
+    // String userTypedArgumentsSimulated = TestUtils.getFilePathMultiOSSafe()
+    // + File.separator + "TestData" + File.separator
+    // + "Pong Starter.sb2" + "\n";
+    //
+    // // valid
+    // userTypedArgumentsSimulated += TestUtils.getFilePathMultiOSSafe()
+    // + File.separator + "TestData" + File.separator
+    // + "Pong Starter.sb2" + "\n";
+    // // invalid
+    // userTypedArgumentsSimulated += TestUtils.getFilePathMultiOSSafe()
+    // + File.separator + "TestData" + File.separator
+    // + "BadFile.abcdefg" + "\n";
+    //
+    // // user asks to quit
+    // userTypedArgumentsSimulated += "QUIT";
+    // return userTypedArgumentsSimulated;
+    // }
+
+    /**
+     * Generates some input for when testing the when grader polls user for file
+     * names.
+     * 
+     * @return a string with mocked user input.
+     */
+    private String generateInputForTestUserPollingMulti()
     {
+        // arguments
+        String userTypedArgumentsSimulated = "10\n";
+        userTypedArgumentsSimulated += "no\n";
+
         // valid
-        String userTypedArgumentsSimulated = TestUtils.getFilePathMultiOSSafe()
+        userTypedArgumentsSimulated += TestUtils.getFilePathMultiOSSafe()
                 + File.separator + "TestData" + File.separator
                 + "Pong Starter.sb2" + "\n";
 
@@ -84,7 +115,7 @@ public class TestCommandLineGrader
                 + "BadFile.abcdefg" + "\n";
 
         // user asks to quit
-        userTypedArgumentsSimulated += "QUIT";
+        userTypedArgumentsSimulated += "DONE";
         return userTypedArgumentsSimulated;
     }
 
@@ -121,7 +152,7 @@ public class TestCommandLineGrader
      * contingent, so this method passes if the grader outputs anything at all.
      */
     @Test
-    public void testCMDGraderArgumentInCorrect()
+    public void testCMDGraderArgumentIncorrect()
     {
         String zippedDataPath = TestUtils.getFilePathMultiOSSafe()
                 + File.separator + "TestData" + File.separator
@@ -129,10 +160,11 @@ public class TestCommandLineGrader
 
         // emulate the command prompt @formatter:off
         // (java first argument is the word after classname)
-        CommandLineGrader.main(new String[] {zippedDataPath });
+        CommandLineGrader.main(
+                new String[] {zippedDataPath});
         // @formatter:on
 
-        String captured = baos.toString().trim().split("\n")[0];
+        String captured = baos.toString().trim().split("\n")[2];
         if (captured.charAt(captured.length() - 1) == '\r')
         {
             // trim off \r
