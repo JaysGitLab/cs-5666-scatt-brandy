@@ -13,16 +13,15 @@ import org.junit.Test;
 import scatt.Student;
 
 /**
- * Test the reading of the costume count.
+ * Test the reading of the variable count. 
  * 
- * @author Matt Stone
  * @author Broderick DeSantis
+ * @author
  * @version 0.5
  *
  */
-public class TestCostumeCount
+public class TestVariableCount
 {
-
     /**
      * The first test of the costume tests.
      */
@@ -74,11 +73,11 @@ public class TestCostumeCount
     public void testUniqueCostumeCounts()
     {
         assertTrue("incorrect costumes for piano",
-                student1Piano.getUniqueCostumeCount() == 21);
+                student1Piano.getUniqueVariableCount() == 1);
         assertTrue("incorrect costumes for maze",
-                student2Maze.getUniqueCostumeCount() == 4);
+                student2Maze.getUniqueVariableCount() == 0);
         assertTrue("incorrect costumes for hide",
-                student3Hide.getUniqueCostumeCount() == 5);
+                student3Hide.getUniqueVariableCount() == 1);
     }
     
     /**
@@ -90,13 +89,12 @@ public class TestCostumeCount
     {
        
         assertTrue("incorrect costumes for piano",
-                student1Piano.getTotalCostumeCount() == 27);
+                student1Piano.getTotalVariableCount() == 1);
         assertTrue("incorrect costumes for maze",
-                student2Maze.getTotalCostumeCount() == 4);
+                student2Maze.getTotalVariableCount() == 0);
         
         //notice this one is different from the unique costume count
         assertTrue("incorrect costumes for hide",
-                student3Hide.getTotalCostumeCount() == 5);
+                student3Hide.getTotalVariableCount() == 1);
     }
-
 }
