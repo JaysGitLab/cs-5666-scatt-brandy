@@ -13,6 +13,8 @@ import javax.swing.table.DefaultTableModel;
 
 import net.miginfocom.swing.MigLayout;
 import scatt.GraderWeightedComponent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /**
  * The GUI panel for grading.
@@ -43,6 +45,14 @@ public class GradePanel extends JPanel
      */
     public GradePanel(GraderContext context)
     {
+        addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusGained(FocusEvent arg0)
+            {
+                updateFormulaLabel();
+            }
+        });
         this.context = context;
         setLayout(new MigLayout("", "[97px,grow]", "[25px][grow]"));
 
@@ -69,7 +79,6 @@ public class GradePanel extends JPanel
         lblFormula = new JLabel("Formula:");
         add(lblFormula, "cell 0 0");
         tableModel = (DefaultTableModel) gradeTable.getModel();
-
     }
 
     /**
@@ -115,7 +124,7 @@ public class GradePanel extends JPanel
     /**
      * Updates the formula label to reflect weights of components.
      */
-    private void updateFormulaLabel()
+    public void updateFormulaLabel()
     {
         if (context != null)
         {
