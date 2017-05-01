@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * This class parses a project.json fileand returns how many unique costumes are
  * present in file.
  * 
- * @author Matt Stone
+ * @author Broderick DeSantis
  * @version 1.0
  * 
  */
