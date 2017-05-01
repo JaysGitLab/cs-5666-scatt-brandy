@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import scatt.GraderWeightedComponent;
 import scatt.Student;
-import scatt.gradermodules.ScriptGrader;
+import scatt.gradermodules.SoundGrader;
 
 /**
  * All tests related to the sprite grader.
@@ -19,7 +19,7 @@ import scatt.gradermodules.ScriptGrader;
  * @version 1.0
  * 
  */
-public class TestScriptGrader
+public class TestSoundGrader
 {
 
     private static String pianoSb2Path;
@@ -55,46 +55,44 @@ public class TestScriptGrader
      * Tests that the sprite grader returns the correct values.
      */
     @Test
-    public void testScriptGraderGetWeightedGradeValuesPiano()
+    public void testSoundGraderGetWeightedGradeValuesPiano()
     {
-        System.out.println("piano " + student1Piano.getScriptCount());
 
         // constructor(weight, #scripts for 100)
         // 100 should give 100
-        GraderWeightedComponent wgcForPiano = new ScriptGrader(1.0f, 13);
+        GraderWeightedComponent wgcForPiano = new SoundGrader(1, 1, 1, .5f);
         assertEquals(100f, wgcForPiano.getWeightedGrade(student1Piano), 0.001);
+
         // CHANGE WEIGHTS
         wgcForPiano.setWeight(0.1f);
+        assertEquals(10f, wgcForPiano.getWeightedGrade(student1Piano), 0.001);
+        wgcForPiano.setWeight(1.f);
 
         // Current grades should be 100, weight of .2 * 100 = 20.
-        assertEquals(10f, wgcForPiano.getWeightedGrade(student1Piano), 0.001);
+        assertEquals(100f, wgcForPiano.getWeightedGrade(student1Piano), 0.001);
 
         // CHANGE REQUIRED SCORE (casts are known to be true)
-        ScriptGrader wgcP = (ScriptGrader) wgcForPiano;
+        SoundGrader wgcP = (SoundGrader) wgcForPiano;
 
-        // set wgcP to a number lower (to give extra credit)
-        // set others to number higher to give non-100 score.
-        wgcP.setNewRequiredScripts(10);
+        wgcP.setNumberUniqueRequired(2);
+        wgcP.setTotalNumberRequired(2);
 
-        // set all weights to 1 for easy calculations
-        wgcP.setWeight(1f);
+        // test that weights work properly
+        wgcP.setWeight(.5f);
 
-        // ensure non-extra credit mode (should be default but may change later)
-        wgcP.setExtraCreditMode(false);
+        // grade is 50, at .5 weight == .25 weighted grade
+        assertEquals(25, wgcP.getWeightedGrade(student1Piano), 0.001);
 
-        // test that extra credit doesn't allow over 100 (student:13 req:10)
-        assertEquals(100f, wgcP.getWeightedGrade(student1Piano), 0.001);
     }
 
     /**
      * Tests that the sprite grader returns the correct values.
      */
     @Test
-    public void testScriptGraderGetGrade0To100ValuesPiano()
+    public void testSoundGraderGetGrade0To100ValuesPiano()
     {
-        // constructor(weight, #scripts for 100)
         // 100 should give 100 (weight doesn't matter in test)
-        GraderWeightedComponent wgcPiano = new ScriptGrader(1.0f, 13);
+        GraderWeightedComponent wgcPiano = new SoundGrader(1, 1, 1, .5f);
         assertEquals(100f, wgcPiano.getGradeFrom0To100(student1Piano), 0.001);
 
         // CHANGE WEIGHTS (tests are same since this isn't the weighted score)
@@ -104,90 +102,103 @@ public class TestScriptGrader
         assertEquals(100f, wgcPiano.getGradeFrom0To100(student1Piano), 0.001);
 
         // CHANGE REQUIRED SCORE (casts are known to be true)
-        ScriptGrader wgcP = (ScriptGrader) wgcPiano;
-        wgcP.setNewRequiredScripts(10);
-        wgcP.setExtraCreditMode(false);
+        SoundGrader wgcP = (SoundGrader) wgcPiano;
+        wgcP.setNumberUniqueRequired(2);
+        wgcP.setTotalNumberRequired(2);
 
-        // test that extra credit doesn't allow over 100 (student:13 req:10)
-        assertEquals(100f, wgcP.getGradeFrom0To100(student1Piano), 0.001);
-        // test that student doesn't have 100 (required more than obtained)
-
+        assertEquals(50f, wgcP.getGradeFrom0To100(student1Piano), 0.001);
 
     }
+
     /**
      * Tests that the sprite grader returns the correct values.
      */
     @Test
-    public void testScriptGraderGetWeightedGradeValuesMaze()
+    public void testSoundGraderGetWeightedGradeValuesMaze()
     {
-        System.out.println("maze " + student2Maze.getScriptCount());
-
-        // constructor(weight, #scripts for 100)
-        // 100 should give 100
-
-        // 100 should give 50 (by weight)
-        GraderWeightedComponent wgcForMaze = new ScriptGrader(.5f, 7);
-        assertEquals(50f, wgcForMaze.getWeightedGrade(student2Maze), 0.001);
+        GraderWeightedComponent wgcForMaze = new SoundGrader(.1f, 2, 2, .5f);
+        assertEquals(10f, wgcForMaze.getWeightedGrade(student2Maze), 0.001);
 
         // CHANGE WEIGHTS
-        wgcForMaze.setWeight(0.2f);
+        wgcForMaze.setWeight(1.0f);
 
         // Current grades should be 100, weight of .2 * 100 = 20.
-        assertEquals(20f, wgcForMaze.getWeightedGrade(student2Maze), 0.001);
+        assertEquals(100f, wgcForMaze.getWeightedGrade(student2Maze), 0.001);
 
         // CHANGE REQUIRED SCORE (casts are known to be true)
-        ScriptGrader wgcM = (ScriptGrader) wgcForMaze;
+        SoundGrader wgcM = (SoundGrader) wgcForMaze;
 
-        // set wgcP to a number lower (to give extra credit)
-        // set others to number higher to give non-100 score.
-        wgcM.setNewRequiredScripts(70);
+        // TEST UNIQUE AND TOTAL WEIGHTS
+        wgcM.setTotalNumberRequired(4);
+        wgcM.setTotalSoundsGradeFractionalWeight(0.75f);
+        
+        //50*.75 + 100 * .25 = 62.5
+        assertEquals(62.5f, wgcForMaze.getWeightedGrade(student2Maze), 0.001);
 
-        // set all weights to 1 for easy calculations
-        wgcM.setWeight(1f);
+        // will update total weight too
+        wgcM.setUniqueSoundFractionalWeight(0.5f);
+        wgcM.setTotalNumberRequired(2);
+        assertEquals(100f, wgcForMaze.getWeightedGrade(student2Maze), 0.001);
 
         // ensure non-extra credit mode (should be default but may change later)
         wgcM.setExtraCreditMode(false);
 
         // test that student doesn't have 100 (required more than obtained)
-        assertTrue(wgcM.getGradeFrom0To100(student2Maze) < 100);
+        wgcM.setWeight(0.5);
+        assertEquals(50f, wgcM.getWeightedGrade(student2Maze), 0.001);
+        
     }
 
     /**
      * Tests that the sprite grader returns the correct values.
      */
     @Test
-    public void testScriptGraderGetGrade0To100ValuesMaze()
+    public void testSoundGraderGetGrade0To100ValuesMaze()
     {
-        // 100 should give 50 (weight doesn't matter in this test)
-        GraderWeightedComponent wgcForMaze = new ScriptGrader(.5f, 7);
+        GraderWeightedComponent wgcForMaze = new SoundGrader(.1f, 2, 2, .5f);
+        //should still be 10, even thought weight is .1
         assertEquals(100f, wgcForMaze.getGradeFrom0To100(student2Maze), 0.001);
 
-        // CHANGE WEIGHTS (tests are same since this isn't the weighted score)
-        wgcForMaze.setWeight(0.2f);
+        // CHANGE WEIGHTS
+        wgcForMaze.setWeight(1.0f);
 
-        // since weight shouldn't affect grade, they're the same as last test
+        // Current grades should be 100, weight of .2 * 100 = 20.
         assertEquals(100f, wgcForMaze.getGradeFrom0To100(student2Maze), 0.001);
 
         // CHANGE REQUIRED SCORE (casts are known to be true)
-        ScriptGrader wgcM = (ScriptGrader) wgcForMaze;
-        wgcM.setNewRequiredScripts(70);
+        SoundGrader wgcM = (SoundGrader) wgcForMaze;
+
+        // TEST UNIQUE AND TOTAL WEIGHTS
+        wgcM.setTotalNumberRequired(4);
+        wgcM.setTotalSoundsGradeFractionalWeight(0.75f);
+        
+        //50*.75 + 100 * .25 = 62.5
+        assertEquals(62.5f, wgcForMaze.getGradeFrom0To100(student2Maze), 0.001);
+
+        // will update total weight too
+        wgcM.setUniqueSoundFractionalWeight(0.5f);
+        wgcM.setTotalNumberRequired(2);
+        assertEquals(100f, wgcForMaze.getGradeFrom0To100(student2Maze), 0.001);
+
+        // ensure non-extra credit mode (should be default but may change later)
         wgcM.setExtraCreditMode(false);
 
-        // test that student doesn't have 100 (required more than obtained)
-        assertTrue(wgcM.getGradeFrom0To100(student2Maze) < 100);
+        // test that overall weight doesn't affectFrom0To100
+        wgcM.setWeight(0.5);
+        assertEquals(100f, wgcM.getGradeFrom0To100(student2Maze), 0.001);
+
     }
 
     /**
      * Tests that the sprite grader returns the correct values.
      */
     @Test
-    public void testScriptGraderGetWeightedGradeValuesHide()
+    public void testSoundGraderGetWeightedGradeValuesHide()
     {
-        System.out.println("hide " + student3Hide.getScriptCount());
 
         // constructor(weight, #scripts for 100)
         // 100 should give 10 (by weight)
-        GraderWeightedComponent wgcForHide = new ScriptGrader(.1f, 2);
+        GraderWeightedComponent wgcForHide = new SoundGrader(.1f, 3, 4, .5f);
         assertEquals(10f, wgcForHide.getWeightedGrade(student3Hide), 0.001);
 
         // CHANGE WEIGHTS
@@ -197,19 +208,23 @@ public class TestScriptGrader
         assertEquals(100f, wgcForHide.getWeightedGrade(student3Hide), 0.001);
 
         // CHANGE REQUIRED SCORE (casts are known to be true)
-        ScriptGrader wgcH = (ScriptGrader) wgcForHide;
+        SoundGrader wgcH = (SoundGrader) wgcForHide;
 
-        // set wgcP to a number lower (to give extra credit)
-        // set others to number higher to give non-100 score.
-        wgcH.setNewRequiredScripts(4);
+        // TEST UNIQUE AND TOTAL WEIGHTS
+        wgcH.setTotalNumberRequired(8);
+        wgcH.setTotalSoundsGradeFractionalWeight(0.75f);
+        assertEquals(62.5f, wgcForHide.getWeightedGrade(student3Hide), 0.001);
 
-        // set all weights to 1 for easy calculations
-        wgcH.setWeight(1f);
+        // will update total weight too
+        wgcH.setUniqueSoundFractionalWeight(0.5f);
+        wgcH.setTotalNumberRequired(4);
+        assertEquals(100f, wgcForHide.getWeightedGrade(student3Hide), 0.001);
 
         // ensure non-extra credit mode (should be default but may change later)
         wgcH.setExtraCreditMode(false);
 
         // test that student doesn't have 100 (required more than obtained)
+        wgcH.setWeight(0.5);
         assertEquals(50f, wgcH.getWeightedGrade(student3Hide), 0.001);
     }
 
@@ -217,41 +232,43 @@ public class TestScriptGrader
      * Tests that the sprite grader returns the correct values.
      */
     @Test
-    public void testScriptGraderGetGrade0To100ValuesHide()
+    public void testSoundGraderGetGrade0To100ValuesHide()
     {
-        // 100 should give 10 (weight doesn't matter in this test)
-        GraderWeightedComponent wgcForHide = new ScriptGrader(.1f, 2);
+        
+        //Almost identical test, but weight shouldn't change
+        GraderWeightedComponent wgcForHide = new SoundGrader(.1f, 3, 4, .5f);
+        wgcForHide.setWeight(0.1f);
         assertEquals(100f, wgcForHide.getGradeFrom0To100(student3Hide), 0.001);
 
-        // CHANGE WEIGHTS (tests are same since this isn't the weighted score)
-        wgcForHide.setWeight(1.0f);
+        // CHANGE WEIGHTS
+        //wgcForHide.setWeight(1.0f);
 
-        // since weight shouldn't affect grade, they're the same as last test
+        // Current grades should be 100, weight of .2 * 100 = 20.
         assertEquals(100f, wgcForHide.getGradeFrom0To100(student3Hide), 0.001);
 
         // CHANGE REQUIRED SCORE (casts are known to be true)
-        ScriptGrader wgcH = (ScriptGrader) wgcForHide;
-        wgcH.setNewRequiredScripts(4);
+        SoundGrader wgcH = (SoundGrader) wgcForHide;
+
+        // TEST UNIQUE AND TOTAL WEIGHTS
+        wgcH.setTotalNumberRequired(8);
+        wgcH.setTotalSoundsGradeFractionalWeight(0.75f);
+        assertEquals(62.5f, wgcForHide.getGradeFrom0To100(student3Hide), 0.001);
+
+        // will update total weight too
+        wgcH.setUniqueSoundFractionalWeight(0.5f);
+        wgcH.setTotalNumberRequired(4);
+        assertEquals(100f, wgcForHide.getGradeFrom0To100(student3Hide), 0.001);
+
+        // ensure non-extra credit mode (should be default but may change later)
         wgcH.setExtraCreditMode(false);
 
-        // test that extra credit doesn't allow over 100 (student:13 req:10)
         // test that student doesn't have 100 (required more than obtained)
-        assertEquals(50f, wgcH.getGradeFrom0To100(student3Hide), 0.001);
+        wgcH.setWeight(0.5);
+        assertEquals(100f, wgcH.getGradeFrom0To100(student3Hide), 0.001);
+        
+
     }
 
-    /**
-     * Tests the extraCredit mode. Tests that it works when turned on. Tests
-     * that you cannot get over 100 when turned off.
-     */
-    @Test
-    public void testExtraCreditModePiano()
-    {
-        ScriptGrader wgcP = new ScriptGrader(1.0f, 10);
-        wgcP.setExtraCreditMode(true);
-        
-        // test allowing extra credit (13f / 10f > 1f)
-        assertTrue(wgcP.getWeightedGrade(student1Piano) > 100);
-    }
     /**
      * Tests the extraCredit mode. Tests that it works when turned on. Tests
      * that you cannot get over 100 when turned off.
@@ -259,22 +276,26 @@ public class TestScriptGrader
     @Test
     public void testExtraCreditModeMaze()
     {
-        ScriptGrader wgcP = new ScriptGrader(1.0f, 5);
+        SoundGrader wgcP = new SoundGrader(1.0f, 1, 1, .5f);
         wgcP.setExtraCreditMode(true);
-        
-        // test allowing extra credit (5 / 7f > 1f)
+
+        // has more than 1 sound, so should have extra credit
         assertTrue(wgcP.getWeightedGrade(student2Maze) > 100);
-    }    /**
+
+    }
+
+    /**
      * Tests the extraCredit mode. Tests that it works when turned on. Tests
      * that you cannot get over 100 when turned off.
      */
     @Test
     public void testExtraCreditModeHide()
     {
-        ScriptGrader wgcP = new ScriptGrader(1.0f, 1);
+        SoundGrader wgcP = new SoundGrader(1.0f, 1, 1, .5f);
         wgcP.setExtraCreditMode(true);
-        
-        // test allowing extra credit (2 / 1f > 1f)
+
+        // has more than 1 sound, so should have extra credit points
         assertTrue(wgcP.getWeightedGrade(student3Hide) > 100);
+
     }
 }

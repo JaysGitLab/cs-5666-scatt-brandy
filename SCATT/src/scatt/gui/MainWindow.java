@@ -1,7 +1,6 @@
 package scatt.gui;
 
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -20,22 +19,22 @@ import javax.swing.border.EmptyBorder;
 public class MainWindow extends JFrame
 {
 
-    /**
-	 * 
-	 */
     private static final long serialVersionUID = -39970827731145361L;
+    private static MainWindow singleton;
     private JPanel contentPane;
-
-    // private JFileChooser dirChooser;
-    // private JFileChooser fileChooser;
+    private GraderContext context;
 
     /**
      * Create the frame.
      */
     public MainWindow()
     {
+        context = GraderContextFactory.getContext();
+        //new ScratchConfigurePanelInitializer().initialize(context);
+
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 1000, 700);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -55,20 +54,29 @@ public class MainWindow extends JFrame
         gbcTabbedPane.gridy = 0;
         contentPane.add(tabbedPane, gbcTabbedPane);
 
-        JPanel load = new JPanel();
+        JPanel load = new LoaderPanel(context);
         tabbedPane.addTab("Load", null, load, null);
-        load.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        JPanel loader = new LoaderPanel();
-        load.add(loader);
 
-        // JPanel configure = new JPanel();
-        JPanel configure = new ConfigurePanel();
+        JPanel configure = new ConfigureControlPanel(context, this);
         tabbedPane.addTab("Configure", null, configure, null);
 
-        // JPanel grade = new JPanel();
-        JPanel grade = new GradePanel();
+        JPanel grade = new GradePanel(context);
         tabbedPane.addTab("Grade", null, grade, null);
-        
+
+    }
+
+    /**
+     * Get the main window object; instantiates object if no such object exists.
+     * 
+     * @return the singleton object for the main window.
+     */
+    public static MainWindow getInstance()
+    {
+        if (singleton == null)
+        {
+            MainWindow.singleton = new MainWindow();
+        }
+        return singleton;
     }
 
     /**
@@ -84,7 +92,7 @@ public class MainWindow extends JFrame
             {
                 try
                 {
-                    MainWindow frame = new MainWindow();
+                    MainWindow frame = MainWindow.getInstance();
                     frame.setVisible(true);
                 }
                 catch (Exception e)

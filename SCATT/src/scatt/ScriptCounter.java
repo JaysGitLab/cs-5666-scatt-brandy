@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Class that obtains the script count for a given project.json file.
@@ -28,10 +29,18 @@ public class ScriptCounter
             return -1;
         }
         int scriptIndex = jsonFile.lastIndexOf("\"scriptCount\":");
-        int end = scriptIndex + 16;
-        //int comma = jsonFile.indexOf(',', scriptIndex);
-        String ss = jsonFile.substring(scriptIndex + 15, end);
-        return Integer.parseInt(ss);
+        //int end = scriptIndex + 16;
+        // int comma = jsonFile.indexOf(',', scriptIndex);
+        // String ss = jsonFile.substring(scriptIndex + 15, end);
+        // return Integer.parseInt(ss);
+
+        String ss = jsonFile.substring(scriptIndex
+                + "\"scriptCount\":".length());
+        ss = ss.replace(',', ' ');
+        Scanner ssScan = new Scanner(ss);
+        int value = ssScan.nextInt();
+        ssScan.close();
+        return value;
 
     }
 

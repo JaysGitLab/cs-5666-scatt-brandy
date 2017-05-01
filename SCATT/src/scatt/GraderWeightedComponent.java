@@ -106,7 +106,11 @@ public abstract class GraderWeightedComponent
      * 
      * @return The weighted grade of this component; ie Weight * Grade.
      */
-    public abstract double getWeightedGrade(Gradeable objectToGrade);
+    public double getWeightedGrade(Gradeable objectToGrade)
+    {      
+        //simply return the weight * unweighted grade.
+        return getWeightFrom0To1() * getGradeFrom0To100(objectToGrade);
+    }
 
     /**
      * Determines if the argument's concrete type is valid for grading within

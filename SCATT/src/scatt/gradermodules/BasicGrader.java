@@ -5,41 +5,45 @@ import scatt.GraderWeightedComponent;
 import scatt.Student;
 
 /**
- * The WeightedGraderComponent responsible for grading sprites.
+ * The WeightedGraderComponent responsible abstract class that is responsible
+ * for simplistic grading (similar to sprite and script).
+ * 
  * 
  * @author Matt Stone
  * @version 1.0
  * 
  */
-public class SpriteGrader extends GraderWeightedComponent
+public abstract class BasicGrader extends GraderWeightedComponent
 {
-    public static final String MODULE_NAME = "Sprite Grader";
+    // public static final String MODULE_NAME;
     private int required = 0;
 
     /**
-     * @param weight - the weight of the sprite module for the entire grading
+     * @param weight - the weight of the script module for the entire grading
      *            process.
-     * @param requiredSprites - the number of sprites to receive a 100.
+     * @param requiredItems - the number of items (eg sprites, scripts, tempos,
+     *            sounds, etc) to receive a 100.
+     * @param moduleName - a gui appropriate name for the module.
      */
-    public SpriteGrader(float weight, int requiredSprites)
+    public BasicGrader(float weight, int requiredItems, String moduleName)
     {
         // must call abstract constructor
-        super(weight, SpriteGrader.MODULE_NAME);
-        setNewRequiredSprites(requiredSprites);
+        super(weight, moduleName);
+        setNewRequired(requiredItems);
     }
 
     /**
      * Updates the denominator used for grading. The calculation for this
-     * concrete grader is: (number of sprites) / (required sprites) * 100.
+     * concrete grader is: (number of scripts) / (required scripts) * 100.
      * 
-     * For example, say a grade of 100 is to have 8 sprites. If the user has 6
-     * sprites, then their grade will be equal to 6/8 * 100. The 8 in that
+     * For example, say a grade of 100 is to have 8 scripts. If the user has 6
+     * scripts, then their grade will be equal to 6/8 * 100. The 8 in that
      * fraction is the denominator. This method is used to configure how the
-     * sprite grader works.
+     * script grader works.
      * 
      * @param newRequired denominator of the fraction used for grading.
      */
-    public void setNewRequiredSprites(int newRequired)
+    public void setNewRequired(int newRequired)
     {
         if (newRequired < 1)
         {
@@ -58,12 +62,12 @@ public class SpriteGrader extends GraderWeightedComponent
      */
     public double getGradeFrom0To100(Gradeable objectToGrade)
     {
-
+        // downcast necessary to keep other classes closed
         if (objectToGrade instanceof Student)
         {
             Student toGrade = (Student) objectToGrade;
-            double numberOfSprites = toGrade.getSpriteCount();
-            double grade = 100 * numberOfSprites / getRequiredSprites();
+            double numberOfScripts = toGrade.getScriptCount();
+            double grade = 100 * numberOfScripts / getRequired();
 
             if (!getExtraCreditMode() && grade > 100f)
             {
@@ -108,11 +112,11 @@ public class SpriteGrader extends GraderWeightedComponent
     }
 
     /**
-     * Get the number of required sprites.
+     * Get the number of required scripts.
      * 
-     * @return the number of required sprites to get a grade of 100.
+     * @return the number of required scripts to get a grade of 100.
      */
-    public int getRequiredSprites()
+    public int getRequired()
     {
         return required;
     }
