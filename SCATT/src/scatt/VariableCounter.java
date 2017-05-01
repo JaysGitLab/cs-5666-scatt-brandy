@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * This class parses a project.json file and returns how many unique variables are
  * present in file.
  * 
- * @author Matt Stone
+ * @author Broderick DeSantis
  * @version 1.0
  * 
  */
