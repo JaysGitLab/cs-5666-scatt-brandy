@@ -1,5 +1,6 @@
 package scatt.gui;
 
+import scatt.gradermodules.ScriptGrader;
 import scatt.gradermodules.SoundGrader;
 import scatt.gradermodules.SpriteGrader;
 
@@ -24,7 +25,7 @@ public class GraderContextFactory
     {
         GraderContext ret = new GraderContext();
         
-        float totalNumberModules = 2;
+        float totalNumberModules = 3;
         float equalDistribute = 1 / totalNumberModules;
         
         
@@ -34,6 +35,9 @@ public class GraderContextFactory
         
         SoundGrader sndg = new SoundGrader(equalDistribute, 1, 1, .5f);
         ret.addComponent(sndg);
+        
+        ScriptGrader scriptGrader = new ScriptGrader(equalDistribute, 5);
+        ret.addComponent(scriptGrader);
 
         return ret;
     }

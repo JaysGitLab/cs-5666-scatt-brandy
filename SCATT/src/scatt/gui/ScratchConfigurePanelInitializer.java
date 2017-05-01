@@ -23,6 +23,7 @@ public class ScratchConfigurePanelInitializer implements CFPanelInitializer
         // (multition pattern)
         new SpriteConfigurablePanel(context);
         new SoundConfigurablePanel(context);
+        new ScriptConfigurablePanel(context);
     }
 
 }
