@@ -65,7 +65,6 @@ public class ConfigureControlPanel extends JPanel
             String name = comp.getModuleName();
             ConfigurablePanel panel = ConfigurablePanel.get(name);
             insertButtonRow(panel, name, context, owner);
-
             
             //@formatter:on
         }

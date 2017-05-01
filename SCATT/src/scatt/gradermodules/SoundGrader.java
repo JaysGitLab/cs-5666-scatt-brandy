@@ -85,8 +85,8 @@ public class SoundGrader extends GraderWeightedComponent
             }
 
             // get the actual fractional weight
-            float uniPortion = uniFrac * getUniqueGradePercentage();
-            float totPortion = totFrac * getTotalSoundsGradePercentage();
+            float uniPortion = uniFrac * getUniqueGradeFraction();
+            float totPortion = totFrac * getTotalSoundsGradeFraction();
 
             // simply return the sum.
             return 100 * (uniPortion + totPortion);
@@ -182,7 +182,7 @@ public class SoundGrader extends GraderWeightedComponent
      * 
      * @return the fractional weight for gradePercetage.
      */
-    public float getUniqueGradePercentage()
+    public float getUniqueGradeFraction()
     {
         return uniqueGradeFractionalWeight;
     }
@@ -215,7 +215,7 @@ public class SoundGrader extends GraderWeightedComponent
      * 
      * @return the fractional
      */
-    public float getTotalSoundsGradePercentage()
+    public float getTotalSoundsGradeFraction()
     {
         return 1 - this.uniqueGradeFractionalWeight;
     }

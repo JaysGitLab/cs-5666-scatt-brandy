@@ -22,6 +22,7 @@ public class ScratchConfigurePanelInitializer implements CFPanelInitializer
         // simply initializing panels will store them in a static field
         // (multition pattern)
         new SpriteConfigurablePanel(context);
+        new SoundConfigurablePanel(context);
     }
 
 }
