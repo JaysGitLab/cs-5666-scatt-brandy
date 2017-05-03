@@ -29,7 +29,7 @@ public class MainWindow extends JFrame
     /**
      * Create the frame.
      */
-    public MainWindow()
+    private MainWindow()
     {
         context = GraderContextFactory.getContext();
         // new ScratchConfigurePanelInitializer().initialize(context);
