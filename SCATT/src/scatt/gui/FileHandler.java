@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -71,45 +72,71 @@ public class FileHandler extends JFrame
 
     /**
      * Test method that opens up a file chooser.
+     * 
+     * @return returns a list of valid .sb2 paths contained in the folder.
      */
-    protected void openDirectoryFromFileMenu()
+    protected ArrayList<String> openDirectoryFromFileMenu()
     {
+        ArrayList<String> validPaths = new ArrayList<String>();
         // open file chooser and then check if they approved a file
         if (dirChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
         {
             File dir = dirChooser.getSelectedFile();
             System.out.println("opened: " + dir.getAbsolutePath());
-            System.out.println("printing found .sb2 files in directory");
 
             // find every .sb2 in this directory and load them into memory
-            // TODO (INCOMPLETE)
             for (File file : dir.listFiles())
             {
                 String path = file.getAbsolutePath();
-                if (path.substring(path.length() - 4).equals(".sb2"))
+                int dotIndex = path.lastIndexOf('.');
+
+                // if there is a period
+                if (dotIndex != -1)
                 {
-                    // create a student object? printing for now
-                    System.out.println(file.getAbsolutePath());
+                    String extension = path.substring(dotIndex);
+                    if (extension.equals(".sb2"))
+                    {
+                        // System.out.println(file.getAbsolutePath());
+                        validPaths.add(file.getAbsolutePath());
+
+                    }
                 }
             }
         }
+
+        return validPaths;
     }
 
     /**
      * Test method that opens up a single file from the file menu.
+     * 
+     * @return the file path to the selected .sb2 if it is valid or null if
+     *         invalid path.
      */
-    protected void openFileFromFileMenu()
+    protected String openFileFromFileMenu()
     {
+        String result = null;
         // open file chooser and then check if they approved a file
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
         {
             File openedSb2 = fileChooser.getSelectedFile();
-            // below is an example of how it might look to create a student
-            // Student student = new Student(openedSb2.getAbsolutePath());
-            System.out.println(openedSb2.getAbsolutePath());
+            // System.out.println(openedSb2.getAbsolutePath());
+            int dotIndex = openedSb2.getAbsolutePath().lastIndexOf(".");
 
+            // check if file has an extension
+            if (dotIndex != -1)
+            {
+                String temp = openedSb2.getAbsolutePath();
+                // check if appropriate extension
+                if (temp.substring(dotIndex).equals(".sb2"))
+                {
+                    // set up result to return the path.
+                    result = temp;
+                }
+            }
         }
 
+        return result;
     }
 
     /**
