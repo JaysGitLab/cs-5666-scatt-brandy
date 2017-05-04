@@ -29,7 +29,7 @@ public class TestBlockCountGrader
 
     /**
      * Set up for the tests.
-     */
+     */ 
     @BeforeClass
     public static void setUp()
     {
@@ -37,7 +37,7 @@ public class TestBlockCountGrader
                 + File.separator + "TestData" + File.separator;
         pianoSb2Path = pathToTestDataFolder + "Piano.sb2";
         mazeSb2Path = pathToTestDataFolder + "Maze Starter.sb2";
-        hideSb2Path = pathToTestDataFolder + "Hide And Seek.sb2";
+        hideSb2Path = pathToTestDataFolder + "Hide and Seek.sb2";
 
         student1Piano = new Student(pianoSb2Path);
         assertEquals("student load failed", 13, student1Piano.getSpriteCount());
@@ -93,7 +93,7 @@ public class TestBlockCountGrader
         //
         // //set all weights to 1 for easy calculations
         // wgcP.setWeight(1f);
-        // wgcM.setWeight(1f);
+        // wgcM.setWeight(1f);T
         // wgcH.setWeight(1f);
         //
         // //ensure non-extra credit mode (should be default but may change
