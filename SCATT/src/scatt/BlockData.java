@@ -13,6 +13,7 @@ public class BlockData
 {
     /** Script : <"name" : count>. */
     private HashMap<String, HashMap<String, Integer>> scripts;
+    private int controlBlocks = 0;
 
     /**
      * The constructor for the block data.
@@ -30,7 +31,41 @@ public class BlockData
      */
     private void analyzeData()
     {
+        countControlBlocks();
+    }
 
+    /**
+     * Count up the control blocks within all scripts.
+     * 
+     * @return the number of identified control blocks
+     */
+    private int countControlBlocks()
+    {
+        int blockCount = 0;
+        for (HashMap<String, Integer> script : scripts.values())
+        {
+            for (String blockName : script.keySet())
+            {
+                if (validControlBlock(blockName))
+                {
+                    blockCount += script.get(blockName);
+                }
+            }
+        }
+        return blockCount;
+    }
+
+    /**
+     * Determines if the block name is within the control block category.
+     * 
+     * @param blockName the name of the block to be tested.
+     * @return true if the block is a control block type, false otherwise
+     */
+    private boolean validControlBlock(String blockName)
+    {
+        // TODO Auto-generated method stub
+        System.out.println("validControlBlock not implemented");
+        return false;
     }
 
     /**
