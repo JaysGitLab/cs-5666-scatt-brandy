@@ -13,7 +13,7 @@ import scatt.Student;
 public class ListGrader extends BasicGrader
 {
 
-    private static final String MODULE_NAME = "list grader";
+    public static final String MODULE_NAME = "List Grader";
 
     /**
      * Construct a grader for lsits.

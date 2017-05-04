@@ -136,8 +136,11 @@ public class GradePanel extends JPanel
                 GraderWeightedComponent comp = (GraderWeightedComponent) obj;
                 newLabelStr += " + ("
                         + String.format("%.3f", comp.getWeightFrom0To1())
-                        + ") ";
-                newLabelStr += comp.getModuleName();
+                        + ")*";
+                String moduleName = comp.getModuleName();
+                moduleName = moduleName.split(" ")[0];
+                
+                newLabelStr += moduleName;
             }
             newLabelStr = newLabelStr.substring(3);
             lblFormula.setText("Formula: " + newLabelStr);

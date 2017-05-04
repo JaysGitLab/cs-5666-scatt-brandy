@@ -26,6 +26,7 @@ public class ScratchConfigurePanelInitializer implements CFPanelInitializer
         new ScriptConfigurablePanel(context);
         new VariableConfigurablePanel(context);
         new CostumeConfigurablePanel(context);
+        new ListConfigurablePanel(context);
     }
 
 }
