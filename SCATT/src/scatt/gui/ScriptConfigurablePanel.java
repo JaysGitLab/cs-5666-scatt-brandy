@@ -1,13 +1,13 @@
 package scatt.gui;
 
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-import scatt.gradermodules.SpriteGrader;
-
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import scatt.gradermodules.ScriptGrader;
 
 /**
  * 
@@ -15,10 +15,10 @@ import java.awt.event.FocusEvent;
  * @version 1.0
  * 
  */
-public class SpriteConfigurablePanel extends ConfigurablePanel
+public class ScriptConfigurablePanel extends ConfigurablePanel
 {
     private static final long serialVersionUID = -1163580773363401330L;
-    private JTextField spriteTextField;
+    private JTextField scriptTextField;
     private JTextField weightTextField;
     private JLabel numSprReqLabel;
     private JLabel weightLabel;
@@ -28,30 +28,30 @@ public class SpriteConfigurablePanel extends ConfigurablePanel
      * 
      * @param context the context used to obtain grading information.
      */
-    public SpriteConfigurablePanel(GraderContext context)
+    public ScriptConfigurablePanel(GraderContext context)
     {
-        super(context, SpriteGrader.MODULE_NAME);
+        super(context, ScriptGrader.MODULE_NAME);
         SpringLayout springLayout = new SpringLayout();
         setLayout(springLayout);
 
-        spriteTextField = new JTextField();
-        spriteTextField.addFocusListener(new FocusAdapter()
+        scriptTextField = new JTextField();
+        scriptTextField.addFocusListener(new FocusAdapter()
         {
             @Override
             public void focusLost(FocusEvent arg0)
             {
-                processSpriteTextField();
+                processScriptTextField();
             }
         });
-        add(spriteTextField);
-        spriteTextField.setColumns(10);
+        add(scriptTextField);
+        scriptTextField.setColumns(10);
 
-        numSprReqLabel = new JLabel("Number Of Required Sprites:");
-        springLayout.putConstraint(SpringLayout.WEST, spriteTextField, 41,
+        numSprReqLabel = new JLabel("Number Of Required Scripts:");
+        springLayout.putConstraint(SpringLayout.WEST, scriptTextField, 41,
                 SpringLayout.EAST, numSprReqLabel);
         springLayout.putConstraint(SpringLayout.WEST, numSprReqLabel, 29,
                 SpringLayout.WEST, this);
-        springLayout.putConstraint(SpringLayout.NORTH, spriteTextField, -3,
+        springLayout.putConstraint(SpringLayout.NORTH, scriptTextField, -3,
                 SpringLayout.NORTH, numSprReqLabel);
         springLayout.putConstraint(SpringLayout.NORTH, numSprReqLabel, 43,
                 SpringLayout.NORTH, this);
@@ -67,7 +67,7 @@ public class SpriteConfigurablePanel extends ConfigurablePanel
             }
         });
         springLayout.putConstraint(SpringLayout.EAST, weightTextField, 0,
-                SpringLayout.EAST, spriteTextField);
+                SpringLayout.EAST, scriptTextField);
         add(weightTextField);
         weightTextField.setColumns(10);
 
@@ -122,15 +122,15 @@ public class SpriteConfigurablePanel extends ConfigurablePanel
     }
 
     /**
-     * Evaluates text in the required sprite count text field to see check for
+     * Evaluates text in the required script count text field to see check for
      * valid float.
      * 
      * @return true if the text in the text box is a valid format, false
      *         otherwise.
      */
-    protected boolean processSpriteTextField()
+    protected boolean processScriptTextField()
     {
-        String text = spriteTextField.getText();
+        String text = scriptTextField.getText();
         try
         {
             // If parsing causes no errors, then return true.
@@ -142,11 +142,11 @@ public class SpriteConfigurablePanel extends ConfigurablePanel
         }
         catch (NumberFormatException e)
         {
-            updateSpriteTextFieldToStored("Value should be greater than 0");
+            updateScriptTextFieldToStored("Value should be greater than 0");
         }
         catch (IllegalArgumentException e)
         {
-            updateSpriteTextFieldToStored("Value should be greater than 0");
+            updateScriptTextFieldToStored("Value should be greater than 0");
         }
         return false;
     }
@@ -157,31 +157,31 @@ public class SpriteConfigurablePanel extends ConfigurablePanel
     private void setTextboxesToContainedData()
     {
         updateWeightTextFieldToStored("failure loading default");
-        updateSpriteTextFieldToStored("failure loading default");
+        updateScriptTextFieldToStored("failure loading default");
     }
 
     /**
-     * Attempts to load the number of required sprites from the grader and place
+     * Attempts to load the number of required scripts from the grader and place
      * it in the required field.
      * 
      * @param errorMsg - the message to display in text field should an error
      *            occur.
      */
-    private void updateSpriteTextFieldToStored(String errorMsg)
+    private void updateScriptTextFieldToStored(String errorMsg)
     {
-        SpriteGrader spriteGrader = (SpriteGrader) context
-                .getComponent(SpriteGrader.MODULE_NAME);
+        ScriptGrader spriteGrader = (ScriptGrader) context
+                .getComponent(ScriptGrader.MODULE_NAME);
         if (spriteGrader != null)
         {
-            // update the required sprites text box
-            spriteTextField.setText("" + spriteGrader.getRequiredSprites());
+            // update the required scripts text box
+            scriptTextField.setText("" + spriteGrader.getRequiredScripts());
         }
         else
         {
-            System.out.println("Cannot open the Sprite Grader "
+            System.out.println("Cannot open the Script Grader "
                     + "Weighted Component in gui.");
 
-            spriteTextField.setText(errorMsg);
+            scriptTextField.setText(errorMsg);
         }
     }
 
@@ -194,17 +194,17 @@ public class SpriteConfigurablePanel extends ConfigurablePanel
      */
     private void updateWeightTextFieldToStored(String errorMsg)
     {
-        SpriteGrader spriteGrader = (SpriteGrader) context
-                .getComponent(SpriteGrader.MODULE_NAME);
-        if (spriteGrader != null)
+        ScriptGrader scriptGrader = (ScriptGrader) context
+                .getComponent(ScriptGrader.MODULE_NAME);
+        if (scriptGrader != null)
         {
             // update the weight text box
             weightTextField.setText(String.format("%5.3f",
-                    spriteGrader.getWeightFrom0To1()));
+                    scriptGrader.getWeightFrom0To1()));
         }
         else
         {
-            System.out.println("Cannot open the Sprite Grader "
+            System.out.println("Cannot open the Script Grader "
                     + "Weighted Component in gui.");
 
             weightTextField.setText(errorMsg);
@@ -214,15 +214,15 @@ public class SpriteConfigurablePanel extends ConfigurablePanel
     @Override
     public void commitChoices(GraderContext context)
     {
-        SpriteGrader sg = (SpriteGrader) context
-                .getComponent(SpriteGrader.MODULE_NAME);
+        ScriptGrader sg = (ScriptGrader) context
+                .getComponent(ScriptGrader.MODULE_NAME);
         if (sg != null)
         {
             // @precondition: text boxes have been validated to be parsable as
             // floats/ints @formatter:off
             sg.setWeight(Float.parseFloat(weightTextField.getText()));
-            sg.setNewRequiredSprites(
-                    Integer.parseInt(spriteTextField.getText()));
+            sg.setNewRequiredScripts(
+                    Integer.parseInt(scriptTextField.getText()));
             //@formatter:on
         }
         else

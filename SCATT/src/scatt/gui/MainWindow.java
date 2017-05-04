@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /**
  * @author Mikeal Anderson
@@ -30,8 +32,7 @@ public class MainWindow extends JFrame
     public MainWindow()
     {
         context = GraderContextFactory.getContext();
-        //new ScratchConfigurePanelInitializer().initialize(context);
-
+        // new ScratchConfigurePanelInitializer().initialize(context);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 700);
@@ -60,8 +61,25 @@ public class MainWindow extends JFrame
         JPanel configure = new ConfigureControlPanel(context, this);
         tabbedPane.addTab("Configure", null, configure, null);
 
-        JPanel grade = new GradePanel(context);
-        tabbedPane.addTab("Grade", null, grade, null);
+        final GradePanel GRADE = new GradePanel(context);
+        GRADE.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusGained(FocusEvent arg0)
+            {
+                GRADE.updateFormulaLabel();
+            }
+        });
+        tabbedPane.addTab("Grade", null, GRADE, null);
+
+        tabbedPane.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusGained(FocusEvent arg0)
+            {
+                GRADE.updateFormulaLabel();
+            }
+        });
 
     }
 
