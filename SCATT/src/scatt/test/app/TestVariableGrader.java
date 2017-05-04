@@ -40,7 +40,7 @@ public class TestVariableGrader
                 + File.separator + "TestData" + File.separator;
         pianoSb2Path = pathToTestDataFolder + "Piano.sb2";
         mazeSb2Path = pathToTestDataFolder + "Maze Starter.sb2";
-        hideSb2Path = pathToTestDataFolder + "Hide And Seek.sb2";
+        hideSb2Path = pathToTestDataFolder + "Hide and Seek.sb2";
         demoSb2Path = pathToTestDataFolder + "Everything Demo.sb2";
 
         student1Piano = new Student(pianoSb2Path);
