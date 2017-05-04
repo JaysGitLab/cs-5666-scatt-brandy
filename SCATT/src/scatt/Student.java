@@ -24,6 +24,7 @@ import java.nio.file.Paths;
 public class Student implements Gradeable
 {
     private UnZipper unZipper;
+    private BlockData blockData;
     private int spriteCount = 0;
     private int scriptCount = 0;
     private int tempo = 0;
@@ -48,6 +49,7 @@ public class Student implements Gradeable
         File jsonFile = new File(folderPath + "/project.json");
 
         // pipeline starts
+        blockData = BlockCounter.getBlockData(jsonFile);
         spriteCount = SpriteCounter.getSpriteCount(jsonFile);
         scriptCount = ScriptCounter.getScriptCount(jsonFile);
         tempo = Tempo.getTempo(jsonFile);
@@ -93,6 +95,17 @@ public class Student implements Gradeable
     public int getTempo()
     {
         return tempo;
+    }
+
+
+    /**
+     * Get the number of script blocks that is in the student's project.
+     * 
+     * @return the number of blocks found in the student's file
+     */
+    public int getBlockCount()
+    {
+        return blockData.getCount();
     }
 
     /**

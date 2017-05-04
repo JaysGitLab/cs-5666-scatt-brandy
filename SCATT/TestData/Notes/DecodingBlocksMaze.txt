@@ -1,0 +1,76 @@
+https://scratch.mit.edu/projects/10128431/#editor
+"scripts": 
+		[
+			[10, 10, 							//script positin wrapper 
+				[								//brackets for position wrapper
+					["whenGreenFlag"], 			//block 1
+					["gotoX:y:", -205, 147]		//block 2
+				]								//end brackets for position wrapper
+			],
+			
+			[10, 83, 
+				[
+					["whenKeyPressed", "up arrow"],
+					["heading:", 0], 
+					["forward:", 10]
+				]
+			],
+			
+			[10, 171, 
+				[
+					["whenKeyPressed", "down arrow"],
+					["heading:", 180],
+					["forward:", 10]
+				]
+			],
+			
+			
+			[10, 259, 
+				[
+					["whenKeyPressed", "right arrow"],
+					["heading:", 90], ["forward:", 10]
+				]
+			],
+			
+			[10, 347, 
+				[
+					["whenKeyPressed", "left arrow"],
+					["heading:", -90], ["forward:", 10]
+				]
+			],
+			
+			[10, 435,													//position wrapper
+				[														//***position wrapper bracket for contents
+					["whenGreenFlag"],									//BLOCK1
+					["doForever", 										//BLOCK2
+						[												//SUBCONTENTS BRACKET
+							["doIf", ["touchingColor:", -15399425],		//BLOCK 3
+								[
+									["forward:", -10]						//BLOCK 4
+								]
+							]
+						]
+					]														//***end position wrapper bracket contents
+				]
+			]
+		],
+		
+	ALGORITHM (conditions do not count as blocks since every conditonal block is gauranteed to have a condition)
+		findPositionWrapper
+			while(positionWrapperBracketOpen):
+				if('[')
+					if(!ignore[):
+						counter++
+					else:
+						popIgnore
+					
+				else if (',' && bracketOpen):
+					ignore = push(True)
+				
+				else if (']' && ignore):
+					pop(True) from ignore
+				...
+					
+				
+				
+		

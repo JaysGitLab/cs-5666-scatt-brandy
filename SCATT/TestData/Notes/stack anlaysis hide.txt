@@ -1,0 +1,46 @@
+"scripts": [
+			[64,28,
+				[
+					[ //+1
+						"whenGreenFlag"],
+					[ //+1
+						"setVar:to:", "score", 0],
+					[ //+1
+						"gotoX:y:", 0, 0],
+					[ //+1
+						"show"],
+					[ //+1
+						"say:duration:elapsed:from:", "Click me to score points", 2],
+					[ //+1 (6)
+						"doForever",[ //+0
+							[ // +1 (7)
+								"hide"],
+							[ //+1 (8)
+								"wait:elapsed:from:", 1],
+							[ //+1 (9)
+								"gotoX:y:", [ //+0						//inconsistency - if statements have extra [] so it as if their argument counts
+									"randomFrom:to:", -200, 200], 
+								[ //+1 (10)
+									"randomFrom:to:", -140, 140]
+								], //THIS BRACKET CAUSES PREMATURE CLOSE OF LOOP
+							[ //+1
+								"show"],
+							[ //+1
+								"wait:elapsed:from:", 0.7]
+							]
+						]
+					]
+				],
+			
+			
+			[67, 342, [ 
+				[ //+1
+					"whenClicked"], 
+				[ //+1
+					"changeVar:by:", "score", 1],
+				[ //+1 
+					"playSound:", "zoop"]
+				]
+			]
+		],
+			
