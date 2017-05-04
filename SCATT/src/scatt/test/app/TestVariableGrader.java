@@ -12,7 +12,7 @@ import scatt.Student;
 import scatt.gradermodules.VariableGrader;
 
 /**
- * All tests related to the sprite grader.
+ * All tests related to the variable grader.
  * 
  * @author Matt Stone
  * @version 1.0
@@ -57,7 +57,7 @@ public class TestVariableGrader
     }
 
     /**
-     * Tests that the sprite grader returns the correct values.
+     * Tests that the variable grader returns the correct values.
      */
     @Test
     public void testVariableGraderGetWeightedGradeValuesPiano()
@@ -84,7 +84,7 @@ public class TestVariableGrader
     }
 
     /**
-     * Tests that the sprite grader returns the correct values.
+     * Tests that the variable grader returns the correct values.
      */
     @Test
     public void testVariableGraderGetWeightedGradeValuesMaze()
@@ -111,7 +111,7 @@ public class TestVariableGrader
     }
 
     /**
-     * Tests that the sprite grader returns the correct values.
+     * Tests that the variable grader returns the correct values.
      */
     @Test
     public void testVariableGraderGetWeightedGradeValuesHide()
@@ -141,7 +141,7 @@ public class TestVariableGrader
     }
 
     /**
-     * Tests that the sprite grader returns the correct values.
+     * Tests that the variable grader returns the correct values.
      */
     @Test
     public void testVariableGraderGetWeightedGradeValuesDemo()

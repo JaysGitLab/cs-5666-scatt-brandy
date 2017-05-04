@@ -1,7 +1,7 @@
 package scatt.test.app;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -9,9 +9,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import scatt.Student;
+import scatt.gradermodules.CostumeGrader;
 
 /**
- * All tests related to the sprite grader.
+ * All tests related to the costume grader.
  * 
  * @author Matt Stone
  * @version 1.0
@@ -23,9 +24,11 @@ public class TestCostumesGrader
     private static String pianoSb2Path;
     private static String mazeSb2Path;
     private static String hideSb2Path;
+    private static String demoSb2Path;
     private static Student student1Piano;
     private static Student student2Maze;
     private static Student student3Hide;
+    private static Student student4Demo;
 
     /**
      * Set up for the tests.
@@ -38,6 +41,7 @@ public class TestCostumesGrader
         pianoSb2Path = pathToTestDataFolder + "Piano.sb2";
         mazeSb2Path = pathToTestDataFolder + "Maze Starter.sb2";
         hideSb2Path = pathToTestDataFolder + "Hide And Seek.sb2";
+        demoSb2Path = pathToTestDataFolder + "Everything Demo.sb2";
 
         student1Piano = new Student(pianoSb2Path);
         assertEquals("student load failed", 13, student1Piano.getSpriteCount());
@@ -47,131 +51,122 @@ public class TestCostumesGrader
 
         student3Hide = new Student(hideSb2Path);
         assertEquals("student load failed", 1, student3Hide.getSpriteCount());
+
+        student4Demo = new Student(demoSb2Path);
+        assertEquals("demo load failed", 11, student4Demo.getSpriteCount());
     }
 
     /**
-     * Tests that the sprite grader returns the correct values.
+     * Tests that the costume grader returns the correct values.
      */
     @Test
-    public void testSpriteGraderGetWeightedGradeValues()
+    public void testCostumeGraderGetWeightedGradeValuesPiano()
     {
-        // // constructor(weight, #sprites for 100)
-        // // 100 should give 100
-        // GraderWeightedComponent wgcForPiano = new SpriteGrader(1.0f, 13);
-        // assertEquals(100f, wgcForPiano.getWeightedGrade(student1Piano),
-        // 0.001);
-        //
-        // // 100 should give 50 (by weight)
-        // GraderWeightedComponent wgcForMaze = new SpriteGrader(.5f, 2);
-        // assertEquals(50f, wgcForMaze.getWeightedGrade(student2Maze), 0.001);
-        //
-        // // 100 should give 10 (by weight)
-        // GraderWeightedComponent wgcForHide = new SpriteGrader(.1f, 1);
-        // assertEquals(10f, wgcForHide.getWeightedGrade(student3Hide), 0.001);
-        //
-        // //CHANGE WEIGHTS
-        // wgcForPiano.setWeight(0.1f);
-        // wgcForMaze.setWeight(0.2f);
-        // wgcForHide.setWeight(1.0f);
-        //
-        // //Current grades should be 100, weight of .2 * 100 = 20.
-        // assertEquals(10f, wgcForPiano.getWeightedGrade(student1Piano),
-        // 0.001);
-        // assertEquals(20f, wgcForMaze.getWeightedGrade(student2Maze), 0.001);
-        // assertEquals(100f, wgcForHide.getWeightedGrade(student3Hide), 0.001);
-        //
-        // //CHANGE REQUIRED SCORE (casts are known to be true)
-        // SpriteGrader wgcP = (SpriteGrader) wgcForPiano;
-        // SpriteGrader wgcM = (SpriteGrader) wgcForMaze;
-        // SpriteGrader wgcH = (SpriteGrader) wgcForHide;
-        //
-        // //set wgcP to a number lower (to give extra credit)
-        // //set others to number higher to give non-100 score.
-        // wgcP.setNewRequiredSprites(10);
-        // wgcM.setNewRequiredSprites(20);
-        // wgcH.setNewRequiredSprites(2);
-        //
-        // //set all weights to 1 for easy calculations
-        // wgcP.setWeight(1f);
-        // wgcM.setWeight(1f);
-        // wgcH.setWeight(1f);
-        //
-        // //ensure non-extra credit mode (should be default but may change
-        // later)
-        // wgcP.setExtraCreditMode(false);
-        // wgcM.setExtraCreditMode(false);
-        // wgcH.setExtraCreditMode(false);
-        //
-        // //test that extra credit doesn't allow over 100 (student:13 req:10)
-        // assertEquals(100f, wgcP.getWeightedGrade(student1Piano), 0.001);
-        // //test that student doesn't have 100 (required more than obtained)
-        // assertTrue(wgcM.getGradeFrom0To100(student2Maze) < 100);
-        // assertEquals(50f, wgcH.getWeightedGrade(student3Hide), 0.001);
-        //
-        // //test allowing extra credit (13f / 10f > 1f)
-        // wgcP.setExtraCreditMode(true);
-        // assertTrue(wgcP.getWeightedGrade(student1Piano) > 100);
-        fail("not implemented");
+        CostumeGrader costGrader = new CostumeGrader(1f, 25);
+        // 1 variable in piano
+        assertEquals("piano had incorrect grade", 100f,
+                costGrader.getWeightedGrade(student1Piano), 0.001);
+
+        costGrader.setWeight(0.5f);
+        // 1 variable in piano
+        assertEquals("piano had incorrect grade", 50f,
+                costGrader.getWeightedGrade(student1Piano), 0.001);
+
+
+        costGrader.setNewRequired(0);
+        // 1 variable in piano
+        assertEquals("piano had incorrect grade", 50f,
+                costGrader.getWeightedGrade(student1Piano), 0.001);
+
     }
 
     /**
-     * Tests that the sprite grader returns the correct values.
+     * Tests that the costume grader returns the correct values.
      */
     @Test
-    public void testSpriteGraderGetGrade0To100Values()
+    public void testCostumeGraderGetWeightedGradeValuesMaze()
     {
-        // // constructor(weight, #sprites for 100)
-        // // 100 should give 100 (weight doesn't matter in test)
-        // GraderWeightedComponent wgcForPiano = new SpriteGrader(1.0f, 13);
-        // assertEquals(100f, wgcForPiano.getGradeFrom0To100(student1Piano),
-        // 0.001);
-        //
-        // // 100 should give 50 (weight doesn't matter in this test)
-        // GraderWeightedComponent wgcForMaze = new SpriteGrader(.5f, 2);
-        // assertEquals(100f, wgcForMaze.getGradeFrom0To100(student2Maze),
-        // 0.001);
-        //
-        // // 100 should give 10 (weight doesn't matter in this test)
-        // GraderWeightedComponent wgcForHide = new SpriteGrader(.1f, 1);
-        // assertEquals(100f, wgcForHide.getGradeFrom0To100(student3Hide),
-        // 0.001);
-        //
-        // //CHANGE WEIGHTS (tests are same since this isn't the weighted score)
-        // wgcForPiano.setWeight(0.1f);
-        // wgcForMaze.setWeight(0.2f);
-        // wgcForHide.setWeight(1.0f);
-        //
-        // //since weight shouldn't affect grade, they're the same as last test
-        // assertEquals(100f, wgcForPiano.getGradeFrom0To100(student1Piano),
-        // 0.001);
-        // assertEquals(100f, wgcForMaze.getGradeFrom0To100(student2Maze),
-        // 0.001);
-        // assertEquals(100f, wgcForHide.getGradeFrom0To100(student3Hide),
-        // 0.001);
-        //
-        // //CHANGE REQUIRED SCORE (casts are known to be true)
-        // SpriteGrader wgcP = (SpriteGrader) wgcForPiano;
-        // SpriteGrader wgcM = (SpriteGrader) wgcForMaze;
-        // SpriteGrader wgcH = (SpriteGrader) wgcForHide;
-        // wgcP.setNewRequiredSprites(10);
-        // wgcM.setNewRequiredSprites(20);
-        // wgcH.setNewRequiredSprites(2);
-        // wgcP.setExtraCreditMode(false);
-        // wgcM.setExtraCreditMode(false);
-        // wgcH.setExtraCreditMode(false);
-        //
-        // //test that extra credit doesn't allow over 100 (student:13 req:10)
-        // assertEquals(100f, wgcP.getGradeFrom0To100(student1Piano), 0.001);
-        // //test that student doesn't have 100 (required more than obtained)
-        // assertTrue(wgcM.getGradeFrom0To100(student2Maze) < 100);
-        // assertEquals(50f, wgcH.getGradeFrom0To100(student3Hide), 0.001);
-        //
-        // //test allowing extra credit (13f / 10f > 1f)
-        // wgcP.setExtraCreditMode(true);
-        // assertTrue(wgcP.getGradeFrom0To100(student1Piano) > 100);
-        //
-        // //@formatter:on
-        fail("not implemented");
+        // weight = 1 --------------------------------------------------
+        CostumeGrader costGrader = new CostumeGrader(1f, 4);
+        // 0 variables in maze
+        assertEquals("maze had incorrect grade", 100f,
+                costGrader.getWeightedGrade(student2Maze), 0.001);
+
+        // weight = 0.5 --------------------------------------------------
+        // 0 variables in maze
+        costGrader.setWeight(0.5f);
+        costGrader.setNewRequired(8);
+        assertEquals("maze had incorrect grade", 25f,
+                costGrader.getWeightedGrade(student2Maze), 0.001);
+
+        // ------------------ set required to 0
+
+        costGrader.setNewRequired(0);
+        // 0 variables in maze 
+        assertEquals("maze had incorrect grade", 50f,
+                costGrader.getWeightedGrade(student2Maze), 0.001);
+
+    }
+
+    /**
+     * Tests that the costume grader returns the correct values.
+     */
+    @Test
+    public void testCostumeGraderGetWeightedGradeValuesHide()
+    {
+        // weight = 1 --------------------------------------------------
+        CostumeGrader costGrader = new CostumeGrader(1f, 5);
+
+        // 1 variable in hide
+        assertEquals("hide had incorrect grade", 100f,
+                costGrader.getWeightedGrade(student3Hide), 0.001);
+
+        // weight = 0.5 --------------------------------------------------
+        costGrader.setWeight(0.5f);
+
+        // 1 variable in hide
+        assertEquals("hide had incorrect grade", 50f,
+                costGrader.getWeightedGrade(student3Hide), 0.001);
+
+        // ------------------ set required to 0
+
+        costGrader.setNewRequired(0);
+
+        // 1 variable in hide
+        assertEquals("hide had incorrect grade", 50f,
+                costGrader.getWeightedGrade(student3Hide), 0.001);
+
+    }
+
+    /**
+     * Tests that the costume grader returns the correct values.
+     */
+    @Test
+    public void testCostumeGraderGetWeightedGradeValuesDemo()
+    {
+        // weight = 1 --------------------------------------------------
+        CostumeGrader costGrader = new CostumeGrader(1f, 24);
+
+        // 13 variables in demo
+        assertEquals("hide had incorrect grade", 100f,
+                costGrader.getWeightedGrade(student4Demo), 0.001);
+
+        // weight = 0.5 --------------------------------------------------
+        costGrader.setWeight(0.5f);
+
+        // 13 variables in demo
+        assertEquals("hide had incorrect grade", 50f,
+                costGrader.getWeightedGrade(student4Demo), 0.001);
+
+        // set required to 14 and weight to 1 --------------------------
+
+        costGrader.setNewRequired(48);
+        costGrader.setWeight(1f);
+
+        // 13 vars in demo
+        assertEquals("hide had incorrect grade", 50f,
+                costGrader.getWeightedGrade(student4Demo), 0.001);
+
     }
 
     /**
@@ -179,10 +174,19 @@ public class TestCostumesGrader
      * that you cannot get over 100 when turned off.
      */
     @Test
-    public void testExtraCreditMode()
+    public void testExtraCreditModeDemo()
     {
-        // you may have tested this in another section, which is fine - delete
-        // this method.
-        fail("not implemented");
+        CostumeGrader costGrader = new CostumeGrader(1f, 13);
+        costGrader.setExtraCreditMode(true);
+
+        // 1 variable in hide
+        assertTrue("hide had incorrect grade",
+                costGrader.getWeightedGrade(student4Demo) > 100f);
+        
+        costGrader.setExtraCreditMode(false);
+        assertEquals("hide had incorrect grade", 100f,
+                costGrader.getWeightedGrade(student4Demo), 0.001);
+
     }
+
 }

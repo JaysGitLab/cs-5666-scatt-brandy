@@ -64,6 +64,7 @@ public class Student implements Gradeable
         totalVariablesUsed = VariableCounter
                 .getTotalNonUniqueVariables(jsonFile);
 
+        
         // clean up created directory
         unZipper.clean();
     }
