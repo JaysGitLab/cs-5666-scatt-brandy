@@ -12,15 +12,14 @@ import java.io.IOException;
  * 
  * @author Chad
  * @version 1.0
- *
+ * 
  */
 public class ListCounter
 {
     /**
      * this is static method that takes a string and returns count of the list.
      * 
-     * @param jsonFile
-     *            - a string that contains the jsonfile contents
+     * @param jsonFile - a string that contains the jsonfile contents
      * @return count - count of instances of a certain string in the jsonfile
      */
     public static int getListCount(String jsonFile)
@@ -29,29 +28,40 @@ public class ListCounter
         {
             return -1;
         }
-        String str = jsonFile.substring(jsonFile.indexOf("lists") + 1);
-        str = str.substring(0, str.indexOf("}],"));
 
-        String finder = "listName";
-        int lastIndex = 0;
         int count = 0;
-
-        while (lastIndex != -1)
+        int listsIndex = jsonFile.indexOf("lists");
+        while (listsIndex != -1)
         {
-            lastIndex = str.indexOf(finder, lastIndex);
+            String str = jsonFile.substring(listsIndex + 1);
+            //trim the json file so that next indexOf("lists") will work
+            jsonFile = str.substring(str.indexOf("}],"));
+            
+            //trim string to contain only this section of lists 
+            str = str.substring(0, str.indexOf("}],"));
+            
+            String finder = "listName";
+            int lastIndex = 0;
 
-            if (lastIndex != -1)
+            while (lastIndex != -1)
             {
-                count++;
-                lastIndex += finder.length();
+                lastIndex = str.indexOf(finder, lastIndex);
+
+                if (lastIndex != -1)
+                {
+                    count++;
+                    lastIndex += finder.length();
+                }
             }
+            listsIndex = jsonFile.indexOf("lists");
         }
         return count;
     }
-    
+
     /**
      * this is a static get list that takes a file.
-     * @param jsonTextFile - some jsonfile 
+     * 
+     * @param jsonTextFile - some jsonfile
      * @return getListCount(fr) - passing it to the other get list
      */
     public static int getListCount(File jsonTextFile)
