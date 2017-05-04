@@ -90,7 +90,8 @@ public class CostumeCounter
      * Static method that returns the number of costumes in the sb2 file.
      * 
      * @param jsonTextFile json file
-     * @return number of costumes, -1 if spriteCount not found, -10 if IOException
+     * @return number of costumes, -1 if spriteCount not found, -10 if
+     *         IOException
      */
     public static int getUniqueCostumes(File jsonTextFile)
     {
@@ -102,10 +103,10 @@ public class CostumeCounter
      * Finds the total number of times any costume is used within a project.
      * 
      * @param jsonTextFile the File containing the json to parse.
-     * @return the number of costumes in various locations. This counts the number
-     *         of times any costume is used, not the number of unique costumes. For
-     *         example, if the user has 1 costume "pop" that is used 3 times in
-     *         the project, then this method will return 3.
+     * @return the number of costumes in various locations. This counts the
+     *         number of times any costume is used, not the number of unique
+     *         costumes. For example, if the user has 1 costume "pop" that is
+     *         used 3 times in the project, then this method will return 3.
      */
     public static int getTotalNonUniqueCostumes(File jsonTextFile)
     {
@@ -117,10 +118,10 @@ public class CostumeCounter
      * Finds the total number of times any costume is used within a project.
      * 
      * @param jsonTextFileAsStr the File containing the json to parse.
-     * @return the number of costumes in various locations. This counts the number
-     *         of times any costume is used, not the number of unique costumes. For
-     *         example, if the user has 1 costume "pop" that is used 3 times in
-     *         the project, then this method will return 3.
+     * @return the number of costumes in various locations. This counts the
+     *         number of times any costume is used, not the number of unique
+     *         costumes. For example, if the user has 1 costume "pop" that is
+     *         used 3 times in the project, then this method will return 3.
      */
     private static int getTotalNonUniqueCostumes(String jsonTextFileAsStr)
     {

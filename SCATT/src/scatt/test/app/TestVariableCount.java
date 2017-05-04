@@ -1,9 +1,6 @@
 package scatt.test.app;
 
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-//import static org.junit.Assert.fail;
 
 import java.io.File;
 
@@ -12,13 +9,15 @@ import org.junit.Test;
 
 import scatt.Student;
 
+//import static org.junit.Assert.fail;
+
 /**
- * Test the reading of the variable count. 
+ * Test the reading of the variable count.
  * 
  * @author Broderick DeSantis
  * @author
  * @version 0.5
- *
+ * 
  */
 public class TestVariableCount
 {
@@ -32,6 +31,10 @@ public class TestVariableCount
     private static Student student1Piano;
     private static Student student2Maze;
     private static Student student3Hide;
+    
+    
+    private static String demoSb2Path;
+    private static Student student4Demo;
 
     // private static Student student4Howler;
 
@@ -46,6 +49,8 @@ public class TestVariableCount
         pianoSb2Path = pathToTestDataFolder + "Piano.sb2";
         mazeSb2Path = pathToTestDataFolder + "Maze Starter.sb2";
         hideSb2Path = pathToTestDataFolder + "Hide and Seek.sb2";
+        demoSb2Path = pathToTestDataFolder + "Everything Demo.sb2";
+
         // howlerSb2Path = pathToTestDataFolder +
         // "Introducing Howler! Remix.sb2";
 
@@ -59,6 +64,9 @@ public class TestVariableCount
         student3Hide = new Student(hideSb2Path);
         assertEquals("student load failed", 1, student3Hide.getSpriteCount());
 
+        student4Demo = new Student(demoSb2Path);
+        assertEquals("demo load failed", 11, student4Demo.getSpriteCount());
+
         // Note: this causes an issue!
         // student4Howler = new Student(howlerSb2Path);
         // assertEquals("student load failed", 3,
@@ -66,35 +74,59 @@ public class TestVariableCount
     }
 
     /**
-     * A test that checks if TestCostumeCount correctly identifies the number of
-     * Costumes.
+     * A test that checks if TestvariablesCount correctly identifies the number
+     * of variables.
      */
     @Test
-    public void testUniqueCostumeCounts()
+    public void testUniqueVariableCounts()
     {
-        assertTrue("incorrect costumes for piano",
-                student1Piano.getUniqueVariableCount() == 1);
-        assertTrue("incorrect costumes for maze",
-                student2Maze.getUniqueVariableCount() == 0);
-        assertTrue("incorrect costumes for hide",
-                student3Hide.getUniqueVariableCount() == 1);
+        assertEquals("incorrect variables for piano", 1,
+                student1Piano.getUniqueVariableCount());
+        assertEquals("incorrect variables for maze", 0,
+                student2Maze.getUniqueVariableCount());
+        assertEquals("incorrect variables for hide", 1,
+                student3Hide.getUniqueVariableCount());
+    }
+
+
+    /**
+     * A test that checks if Testvariables correctly identifies the number of
+     * variables.
+     */
+    @Test
+    public void testTotalVariabeCounts()
+    {
+
+        assertEquals("incorrect variables for piano", 1,
+                student1Piano.getTotalVariableCount());
+        assertEquals("incorrect variables for maze", 0,
+                student2Maze.getTotalVariableCount(), 0);
+
+        // notice this one is different from the unique variables count
+        assertEquals("incorrect variables for hide", 1,
+                student3Hide.getTotalVariableCount());
+    }
+    
+    
+    /**
+     * A test that checks if TestvariablesCount correctly identifies the number
+     * of variables.
+     */
+    @Test
+    public void testUniqueVariableCountsDemo()
+    {
+        assertEquals("incorrect variables for hide", 13,
+                student4Demo.getUniqueVariableCount());
     }
     
     /**
-     * A test that checks if TestCostumeCount correctly identifies the number of
-     * sounds.
+     * A test that checks if Testvariables correctly identifies the number of
+     * variables.
      */
     @Test
-    public void testTotalCostumeCounts()
+    public void testTotalVariabeCountsDemoSb2()
     {
-       
-        assertTrue("incorrect costumes for piano",
-                student1Piano.getTotalVariableCount() == 1);
-        assertTrue("incorrect costumes for maze",
-                student2Maze.getTotalVariableCount() == 0);
-        
-        //notice this one is different from the unique costume count
-        assertTrue("incorrect costumes for hide",
-                student3Hide.getTotalVariableCount() == 1);
+        assertEquals("incorrect variables for hide", 13,
+                student4Demo.getTotalVariableCount());
     }
 }

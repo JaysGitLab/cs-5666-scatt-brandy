@@ -9,8 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * This class parses a project.json file and returns how many unique variables are
- * present in file.
+ * This class parses a project.json file and returns how many unique variables
+ * are present in file.
  * 
  * @author Broderick DeSantis
  * @version 1.0
@@ -78,7 +78,7 @@ public class VariableCounter
      * @param jsonFile a string representation of the json file
      * @return the number of unique variable clips.
      */
-    public static int getUniquevariables(String jsonFile)
+    public static int getUniqueVariables(String jsonFile)
     {
         // set up the hash map
         mapvariables(jsonFile);
@@ -90,39 +90,40 @@ public class VariableCounter
      * Static method that returns the number of variables in the sb2 file.
      * 
      * @param jsonTextFile json file
-     * @return number of variables, -1 if spriteCount not found, -10 if IOException
+     * @return number of variables, -1 if spriteCount not found, -10 if
+     *         IOException
      */
-    public static int getUniquevariables(File jsonTextFile)
+    public static int getUniqueVariables(File jsonTextFile)
     {
         String fileStr = convertFileToString(jsonTextFile);
-        return getUniquevariables(fileStr);
+        return getUniqueVariables(fileStr);
     }
 
     /**
      * Finds the total number of times any variable is used within a project.
      * 
      * @param jsonTextFile the File containing the json to parse.
-     * @return the number of variables in various locations. This counts the number
-     *         of times any variable is used, not the number of unique variables. For
-     *         example, if the user has 1 variable "pop" that is used 3 times in
-     *         the project, then this method will return 3.
+     * @return the number of variables in various locations. This counts the
+     *         number of times any variable is used, not the number of unique
+     *         variables. For example, if the user has 1 variable "pop" that is
+     *         used 3 times in the project, then this method will return 3.
      */
-    public static int getTotalNonUniquevariables(File jsonTextFile)
+    public static int getTotalNonUniqueVariables(File jsonTextFile)
     {
         String fileStr = convertFileToString(jsonTextFile);
-        return getTotalNonUniquevariables(fileStr);
+        return getTotalNonUniqueVariables(fileStr);
     }
 
     /**
      * Finds the total number of times any variable is used within a project.
      * 
      * @param jsonTextFileAsStr the File containing the json to parse.
-     * @return the number of variables in various locations. This counts the number
-     *         of times any variable is used, not the number of unique variables. For
-     *         example, if the user has 1 variable "pop" that is used 3 times in
-     *         the project, then this method will return 3.
+     * @return the number of variables in various locations. This counts the
+     *         number of times any variable is used, not the number of unique
+     *         variables. For example, if the user has 1 variable "pop" that is
+     *         used 3 times in the project, then this method will return 3.
      */
-    private static int getTotalNonUniquevariables(String jsonTextFileAsStr)
+    private static int getTotalNonUniqueVariables(String jsonTextFileAsStr)
     {
         mapvariables(jsonTextFileAsStr);
         int total = 0;
