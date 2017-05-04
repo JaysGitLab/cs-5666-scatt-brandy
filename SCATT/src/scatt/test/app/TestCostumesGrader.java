@@ -63,18 +63,18 @@ public class TestCostumesGrader
     public void testCostumeGraderGetWeightedGradeValuesPiano()
     {
         CostumeGrader costGrader = new CostumeGrader(1f, 25);
-        // 1 variable in piano
+
         assertEquals("piano had incorrect grade", 100f,
                 costGrader.getWeightedGrade(student1Piano), 0.001);
 
         costGrader.setWeight(0.5f);
-        // 1 variable in piano
+
         assertEquals("piano had incorrect grade", 50f,
                 costGrader.getWeightedGrade(student1Piano), 0.001);
 
 
         costGrader.setNewRequired(0);
-        // 1 variable in piano
+
         assertEquals("piano had incorrect grade", 50f,
                 costGrader.getWeightedGrade(student1Piano), 0.001);
 
@@ -88,12 +88,11 @@ public class TestCostumesGrader
     {
         // weight = 1 --------------------------------------------------
         CostumeGrader costGrader = new CostumeGrader(1f, 4);
-        // 0 variables in maze
+
         assertEquals("maze had incorrect grade", 100f,
                 costGrader.getWeightedGrade(student2Maze), 0.001);
 
         // weight = 0.5 --------------------------------------------------
-        // 0 variables in maze
         costGrader.setWeight(0.5f);
         costGrader.setNewRequired(8);
         assertEquals("maze had incorrect grade", 25f,
@@ -102,7 +101,7 @@ public class TestCostumesGrader
         // ------------------ set required to 0
 
         costGrader.setNewRequired(0);
-        // 0 variables in maze 
+
         assertEquals("maze had incorrect grade", 50f,
                 costGrader.getWeightedGrade(student2Maze), 0.001);
 
@@ -117,14 +116,12 @@ public class TestCostumesGrader
         // weight = 1 --------------------------------------------------
         CostumeGrader costGrader = new CostumeGrader(1f, 5);
 
-        // 1 variable in hide
         assertEquals("hide had incorrect grade", 100f,
                 costGrader.getWeightedGrade(student3Hide), 0.001);
 
         // weight = 0.5 --------------------------------------------------
         costGrader.setWeight(0.5f);
 
-        // 1 variable in hide
         assertEquals("hide had incorrect grade", 50f,
                 costGrader.getWeightedGrade(student3Hide), 0.001);
 
@@ -132,7 +129,6 @@ public class TestCostumesGrader
 
         costGrader.setNewRequired(0);
 
-        // 1 variable in hide
         assertEquals("hide had incorrect grade", 50f,
                 costGrader.getWeightedGrade(student3Hide), 0.001);
 
@@ -147,14 +143,12 @@ public class TestCostumesGrader
         // weight = 1 --------------------------------------------------
         CostumeGrader costGrader = new CostumeGrader(1f, 24);
 
-        // 13 variables in demo
         assertEquals("hide had incorrect grade", 100f,
                 costGrader.getWeightedGrade(student4Demo), 0.001);
 
         // weight = 0.5 --------------------------------------------------
         costGrader.setWeight(0.5f);
 
-        // 13 variables in demo
         assertEquals("hide had incorrect grade", 50f,
                 costGrader.getWeightedGrade(student4Demo), 0.001);
 
@@ -163,7 +157,6 @@ public class TestCostumesGrader
         costGrader.setNewRequired(48);
         costGrader.setWeight(1f);
 
-        // 13 vars in demo
         assertEquals("hide had incorrect grade", 50f,
                 costGrader.getWeightedGrade(student4Demo), 0.001);
 
@@ -179,7 +172,6 @@ public class TestCostumesGrader
         CostumeGrader costGrader = new CostumeGrader(1f, 13);
         costGrader.setExtraCreditMode(true);
 
-        // 1 variable in hide
         assertTrue("hide had incorrect grade",
                 costGrader.getWeightedGrade(student4Demo) > 100f);
         

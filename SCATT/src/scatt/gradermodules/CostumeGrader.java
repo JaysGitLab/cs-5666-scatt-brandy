@@ -48,10 +48,10 @@ public class CostumeGrader extends BasicGrader
             }
 
             Student student = (Student) objectToGrade;
-            double uniVars = student.getUniqueCostumeCount();
+            double uniCostumes = student.getUniqueCostumeCount();
 
             // template pattern on required
-            double grade = uniVars / getRequired();
+            double grade = uniCostumes / getRequired();
             grade *= 100;
 
             if (!getExtraCreditMode() && grade > 100)

@@ -1,7 +1,6 @@
 package scatt.test.app;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -9,16 +8,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import scatt.Student;
-import scatt.gradermodules.ListGrader;
+import scatt.gradermodules.TempoGrader;
 
 /**
- * All tests related to the list grader.
+ * All tests related to the costume grader.
  * 
  * @author Matt Stone
  * @version 1.0
  * 
  */
-public class TestListGrader
+public class TestTempoGrader
 {
 
     private static String pianoSb2Path;
@@ -56,53 +55,50 @@ public class TestListGrader
         assertEquals("demo load failed", 11, student4Demo.getSpriteCount());
     }
 
-   
     /**
-     * Tests that the list grader returns the correct values.
+     * Tests that the costume grader returns the correct values.
      */
     @Test
-    public void testListGraderGetWeightedGradeValuesDemo()
+    public void testTempoGraderGetWeightedGradeValuesPiano()
+    {
+        TempoGrader tempoGrader = new TempoGrader(1f, 60);
+        // 1 variable in piano
+        assertEquals("piano had incorrect grade", 100f,
+                tempoGrader.getWeightedGrade(student1Piano), 0.001);
+
+        tempoGrader.setWeight(0.5f);
+        // 1 variable in piano
+        assertEquals("piano had incorrect grade", 50f,
+                tempoGrader.getWeightedGrade(student1Piano), 0.001);
+
+
+        tempoGrader.setNewRequired(0);
+        // 1 variable in piano
+        assertEquals("piano had incorrect grade", 50f,
+                tempoGrader.getWeightedGrade(student1Piano), 0.001);
+
+    }
+
+  
+    /**
+     * Tests that the costume grader returns the correct values.
+     */
+    @Test
+    public void testTempoGraderGetWeightedGradeValuesDemo()
     {
         // weight = 1 --------------------------------------------------
-        ListGrader listGrader = new ListGrader(1f, 13);
+        TempoGrader tempoGrader = new TempoGrader(1f, 60);
 
-        assertEquals("hide had incorrect grade", 100f,
-                listGrader.getWeightedGrade(student4Demo), 0.001);
+        assertEquals("demo had incorrect grade", 100f,
+                tempoGrader.getWeightedGrade(student4Demo), 0.001);
 
         // weight = 0.5 --------------------------------------------------
-        listGrader.setWeight(0.5f);
+        tempoGrader.setWeight(0.5f);
 
-        assertEquals("hide had incorrect grade", 50f,
-                listGrader.getWeightedGrade(student4Demo), 0.001);
-
-        // set required to 14 and weight to 1 --------------------------
-
-        listGrader.setNewRequired(26);
-        listGrader.setWeight(1f);
-
-        // 13 vars in demo
-        assertEquals("hide had incorrect grade", 50f,
-                listGrader.getWeightedGrade(student4Demo), 0.001);
+        assertEquals("demo had incorrect grade", 50f,
+                tempoGrader.getWeightedGrade(student4Demo), 0.001);
 
     }
 
-    /**
-     * Tests the extraCredit mode. Tests that it works when turned on. Tests
-     * that you cannot get over 100 when turned off.
-     */
-    @Test
-    public void testExtraCreditModeDemo()
-    {
-        ListGrader listGrader = new ListGrader(1f, 10);
-        listGrader.setExtraCreditMode(true);
-
-        assertTrue("hide had incorrect grade",
-                listGrader.getWeightedGrade(student4Demo) > 100f);
-        
-        listGrader.setExtraCreditMode(false);
-        assertEquals("hide had incorrect grade", 100f,
-                listGrader.getWeightedGrade(student4Demo), 0.001);
-
-    }
 
 }
