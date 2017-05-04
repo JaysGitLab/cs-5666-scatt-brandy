@@ -153,7 +153,7 @@ public class TestScriptCount
             curPath = curPath.substring(0, curPath.length() - 4);
         }
 
-        String fileName = "Hide And Seek.sb2";
+        String fileName = "Hide and Seek.sb2";
         String zippedDirLocStr = curPath + File.separator + "TestData"
                 + File.separator + fileName;
 
