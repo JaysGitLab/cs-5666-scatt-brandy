@@ -15,6 +15,7 @@ import scatt.test.app.TestSpriteCount;
 import scatt.test.app.TestSpriteGrader;
 import scatt.test.app.TestTempo;
 import scatt.test.app.TestVariableCount;
+import scatt.test.app.TestVariableGrader;
 import scatt.test.app.TestWeightGraderComponentMethods;
 import scatt.test.app.unzipper.TestUnZipper;
 
@@ -29,7 +30,8 @@ import scatt.test.app.unzipper.TestUnZipper;
         TestCommandLineGrader.class, TestScriptCount.class,
         TestWeightGraderComponentMethods.class, TestSpriteGrader.class,
         TestSoundGrader.class, TestScriptGrader.class, TestCostumeCount.class,
-        TestVariableCount.class, TestSoundsCount.class, TestListCount.class})
+        TestVariableCount.class, TestSoundsCount.class, TestListCount.class,
+        TestVariableGrader.class, })
 public class AllTests
 {
 
