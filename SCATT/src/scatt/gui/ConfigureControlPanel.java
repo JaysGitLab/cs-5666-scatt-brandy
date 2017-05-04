@@ -94,7 +94,6 @@ public class ConfigureControlPanel extends JPanel
                     panel, context);
             public void actionPerformed(ActionEvent arg0)
             {
-                System.out.println("testing button press");
                 dialogWrapper.setVisible(true);
             }
         });

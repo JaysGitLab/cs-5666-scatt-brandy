@@ -12,7 +12,7 @@ import scatt.Student;
  */
 public class VariableGrader extends BasicGrader
 {
-    public static final String MODULE_NAME = "var grader";
+    public static final String MODULE_NAME = "Variable Grader";
 
     /**
      * Creates a grader for variables with the associated weight and the

@@ -3,6 +3,7 @@ package scatt.gui;
 import scatt.gradermodules.ScriptGrader;
 import scatt.gradermodules.SoundGrader;
 import scatt.gradermodules.SpriteGrader;
+import scatt.gradermodules.VariableGrader;
 
 /**
  * Factory class for creating a pre-configured GraderContext. This is designed
@@ -25,7 +26,7 @@ public class GraderContextFactory
     {
         GraderContext ret = new GraderContext();
         
-        float totalNumberModules = 3;
+        float totalNumberModules = 4;
         float equalDistribute = 1 / totalNumberModules;
         
         
@@ -38,6 +39,9 @@ public class GraderContextFactory
         
         ScriptGrader scriptGrader = new ScriptGrader(equalDistribute, 5);
         ret.addComponent(scriptGrader);
+        
+        VariableGrader varGrader = new VariableGrader(equalDistribute, 3);
+        ret.addComponent(varGrader);
 
         return ret;
     }

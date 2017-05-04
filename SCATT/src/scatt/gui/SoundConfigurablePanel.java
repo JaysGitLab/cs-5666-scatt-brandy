@@ -148,20 +148,20 @@ public class SoundConfigurablePanel extends ConfigurablePanel
      */
     private void initInstructions()
     {
-        JTextPane txtpnBlahBlahBalh = new JTextPane();
+        JTextPane txtpn = new JTextPane();
         springLayout.putConstraint(SpringLayout.SOUTH, weightLabel, -9,
-                SpringLayout.NORTH, txtpnBlahBlahBalh);
-        springLayout.putConstraint(SpringLayout.NORTH, txtpnBlahBlahBalh, 185,
+                SpringLayout.NORTH, txtpn);
+        springLayout.putConstraint(SpringLayout.NORTH, txtpn, 185,
                 SpringLayout.NORTH, this);
-        txtpnBlahBlahBalh.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        txtpnBlahBlahBalh.setEditable(false);
-        springLayout.putConstraint(SpringLayout.WEST, txtpnBlahBlahBalh, 20,
+        txtpn.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        txtpn.setEditable(false);
+        springLayout.putConstraint(SpringLayout.WEST, txtpn, 20,
                 SpringLayout.WEST, this);
-        springLayout.putConstraint(SpringLayout.SOUTH, txtpnBlahBlahBalh, -10,
+        springLayout.putConstraint(SpringLayout.SOUTH, txtpn, -10,
                 SpringLayout.SOUTH, this);
-        springLayout.putConstraint(SpringLayout.EAST, txtpnBlahBlahBalh, -22,
+        springLayout.putConstraint(SpringLayout.EAST, txtpn, -22,
                 SpringLayout.EAST, this);
-        txtpnBlahBlahBalh.setText("Number of unique sounds determines "
+        txtpn.setText("Number of unique sounds determines "
                 + "how many unique types of "
                 + "sound are used in the project. Total"
                 + " number of sounds represents how many"
@@ -172,7 +172,7 @@ public class SoundConfigurablePanel extends ConfigurablePanel
                 + "for Weighted average determines how much"
                 + " the sound grade weights in the entire"
                 + " weighted average.");
-        add(txtpnBlahBlahBalh);
+        add(txtpn);
     }
 
     /**
