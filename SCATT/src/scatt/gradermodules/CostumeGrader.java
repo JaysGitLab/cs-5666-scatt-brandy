@@ -13,7 +13,7 @@ import scatt.Student;
 public class CostumeGrader extends BasicGrader
 {
 
-    private static final String MODULE_NAME = "costume grader";
+    public static final String MODULE_NAME = "Costume Grader";
 
     /**
      * Create a costume grader.
