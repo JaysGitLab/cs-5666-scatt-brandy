@@ -33,6 +33,7 @@ public class Student implements Gradeable
     private int totalCostumesUsed;
     private int uniqueVariableCount = 0;
     private int totalVariablesUsed;
+    private int numberOfLists;
 
     /**
      * Construct a student object from a .sb2 file path.
@@ -64,6 +65,7 @@ public class Student implements Gradeable
         totalVariablesUsed = VariableCounter
                 .getTotalNonUniqueVariables(jsonFile);
 
+        numberOfLists = ListCounter.getListCount(jsonFile);
         
         // clean up created directory
         unZipper.clean();
@@ -176,5 +178,14 @@ public class Student implements Gradeable
     public int getTotalVariableCount()
     {
         return totalVariablesUsed;
+    }
+
+    /**
+     * Get the number of lists in the student's project.
+     * @return the number of lists that were in the student's project. i
+     */
+    public int getNumberOfLists()
+    {
+        return numberOfLists;
     }
 }
