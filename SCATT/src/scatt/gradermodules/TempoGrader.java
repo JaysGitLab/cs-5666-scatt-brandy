@@ -13,7 +13,7 @@ import scatt.Student;
 public class TempoGrader extends BasicGrader
 {
 
-    private static final String MODULE_NAME = "Tempo Grader";
+    public static final String MODULE_NAME = "Tempo Grader";
 
     /**
      * Construct a grader for tempos.
