@@ -16,7 +16,7 @@ import scatt.Student;
 public abstract class BasicGrader extends GraderWeightedComponent
 {
     // public static final String MODULE_NAME;
-    private int required = 0;
+    protected int required = 0;
 
     /**
      * @param weight - the weight of the script module for the entire grading
@@ -43,45 +43,8 @@ public abstract class BasicGrader extends GraderWeightedComponent
      * 
      * @param newRequired denominator of the fraction used for grading.
      */
-    public void setNewRequired(int newRequired)
-    {
-        if (newRequired < 1)
-        {
-            newRequired = 1;
-        }
-        this.required = newRequired;
-    }
+    public abstract void setNewRequired(int newRequired);
 
-    /**
-     * Please refer to GraderWeightedComponent javadoc.
-     * 
-     * @see scatt.GraderWeightedComponent#getGradeFrom0To100()
-     * @param objectToGrade is the object that will be graded.
-     * 
-     * @return A grade between 0 and 100.
-     */
-    public double getGradeFrom0To100(Gradeable objectToGrade)
-    {
-        // downcast necessary to keep other classes closed
-        if (objectToGrade instanceof Student)
-        {
-            Student toGrade = (Student) objectToGrade;
-            double numberOfScripts = toGrade.getScriptCount();
-            double grade = 100 * numberOfScripts / getRequired();
-
-            if (!getExtraCreditMode() && grade > 100f)
-            {
-                grade = 100;
-            }
-
-            return grade;
-        }
-        else
-        {
-            throw new IllegalArgumentException(
-                    "The object trying to be graded isn't a student object");
-        }
-    }
 
     /**
      * Please refer to GraderWeightedComponent javadoc.

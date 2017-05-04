@@ -86,18 +86,24 @@ public class ConfigureControlPanel extends JPanel
         JButton test = new JButton(name);
         test.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonPanel.add(test, null);
+        
+        if (panel == null)
+        {
+            System.err.print("null panel -- did you forget "
+                    + "to add grader to panel initializer?");
+        }
                 
         //@formatter:on
         test.addActionListener(new ActionListener()
         {
+
             JDialog dialogWrapper = new ConfigureDialog(owner, name, true,
                     panel, context);
+
             public void actionPerformed(ActionEvent arg0)
             {
-                System.out.println("testing button press");
                 dialogWrapper.setVisible(true);
             }
         });
     }
-
 }
