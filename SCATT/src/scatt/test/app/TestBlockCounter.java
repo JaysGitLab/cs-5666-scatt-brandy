@@ -110,7 +110,8 @@ public class TestBlockCounter
     @Test
     public void testBlockCountMaze()
     {
-        assertEquals("Block counts didn't match.", 19 + 5, s2mData.getCount());
+        assertEquals("Block counts didn't match.", 19 + 5,
+                s2mData.getTotalCount());
     }
 
     /**
@@ -120,7 +121,7 @@ public class TestBlockCounter
     @Test
     public void testBlockCountHide()
     {
-        assertEquals("Block counts didn't match.", 16, s3hData.getCount());
+        assertEquals("Block counts didn't match.", 16, s3hData.getTotalCount());
     }
 
     /**
@@ -130,7 +131,7 @@ public class TestBlockCounter
     @Test
     public void testControlBlockDemo()
     {
-        
+
         fail("not implemented");
     }
 }

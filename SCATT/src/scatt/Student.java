@@ -105,7 +105,7 @@ public class Student implements Gradeable
      */
     public int getBlockCount()
     {
-        return blockData.getCount();
+        return blockData.getTotalCount();
     }
 
     /**

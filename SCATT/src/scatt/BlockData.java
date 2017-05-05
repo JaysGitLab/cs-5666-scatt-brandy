@@ -24,7 +24,16 @@ public class BlockData
 
     /** Script : <"name" : count>. */
     private HashMap<String, HashMap<String, Integer>> scripts;
-    private int controlBlocks = 0;
+    private Integer motionBlockCount = null;
+    private Integer lookBlockCount = null;
+    private Integer soundBlockCount = null;
+    private Integer penBlockCount = null;
+    private Integer dataBlockCount = null;
+    private Integer eventBlockCount = null;
+    private Integer controlBlockCount = null;
+    private Integer senseBlockCount = null;
+    private Integer operBlockCount = null;
+    private Integer moreBlockCount = null;
 
     /**
      * The constructor for the block data.
@@ -33,6 +42,7 @@ public class BlockData
      */
     public BlockData(HashMap<String, HashMap<String, Integer>> scripts)
     {
+        BlockData.initAllBlockTypeIdentifierData();
         this.scripts = scripts;
         analyzeData();
     }
@@ -46,56 +56,185 @@ public class BlockData
     }
 
     /**
+     * Returns the analyzed block number.
+     * 
+     * @return the true number of blocks in the data.
+     */
+    public int getTotalCount()
+    {
+        int countTotal = 0;
+        countTotal += countMotionBlocks();
+        countTotal += countLooksBlocks();
+        countTotal += countSoundBlocks();
+        countTotal += countPenBlocks();
+        countTotal += countDataBlocks();
+        countTotal += countEventBlocks();
+        countTotal += countControlBlocks();
+        countTotal += countSenseBlocks();
+        countTotal += countOperatorBlocks();
+        countTotal += countMoreSectionBlocks();
+
+        return countTotal;
+    }
+
+    /**
      * Count up the control blocks within all scripts.
      * 
      * @return the number of identified control blocks
      */
     private int countControlBlocks()
     {
+        if (controlBlockCount == null)
+        {
+            controlBlockCount = countBlocksIn(BlockData.controlBlockID);
+        }
+        return controlBlockCount;
+    }
+
+    /**
+     * Get the number of blocks that occurred in the section cateogry.
+     * 
+     * @return the number of blocks that occurred in the section cateogry.
+     */
+    private int countMoreSectionBlocks()
+    {
+        if (moreBlockCount == null)
+        {
+            moreBlockCount = countBlocksIn(BlockData.moreBlockIDs);
+        }
+        return moreBlockCount;
+    }
+
+    /**
+     * Get the number of blocks that occured in the operator category.
+     * @return the number of blocks that occured in the operator category.
+     */
+    private int countOperatorBlocks()
+    {
+        if (operBlockCount == null)
+        {
+            operBlockCount = countBlocksIn(BlockData.operBlockIDs);
+        }
+        return operBlockCount;
+    }
+
+    /**
+     * Get the number of blocks that occurred in the sense category.
+     * @return the number of blocks that occurred in the sense category.
+     */
+    private int countSenseBlocks()
+    {
+        if (senseBlockCount == null)
+        {
+            senseBlockCount = countBlocksIn(BlockData.senseBlockIDs);
+        }
+        return senseBlockCount;
+    }
+
+    /**
+     * Get the number of blocks that occurred in the event category.
+     * @return the number of blocks that occurred in the event category.
+     */
+    private int countEventBlocks()
+    {
+        if (eventBlockCount == null)
+        {
+            eventBlockCount = countBlocksIn(BlockData.eventBlockIDs);
+        }
+        return eventBlockCount;
+    }
+
+    /**
+     * Get the number of blocks that occurred in the data category.
+     * @return the number of blocks that occurred in the data category.
+     */
+    private int countDataBlocks()
+    {
+        if (dataBlockCount == null)
+        {
+            dataBlockCount = countBlocksIn(BlockData.dataBlockIDs);
+        }
+        return dataBlockCount;
+    }
+
+    /**
+     * Get the number of block types in the pen category that occurred.
+     * 
+     * @return the number of block types in the pen category that occurred.
+     */
+    private int countPenBlocks()
+    {
+        if (penBlockCount == null)
+        {
+            penBlockCount = countBlocksIn(BlockData.penBlockIDs);
+        }
+        return penBlockCount;
+    }
+
+    /**
+     * Get the number of blocks in the sound category.
+     * 
+     * @return the number of blocks in the sound category.
+     */
+    private int countSoundBlocks()
+    {
+        if (soundBlockCount == null)
+        {
+            soundBlockCount = countBlocksIn(BlockData.soundBlocksID);
+        }
+        return soundBlockCount;
+    }
+
+    /**
+     * Get the number of blocks that occurred in the looks category.
+     * 
+     * @return the number of blocks in the looks category
+     */
+    private int countLooksBlocks()
+    {
+        if (lookBlockCount == null)
+        {
+            lookBlockCount = countBlocksIn(BlockData.looksBlocksID);
+        }
+        return lookBlockCount;
+    }
+
+    /**
+     * Count the number of times a motion block appeared in the file.
+     * 
+     * @return the number of motion blocks.
+     */
+    public int countMotionBlocks()
+    {
+        if (motionBlockCount == null)
+        {
+            motionBlockCount = countBlocksIn(BlockData.motionBlockID);
+        }
+        return motionBlockCount;
+    }
+
+    /**
+     * Counts blocks in the scripts based on a subset of block types.
+     * 
+     * @param subsetOfBlockIDs hash map containing all block IDs that are to be
+     *            counted.
+     * @return the number of blocks in the set of blockIds
+     */
+    private int countBlocksIn(HashMap<String, Boolean> subsetOfBlockIDs)
+    {
         int blockCount = 0;
         for (HashMap<String, Integer> script : scripts.values())
         {
             for (String blockName : script.keySet())
             {
-                if (validControlBlock(blockName))
+                if (subsetOfBlockIDs.get(blockName) != null)
                 {
+                    // add to the count the number of times this block occurred.
                     blockCount += script.get(blockName);
                 }
             }
         }
         return blockCount;
-    }
-
-    /**
-     * Determines if the block name is within the control block category.
-     * 
-     * @param blockName the name of the block to be tested.
-     * @return true if the block is a control block type, false otherwise
-     */
-    private boolean validControlBlock(String blockName)
-    {
-        // TODO Auto-generated method stub
-        System.out.println("validControlBlock not implemented");
-        return false;
-    }
-
-    /**
-     * Returns the analyzed block number.
-     * 
-     * @return the true number of blocks in the data.
-     */
-    public int getCount()
-    {
-        // TODO fix
-        return -1;
-    }
-
-    /**
-     * TODO: remove.
-     */
-    public void stopCheckstyleComplaining()
-    {
-        System.out.println(scripts.toString());
     }
 
     /**
@@ -126,7 +265,7 @@ public class BlockData
     private static void loadMoreBlocksSectionToMemory()
     {
         moreBlockIDs = new HashMap<String, Boolean>();
-        
+
         moreBlockIDs.put("procDef", true);
         moreBlockIDs.put("LEGO WeDo\u001fwhenDistance", true);
         moreBlockIDs.put("LEGO WeDo\u001fmotorOnFor", true);
@@ -150,7 +289,6 @@ public class BlockData
         moreBlockIDs.put("PicoBoard\u001fwhenSensorPass", true);
         moreBlockIDs.put("PicoBoard\u001fsensorPressed", true);
         moreBlockIDs.put("PicoBoard\u001fsensor", true);
-        
 
     }
 
@@ -160,8 +298,8 @@ public class BlockData
     private static void loadOperatorBlockDataToMemory()
     {
         operBlockIDs = new HashMap<String, Boolean>();
-        
-        operBlockIDs.put("+",  true);
+
+        operBlockIDs.put("+", true);
         operBlockIDs.put("-", true);
         operBlockIDs.put("*", true);
         operBlockIDs.put("\\/", true);
@@ -177,7 +315,7 @@ public class BlockData
         operBlockIDs.put("stringLength:", true);
         operBlockIDs.put("%", true);
         operBlockIDs.put("rounded", true);
-        operBlockIDs.put("computeFunction:of:", true);        
+        operBlockIDs.put("computeFunction:of:", true);
     }
 
     /**
