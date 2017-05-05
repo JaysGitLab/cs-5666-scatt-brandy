@@ -40,6 +40,7 @@ public class BlockConfigurablePanel extends ConfigurablePanel
     private JLabel label7;
     private JLabel lblRequiredmoreBlocks;
     private JTextField mrSecField;
+    private SpringLayout springLayout;
 
     /**
      * Instantiate a Block Grader Configuration Panel.
@@ -49,145 +50,88 @@ public class BlockConfigurablePanel extends ConfigurablePanel
     public BlockConfigurablePanel(GraderContext context)
     {
         super(context, BlockGrader.MODULE_NAME);
-        SpringLayout springLayout = new SpringLayout();
-        setLayout(springLayout);
 
-        motionField = new JTextField();
-        motionField.addFocusListener(new FocusAdapter()
+        constructorPt1();
+        constructorPt2();
+        constructorPt3();
+        constructorPt4();
+
+        mrSecField = new JTextField();
+        mrSecField.addFocusListener(new FocusAdapter()
         {
             @Override
             public void focusLost(FocusEvent arg0)
             {
-                processMotionTextField();
+                processMoreBlocksField();
             }
         });
-        add(motionField);
-        motionField.setColumns(10);
+        springLayout.putConstraint(SpringLayout.SOUTH, weightTextField, 37,
+                SpringLayout.SOUTH, mrSecField);
+        springLayout.putConstraint(SpringLayout.WEST, mrSecField, 22,
+                SpringLayout.EAST, lblRequiredmoreBlocks);
+        springLayout.putConstraint(SpringLayout.NORTH, weightTextField, 15,
+                SpringLayout.SOUTH, mrSecField);
+        springLayout.putConstraint(SpringLayout.NORTH, mrSecField, -3,
+                SpringLayout.NORTH, lblRequiredmoreBlocks);
+        mrSecField.setColumns(10);
+        add(mrSecField);
 
-        numSprReqLabel = new JLabel("Required Motion Blocks");
-        springLayout.putConstraint(SpringLayout.WEST, motionField, 70,
-                SpringLayout.EAST, numSprReqLabel);
-        springLayout.putConstraint(SpringLayout.NORTH, numSprReqLabel, 13,
-                SpringLayout.NORTH, this);
-        springLayout.putConstraint(SpringLayout.NORTH, motionField, -3,
-                SpringLayout.NORTH, numSprReqLabel);
-        springLayout.putConstraint(SpringLayout.WEST, numSprReqLabel, 29,
+        setTextboxesToContainedData();
+    }
+
+    /**
+     * breaking constructor up due to checkstyle limitations.
+     */
+    private void constructorPt4()
+    {
+
+        label5 = new JLabel("Required Control Blocks:");
+        springLayout.putConstraint(SpringLayout.WEST, controlField, 62,
+                SpringLayout.EAST, label5);
+        springLayout.putConstraint(SpringLayout.EAST, controlField, 178,
+                SpringLayout.EAST, label5);
+        springLayout.putConstraint(SpringLayout.NORTH, label5, 12,
+                SpringLayout.SOUTH, label4);
+        springLayout.putConstraint(SpringLayout.WEST, label5, 29,
                 SpringLayout.WEST, this);
-        add(numSprReqLabel);
+        add(label5);
 
-        weightTextField = new JTextField();
-        weightTextField.addFocusListener(new FocusAdapter()
-        {
-            @Override
-            public void focusLost(FocusEvent arg0)
-            {
-                processWeightTextField();
-            }
-        });
-        add(weightTextField);
-        weightTextField.setColumns(10);
+        label6 = new JLabel("Required Sense Blocks:");
+        springLayout.putConstraint(SpringLayout.NORTH, label6, 3,
+                SpringLayout.NORTH, senseField);
+        springLayout.putConstraint(SpringLayout.WEST, label6, 29,
+                SpringLayout.WEST, this);
+        add(label6);
 
-        weightLabel = new JLabel("Weight For Weighted Average:");
-        springLayout.putConstraint(SpringLayout.WEST, weightTextField, 25,
-                SpringLayout.EAST, weightLabel);
-        springLayout.putConstraint(SpringLayout.EAST, weightTextField, 141,
-                SpringLayout.EAST, weightLabel);
-        springLayout.putConstraint(SpringLayout.WEST, weightLabel, 0,
+        label7 = new JLabel("Required Operator Blocks:");
+        springLayout.putConstraint(SpringLayout.WEST, operatorField, 52,
+                SpringLayout.EAST, label7);
+        springLayout.putConstraint(SpringLayout.EAST, operatorField, 168,
+                SpringLayout.EAST, label7);
+        springLayout.putConstraint(SpringLayout.NORTH, label7, 13,
+                SpringLayout.SOUTH, label6);
+        springLayout.putConstraint(SpringLayout.SOUTH, label7, 29,
+                SpringLayout.SOUTH, label6);
+        springLayout.putConstraint(SpringLayout.WEST, label7, 29,
+                SpringLayout.WEST, this);
+        add(label7);
+
+        lblRequiredmoreBlocks = new JLabel("Required 'More Section' Blocks:");
+        springLayout.putConstraint(SpringLayout.NORTH, weightLabel, 21,
+                SpringLayout.SOUTH, lblRequiredmoreBlocks);
+        springLayout.putConstraint(SpringLayout.NORTH, lblRequiredmoreBlocks,
+                12, SpringLayout.SOUTH, label7);
+        springLayout.putConstraint(SpringLayout.WEST, lblRequiredmoreBlocks, 0,
                 SpringLayout.WEST, numSprReqLabel);
-        add(weightLabel);
+        add(lblRequiredmoreBlocks);
 
-        soundField = new JTextField();
-        soundField.addFocusListener(new FocusAdapter()
-        {
-            @Override
-            public void focusLost(FocusEvent arg0)
-            {
-                processSoundsField();
-            }
-        });
-        springLayout.putConstraint(SpringLayout.NORTH, soundField, 68,
-                SpringLayout.NORTH, this);
-        soundField.setColumns(10);
-        add(soundField);
+    }
 
-        penField = new JTextField();
-        penField.addFocusListener(new FocusAdapter()
-        {
-            @Override
-            public void focusLost(FocusEvent arg0)
-            {
-                processPenField();
-            }
-        });
-        springLayout.putConstraint(SpringLayout.NORTH, penField, 7,
-                SpringLayout.SOUTH, soundField);
-        springLayout.putConstraint(SpringLayout.WEST, penField, 231,
-                SpringLayout.WEST, this);
-        penField.setColumns(10);
-        add(penField);
-
-        dataField = new JTextField();
-        dataField.addFocusListener(new FocusAdapter()
-        {
-            @Override
-            public void focusLost(FocusEvent arg0)
-            {
-                processDataField();
-            }
-        });
-        springLayout.putConstraint(SpringLayout.NORTH, dataField, 6,
-                SpringLayout.SOUTH, penField);
-        springLayout.putConstraint(SpringLayout.SOUTH, dataField, 28,
-                SpringLayout.SOUTH, penField);
-        dataField.setColumns(10);
-        add(dataField);
-
-        eventField = new JTextField();
-        eventField.addFocusListener(new FocusAdapter()
-        {
-            @Override
-            public void focusLost(FocusEvent arg0)
-            {
-                processEventsField();
-            }
-        });
-        springLayout.putConstraint(SpringLayout.NORTH, eventField, 153,
-                SpringLayout.NORTH, this);
-        springLayout.putConstraint(SpringLayout.WEST, eventField, 231,
-                SpringLayout.WEST, this);
-        eventField.setColumns(10);
-        add(eventField);
-
-        controlField = new JTextField();
-        controlField.addFocusListener(new FocusAdapter()
-        {
-            @Override
-            public void focusLost(FocusEvent arg0)
-            {
-                processControlField();
-            }
-        });
-        springLayout.putConstraint(SpringLayout.NORTH, controlField, 6,
-                SpringLayout.SOUTH, eventField);
-        controlField.setColumns(10);
-        add(controlField);
-
-        senseField = new JTextField();
-        senseField.addFocusListener(new FocusAdapter()
-        {
-            @Override
-            public void focusLost(FocusEvent arg0)
-            {
-                processSenseField();
-            }
-        });
-        springLayout.putConstraint(SpringLayout.NORTH, senseField, 8,
-                SpringLayout.SOUTH, controlField);
-        springLayout.putConstraint(SpringLayout.WEST, senseField, 231,
-                SpringLayout.WEST, this);
-        senseField.setColumns(10);
-        add(senseField);
-
+    /**
+     * Breaking constructor up do to checkstyle limitations.
+     */
+    private void constructorPt3()
+    {
         operatorField = new JTextField();
         operatorField.addFocusListener(new FocusAdapter()
         {
@@ -269,67 +213,159 @@ public class BlockConfigurablePanel extends ConfigurablePanel
                 SpringLayout.WEST, this);
         add(label4);
 
-        label5 = new JLabel("Required Control Blocks:");
-        springLayout.putConstraint(SpringLayout.WEST, controlField, 62,
-                SpringLayout.EAST, label5);
-        springLayout.putConstraint(SpringLayout.EAST, controlField, 178,
-                SpringLayout.EAST, label5);
-        springLayout.putConstraint(SpringLayout.NORTH, label5, 12,
-                SpringLayout.SOUTH, label4);
-        springLayout.putConstraint(SpringLayout.WEST, label5, 29,
-                SpringLayout.WEST, this);
-        add(label5);
+    }
 
-        label6 = new JLabel("Required Sense Blocks:");
-        springLayout.putConstraint(SpringLayout.NORTH, label6, 3,
-                SpringLayout.NORTH, senseField);
-        springLayout.putConstraint(SpringLayout.WEST, label6, 29,
-                SpringLayout.WEST, this);
-        add(label6);
-
-        label7 = new JLabel("Required Operator Blocks:");
-        springLayout.putConstraint(SpringLayout.WEST, operatorField, 52,
-                SpringLayout.EAST, label7);
-        springLayout.putConstraint(SpringLayout.EAST, operatorField, 168,
-                SpringLayout.EAST, label7);
-        springLayout.putConstraint(SpringLayout.NORTH, label7, 13,
-                SpringLayout.SOUTH, label6);
-        springLayout.putConstraint(SpringLayout.SOUTH, label7, 29,
-                SpringLayout.SOUTH, label6);
-        springLayout.putConstraint(SpringLayout.WEST, label7, 29,
-                SpringLayout.WEST, this);
-        add(label7);
-
-        lblRequiredmoreBlocks = new JLabel("Required 'More Section' Blocks:");
-        springLayout.putConstraint(SpringLayout.NORTH, weightLabel, 21,
-                SpringLayout.SOUTH, lblRequiredmoreBlocks);
-        springLayout.putConstraint(SpringLayout.NORTH, lblRequiredmoreBlocks,
-                12, SpringLayout.SOUTH, label7);
-        springLayout.putConstraint(SpringLayout.WEST, lblRequiredmoreBlocks, 0,
-                SpringLayout.WEST, numSprReqLabel);
-        add(lblRequiredmoreBlocks);
-
-        mrSecField = new JTextField();
-        mrSecField.addFocusListener(new FocusAdapter()
+    /**
+     * Breaking the constructor up due to check style limitations.
+     */
+    private void constructorPt2()
+    {
+        penField = new JTextField();
+        penField.addFocusListener(new FocusAdapter()
         {
             @Override
             public void focusLost(FocusEvent arg0)
             {
-                processMoreBlocksField();
+                processPenField();
             }
         });
-        springLayout.putConstraint(SpringLayout.SOUTH, weightTextField, 37,
-                SpringLayout.SOUTH, mrSecField);
-        springLayout.putConstraint(SpringLayout.WEST, mrSecField, 22,
-                SpringLayout.EAST, lblRequiredmoreBlocks);
-        springLayout.putConstraint(SpringLayout.NORTH, weightTextField, 15,
-                SpringLayout.SOUTH, mrSecField);
-        springLayout.putConstraint(SpringLayout.NORTH, mrSecField, -3,
-                SpringLayout.NORTH, lblRequiredmoreBlocks);
-        mrSecField.setColumns(10);
-        add(mrSecField);
+        springLayout.putConstraint(SpringLayout.NORTH, penField, 7,
+                SpringLayout.SOUTH, soundField);
+        springLayout.putConstraint(SpringLayout.WEST, penField, 231,
+                SpringLayout.WEST, this);
+        penField.setColumns(10);
+        add(penField);
 
-        setTextboxesToContainedData();
+        dataField = new JTextField();
+        dataField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processDataField();
+            }
+        });
+        springLayout.putConstraint(SpringLayout.NORTH, dataField, 6,
+                SpringLayout.SOUTH, penField);
+        springLayout.putConstraint(SpringLayout.SOUTH, dataField, 28,
+                SpringLayout.SOUTH, penField);
+        dataField.setColumns(10);
+        add(dataField);
+
+        eventField = new JTextField();
+        eventField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processEventsField();
+            }
+        });
+        springLayout.putConstraint(SpringLayout.NORTH, eventField, 153,
+                SpringLayout.NORTH, this);
+        springLayout.putConstraint(SpringLayout.WEST, eventField, 231,
+                SpringLayout.WEST, this);
+        eventField.setColumns(10);
+        add(eventField);
+
+        controlField = new JTextField();
+        controlField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processControlField();
+            }
+        });
+        springLayout.putConstraint(SpringLayout.NORTH, controlField, 6,
+                SpringLayout.SOUTH, eventField);
+        controlField.setColumns(10);
+        add(controlField);
+
+        senseField = new JTextField();
+        senseField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processSenseField();
+            }
+        });
+        springLayout.putConstraint(SpringLayout.NORTH, senseField, 8,
+                SpringLayout.SOUTH, controlField);
+        springLayout.putConstraint(SpringLayout.WEST, senseField, 231,
+                SpringLayout.WEST, this);
+        senseField.setColumns(10);
+        add(senseField);
+
+
+    }
+
+    /**
+     * Breaking constructor up due to checkstyle limitations.
+     */
+    private void constructorPt1()
+    {
+        springLayout = new SpringLayout();
+        setLayout(springLayout);
+
+        motionField = new JTextField();
+        motionField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processMotionTextField();
+            }
+        });
+        add(motionField);
+        motionField.setColumns(10);
+
+        numSprReqLabel = new JLabel("Required Motion Blocks");
+        springLayout.putConstraint(SpringLayout.WEST, motionField, 70,
+                SpringLayout.EAST, numSprReqLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, numSprReqLabel, 13,
+                SpringLayout.NORTH, this);
+        springLayout.putConstraint(SpringLayout.NORTH, motionField, -3,
+                SpringLayout.NORTH, numSprReqLabel);
+        springLayout.putConstraint(SpringLayout.WEST, numSprReqLabel, 29,
+                SpringLayout.WEST, this);
+        add(numSprReqLabel);
+
+        weightTextField = new JTextField();
+        weightTextField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processWeightTextField();
+            }
+        });
+        add(weightTextField);
+        weightTextField.setColumns(10);
+
+        weightLabel = new JLabel("Weight For Weighted Average:");
+        springLayout.putConstraint(SpringLayout.WEST, weightTextField, 25,
+                SpringLayout.EAST, weightLabel);
+        springLayout.putConstraint(SpringLayout.EAST, weightTextField, 141,
+                SpringLayout.EAST, weightLabel);
+        springLayout.putConstraint(SpringLayout.WEST, weightLabel, 0,
+                SpringLayout.WEST, numSprReqLabel);
+        add(weightLabel);
+
+        soundField = new JTextField();
+        soundField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processSoundsField();
+            }
+        });
+        springLayout.putConstraint(SpringLayout.NORTH, soundField, 68,
+                SpringLayout.NORTH, this);
+        soundField.setColumns(10);
+        add(soundField);
     }
 
     /**
@@ -809,8 +845,7 @@ public class BlockConfigurablePanel extends ConfigurablePanel
             processSenseField();
             processOperatorField();
             processMoreBlocksField();
-            
-            
+
             // @precondition: text boxes have been validated to be parsable as
             // floats/ints @formatter:off
             bg.setWeight(Float.parseFloat(weightTextField.getText()));
