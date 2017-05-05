@@ -68,7 +68,7 @@ public class BlockGrader extends GraderWeightedComponent
         if (objectToGrade instanceof Student)
         {
             Student std = (Student) objectToGrade;
-            double eqWght = 1 / 8.0;
+            double eqWght = 1 / 9.0;
             double grade = 0;
 
             // calculate grades (can go over 100.
@@ -86,16 +86,16 @@ public class BlockGrader extends GraderWeightedComponent
             // if no extra credit, then make grades over 100 equal to 100
             if (!getExtraCreditMode())
             {
-                motGrade = motGrade > 1f ? 100 : motGrade;
-                lookGrade = lookGrade > 1f ? 100 : lookGrade;
-                sndGrade = sndGrade > 1f ? 100 : sndGrade;
-                penGrade = penGrade > 1f ? 100 : penGrade;
-                dataGrade = dataGrade > 1f ? 100 : dataGrade;
-                eventGrade = eventGrade > 1f ? 100 : eventGrade;
-                conGrade = conGrade > 1f ? 100 : conGrade;
-                senseGrade = senseGrade > 1f ? 100 : senseGrade;
-                operGrade = operGrade > 1f ? 100 : operGrade;
-                mrGrade = mrGrade > 1f ? 100 : mrGrade;
+                motGrade = motGrade > eqWght ? eqWght : motGrade;
+                lookGrade = lookGrade > eqWght ? eqWght : lookGrade;
+                sndGrade = sndGrade > eqWght ? eqWght : sndGrade;
+                penGrade = penGrade > eqWght ? eqWght : penGrade;
+                dataGrade = dataGrade > eqWght ? eqWght : dataGrade;
+                eventGrade = eventGrade > eqWght ? eqWght : eventGrade;
+                conGrade = conGrade > eqWght ? eqWght : conGrade;
+                senseGrade = senseGrade > eqWght ? eqWght : senseGrade;
+                operGrade = operGrade > eqWght ? eqWght : operGrade;
+                mrGrade = mrGrade > eqWght ? eqWght : mrGrade;
             }
 
             grade = motGrade + lookGrade + sndGrade + penGrade + eventGrade
