@@ -97,12 +97,28 @@ public class BlockConfigurablePanel extends ConfigurablePanel
         add(weightLabel);
 
         soundField = new JTextField();
+        soundField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processSoundsField();
+            }
+        });
         springLayout.putConstraint(SpringLayout.NORTH, soundField, 68,
                 SpringLayout.NORTH, this);
         soundField.setColumns(10);
         add(soundField);
 
         penField = new JTextField();
+        penField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processPenField();
+            }
+        });
         springLayout.putConstraint(SpringLayout.NORTH, penField, 7,
                 SpringLayout.SOUTH, soundField);
         springLayout.putConstraint(SpringLayout.WEST, penField, 231,
@@ -111,6 +127,14 @@ public class BlockConfigurablePanel extends ConfigurablePanel
         add(penField);
 
         dataField = new JTextField();
+        dataField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processDataField();
+            }
+        });
         springLayout.putConstraint(SpringLayout.NORTH, dataField, 6,
                 SpringLayout.SOUTH, penField);
         springLayout.putConstraint(SpringLayout.SOUTH, dataField, 28,
@@ -119,6 +143,14 @@ public class BlockConfigurablePanel extends ConfigurablePanel
         add(dataField);
 
         eventField = new JTextField();
+        eventField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processEventsField();
+            }
+        });
         springLayout.putConstraint(SpringLayout.NORTH, eventField, 153,
                 SpringLayout.NORTH, this);
         springLayout.putConstraint(SpringLayout.WEST, eventField, 231,
@@ -127,12 +159,28 @@ public class BlockConfigurablePanel extends ConfigurablePanel
         add(eventField);
 
         controlField = new JTextField();
+        controlField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processControlField();
+            }
+        });
         springLayout.putConstraint(SpringLayout.NORTH, controlField, 6,
                 SpringLayout.SOUTH, eventField);
         controlField.setColumns(10);
         add(controlField);
 
         senseField = new JTextField();
+        senseField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processSenseField();
+            }
+        });
         springLayout.putConstraint(SpringLayout.NORTH, senseField, 8,
                 SpringLayout.SOUTH, controlField);
         springLayout.putConstraint(SpringLayout.WEST, senseField, 231,
@@ -141,6 +189,14 @@ public class BlockConfigurablePanel extends ConfigurablePanel
         add(senseField);
 
         operatorField = new JTextField();
+        operatorField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processOperatorField();
+            }
+        });
         springLayout.putConstraint(SpringLayout.NORTH, operatorField, 6,
                 SpringLayout.SOUTH, senseField);
         springLayout.putConstraint(SpringLayout.SOUTH, operatorField, 28,
@@ -149,6 +205,14 @@ public class BlockConfigurablePanel extends ConfigurablePanel
         add(operatorField);
 
         looksField = new JTextField();
+        looksField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processLooksField();
+            }
+        });
         springLayout.putConstraint(SpringLayout.NORTH, looksField, 8,
                 SpringLayout.SOUTH, motionField);
         springLayout.putConstraint(SpringLayout.WEST, looksField, 0,
@@ -246,6 +310,14 @@ public class BlockConfigurablePanel extends ConfigurablePanel
         add(lblRequiredmoreBlocks);
 
         mrSecField = new JTextField();
+        mrSecField.addFocusListener(new FocusAdapter()
+        {
+            @Override
+            public void focusLost(FocusEvent arg0)
+            {
+                processMoreBlocksField();
+            }
+        });
         springLayout.putConstraint(SpringLayout.SOUTH, weightTextField, 37,
                 SpringLayout.SOUTH, mrSecField);
         springLayout.putConstraint(SpringLayout.WEST, mrSecField, 22,
@@ -258,6 +330,322 @@ public class BlockConfigurablePanel extends ConfigurablePanel
         add(mrSecField);
 
         setTextboxesToContainedData();
+    }
+
+    /**
+     * Update the grader based on the looks field.
+     */
+    protected void processLooksField()
+    {
+        String text = looksField.getText();
+        try
+        {
+            // If parsing causes no errors, then return true.
+            double extracted = Double.parseDouble(text);
+
+            // probably should use a better float comparison
+            if (extracted >= 0.f)
+            {
+                BlockGrader blockGrader = (BlockGrader) context
+                        .getComponent(BlockGrader.MODULE_NAME);
+                blockGrader.setRequiredLooksBlocks(extracted);
+            }
+            else
+            {
+                updateBlockTextFieldToStored("Value should be "
+                        + "greater than 0");
+            }
+
+        }
+        catch (NumberFormatException e)
+        {
+            updateBlockTextFieldToStored("Value should be " + "greater than 0");
+        }
+        catch (IllegalArgumentException e)
+        {
+            updateBlockTextFieldToStored("Value should be" + " greater than 0");
+        }
+    }
+
+    /**
+     * Update the grader based on the sounds field.
+     */
+    protected void processSoundsField()
+    {
+        String text = soundField.getText();
+        try
+        {
+            // If parsing causes no errors, then return true.
+            double extracted = Double.parseDouble(text);
+
+            // probably should use a better float comparison
+            if (extracted >= 0.f)
+            {
+                BlockGrader blockGrader = (BlockGrader) context
+                        .getComponent(BlockGrader.MODULE_NAME);
+                blockGrader.setRequiredSoundBlocks(extracted);
+            }
+            else
+            {
+                updateBlockTextFieldToStored("Value should be "
+                        + "greater than 0");
+            }
+
+        }
+        catch (NumberFormatException e)
+        {
+            updateBlockTextFieldToStored("Value should be " + "greater than 0");
+        }
+        catch (IllegalArgumentException e)
+        {
+            updateBlockTextFieldToStored("Value should be" + " greater than 0");
+        }
+
+    }
+
+    /**
+     * Update the grader based on the looks field.
+     */
+    protected void processPenField()
+    {
+        String text = penField.getText();
+        try
+        {
+            // If parsing causes no errors, then return true.
+            double extracted = Double.parseDouble(text);
+
+            // probably should use a better float comparison
+            if (extracted >= 0.f)
+            {
+                BlockGrader blockGrader = (BlockGrader) context
+                        .getComponent(BlockGrader.MODULE_NAME);
+                blockGrader.setRequiredPenBlocks(extracted);
+            }
+            else
+            {
+                updateBlockTextFieldToStored("Value should be "
+                        + "greater than 0");
+            }
+
+        }
+        catch (NumberFormatException e)
+        {
+            updateBlockTextFieldToStored("Value should be " + "greater than 0");
+        }
+        catch (IllegalArgumentException e)
+        {
+            updateBlockTextFieldToStored("Value should be" + " greater than 0");
+        }
+    }
+
+    /**
+     * Update the grader based on the Data field.
+     */
+    protected void processDataField()
+    {
+        String text = dataField.getText();
+        try
+        {
+            // If parsing causes no errors, then return true.
+            double extracted = Double.parseDouble(text);
+
+            // probably should use a better float comparison
+            if (extracted >= 0.f)
+            {
+                BlockGrader blockGrader = (BlockGrader) context
+                        .getComponent(BlockGrader.MODULE_NAME);
+                blockGrader.setRequiredDataBlocks(extracted);
+            }
+            else
+            {
+                updateBlockTextFieldToStored("Value should be "
+                        + "greater than 0");
+            }
+
+        }
+        catch (NumberFormatException e)
+        {
+            updateBlockTextFieldToStored("Value should be " + "greater than 0");
+        }
+        catch (IllegalArgumentException e)
+        {
+            updateBlockTextFieldToStored("Value should be" + " greater than 0");
+        }
+    }
+
+    /**
+     * Update the grader based on the event field.
+     */
+    protected void processEventsField()
+    {
+        String text = eventField.getText();
+        try
+        {
+            // If parsing causes no errors, then return true.
+            double extracted = Double.parseDouble(text);
+
+            // probably should use a better float comparison
+            if (extracted >= 0.f)
+            {
+                BlockGrader blockGrader = (BlockGrader) context
+                        .getComponent(BlockGrader.MODULE_NAME);
+                blockGrader.setRequiredEventBlocks(extracted);
+            }
+            else
+            {
+                updateBlockTextFieldToStored("Value should be "
+                        + "greater than 0");
+            }
+
+        }
+        catch (NumberFormatException e)
+        {
+            updateBlockTextFieldToStored("Value should be " + "greater than 0");
+        }
+        catch (IllegalArgumentException e)
+        {
+            updateBlockTextFieldToStored("Value should be" + " greater than 0");
+        }
+    }
+
+    /**
+     * Update the grader based on the Control field.
+     */
+    protected void processControlField()
+    {
+        String text = controlField.getText();
+        try
+        {
+            // If parsing causes no errors, then return true.
+            double extracted = Double.parseDouble(text);
+
+            // probably should use a better float comparison
+            if (extracted >= 0.f)
+            {
+                BlockGrader blockGrader = (BlockGrader) context
+                        .getComponent(BlockGrader.MODULE_NAME);
+                blockGrader.setRequiredControlBlocks(extracted);
+            }
+            else
+            {
+                updateBlockTextFieldToStored("Value should be "
+                        + "greater than 0");
+            }
+
+        }
+        catch (NumberFormatException e)
+        {
+            updateBlockTextFieldToStored("Value should be " + "greater than 0");
+        }
+        catch (IllegalArgumentException e)
+        {
+            updateBlockTextFieldToStored("Value should be" + " greater than 0");
+        }
+    }
+
+    /**
+     * Update the grader based on the Sense field.
+     */
+    protected void processSenseField()
+    {
+        String text = senseField.getText();
+        try
+        {
+            // If parsing causes no errors, then return true.
+            double extracted = Double.parseDouble(text);
+
+            // probably should use a better float comparison
+            if (extracted >= 0.f)
+            {
+                BlockGrader blockGrader = (BlockGrader) context
+                        .getComponent(BlockGrader.MODULE_NAME);
+                blockGrader.setRequiredSenseBlocks(extracted);
+            }
+            else
+            {
+                updateBlockTextFieldToStored("Value should be "
+                        + "greater than 0");
+            }
+
+        }
+        catch (NumberFormatException e)
+        {
+            updateBlockTextFieldToStored("Value should be " + "greater than 0");
+        }
+        catch (IllegalArgumentException e)
+        {
+            updateBlockTextFieldToStored("Value should be" + " greater than 0");
+        }
+    }
+
+    /**
+     * Update the grader based on the operator field.
+     */
+    protected void processOperatorField()
+    {
+        String text = operatorField.getText();
+        try
+        {
+            // If parsing causes no errors, then return true.
+            double extracted = Double.parseDouble(text);
+
+            // probably should use a better float comparison
+            if (extracted >= 0.f)
+            {
+                BlockGrader blockGrader = (BlockGrader) context
+                        .getComponent(BlockGrader.MODULE_NAME);
+                blockGrader.setRequiredOperatorBlocks(extracted);
+            }
+            else
+            {
+                updateBlockTextFieldToStored("Value should be "
+                        + "greater than 0");
+            }
+
+        }
+        catch (NumberFormatException e)
+        {
+            updateBlockTextFieldToStored("Value should be " + "greater than 0");
+        }
+        catch (IllegalArgumentException e)
+        {
+            updateBlockTextFieldToStored("Value should be" + " greater than 0");
+        }
+    }
+
+    /**
+     * Update the grader based on the "More Section" field.
+     */
+    protected void processMoreBlocksField()
+    {
+        String text = mrSecField.getText();
+        try
+        {
+            // If parsing causes no errors, then return true.
+            double extracted = Double.parseDouble(text);
+
+            // probably should use a better float comparison
+            if (extracted >= 0.f)
+            {
+                BlockGrader blockGrader = (BlockGrader) context
+                        .getComponent(BlockGrader.MODULE_NAME);
+                blockGrader.setRequiredMoreSectionBlocks(extracted);
+            }
+            else
+            {
+                updateBlockTextFieldToStored("Value should be "
+                        + "greater than 0");
+            }
+
+        }
+        catch (NumberFormatException e)
+        {
+            updateBlockTextFieldToStored("Value should be " + "greater than 0");
+        }
+        catch (IllegalArgumentException e)
+        {
+            updateBlockTextFieldToStored("Value should be" + " greater than 0");
+        }
     }
 
     /**
@@ -301,33 +689,37 @@ public class BlockConfigurablePanel extends ConfigurablePanel
     /**
      * Evaluates text in the required Block count text field to see check for
      * valid float.
-     * 
-     * @return true if the text in the text box is a valid format, false
-     *         otherwise.
      */
-    protected boolean processMotionTextField()
+    protected void processMotionTextField()
     {
         String text = motionField.getText();
         try
         {
             // If parsing causes no errors, then return true.
-            float x = Integer.parseInt(text);
+            double extracted = Double.parseDouble(text);
 
             // probably should use a better float comparison
-            return x >= 0.f;
+            if (extracted >= 0.f)
+            {
+                BlockGrader blockGrader = (BlockGrader) context
+                        .getComponent(BlockGrader.MODULE_NAME);
+                blockGrader.setReqMotionBlocks(extracted);
+            }
+            else
+            {
+                updateBlockTextFieldToStored("Value should be "
+                        + "greater than 0");
+            }
 
         }
         catch (NumberFormatException e)
         {
-            updateMotionBlockTextFieldToStored("Value should be "
-                    + "greater than 0");
+            updateBlockTextFieldToStored("Value should be " + "greater than 0");
         }
         catch (IllegalArgumentException e)
         {
-            updateMotionBlockTextFieldToStored("Value should be"
-                    + " greater than 0");
+            updateBlockTextFieldToStored("Value should be" + " greater than 0");
         }
-        return false;
     }
 
     /**
@@ -336,7 +728,7 @@ public class BlockConfigurablePanel extends ConfigurablePanel
     private void setTextboxesToContainedData()
     {
         updateWeightTextFieldToStored("failure loading default");
-        updateMotionBlockTextFieldToStored("failure loading default");
+        updateBlockTextFieldToStored("failure loading default");
     }
 
     /**
@@ -346,7 +738,7 @@ public class BlockConfigurablePanel extends ConfigurablePanel
      * @param errorMsg - the message to display in text field should an error
      *            occur.
      */
-    private void updateMotionBlockTextFieldToStored(String errorMsg)
+    private void updateBlockTextFieldToStored(String errorMsg)
     {
         BlockGrader blockGrader = (BlockGrader) context
                 .getComponent(BlockGrader.MODULE_NAME);
@@ -407,27 +799,39 @@ public class BlockConfigurablePanel extends ConfigurablePanel
                 .getComponent(BlockGrader.MODULE_NAME);
         if (bg != null)
         {
+            processMotionTextField();
+            processLooksField();
+            processSoundsField();
+            processPenField();
+            processDataField();
+            processEventsField();
+            processControlField();
+            processSenseField();
+            processOperatorField();
+            processMoreBlocksField();
+            
+            
             // @precondition: text boxes have been validated to be parsable as
             // floats/ints @formatter:off
             bg.setWeight(Float.parseFloat(weightTextField.getText()));
             bg.setReqMotionBlocks(
-                    Integer.parseInt(motionField.getText()));
+                    Double.parseDouble(motionField.getText()));
             bg.setRequiredLooksBlocks(
-                    Integer.parseInt(looksField.getText()));
+                    Double.parseDouble(looksField.getText()));
             bg.setRequiredSoundBlocks(
-                    Integer.parseInt(soundField.getText()));
+                    Double.parseDouble(soundField.getText()));
             bg.setRequiredPenBlocks(
-                    Integer.parseInt(penField.getText()));
+                    Double.parseDouble(penField.getText()));
             bg.setRequiredDataBlocks(
-                    Integer.parseInt(dataField.getText()));
+                    Double.parseDouble(dataField.getText()));
             bg.setRequiredControlBlocks(
-                    Integer.parseInt(controlField.getText()));
+                    Double.parseDouble(controlField.getText()));
             bg.setRequiredSenseBlocks(
-                    Integer.parseInt(senseField.getText()));
+                    Double.parseDouble(senseField.getText()));
             bg.setRequiredOperatorBlocks(
-                    Integer.parseInt(operatorField.getText()));
+                    Double.parseDouble(operatorField.getText()));
             bg.setRequiredMoreSectionBlocks(
-                    Integer.parseInt(mrSecField.getText()));
+                    Double.parseDouble(mrSecField.getText()));
             //@formatter:on
         }
         else
