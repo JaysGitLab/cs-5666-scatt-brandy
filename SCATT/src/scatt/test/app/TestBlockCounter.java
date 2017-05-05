@@ -121,17 +121,72 @@ public class TestBlockCounter
     @Test
     public void testBlockCountHide()
     {
+        // s3hData.verbose = true; //this will allow printing out of all counts
         assertEquals("Block counts didn't match.", 16, s3hData.getTotalCount());
     }
 
     /**
-     * Tests that the block counter returns the correct number of control blocks
-     * for the demo class.
+     * Tests that the block counter returns the correct number of different type
+     * of blocks for the demo class.
      */
     @Test
-    public void testControlBlockDemo()
+    public void testControlBlockDemoAllDirectly()
     {
-
-        fail("not implemented");
+        assertEquals("incorrect number of motion blocks", 17,
+                s4dData.countMotionBlocks());
+        assertEquals("incorrect number of look blocks", 19,
+                s4dData.countLooksBlocks());
+        assertEquals("incorrect number of sound blocks", 13,
+                s4dData.countSoundBlocks());
+        assertEquals("incorrect number of pen blocks", 12,
+                s4dData.countPenBlocks());
+        assertEquals("incorrect number of data blocks", 40,
+                s4dData.countDataBlocks());
+        // NOTE: there are other events blocks in almost every script
+        assertEquals("incorrect number of cvent blocks", 18,
+                s4dData.countEventBlocks());
+        assertEquals("incorrect number of control blocks", 11,
+                s4dData.countControlBlocks());
+        assertEquals("incorrect number of sense blocks", 16,
+                s4dData.countSenseBlocks());
+        //22 in apple and 1 in bass
+        assertEquals("incorrect number of more blocks", 22 + 1,
+                s4dData.countMoreSectionBlocks());
+        //s4dData.verbose = true;
+        //note: the more blocks sections has operators built in
+        assertEquals("incorrect number of operator blocks", 17 + 4,
+                s4dData.countOperatorBlocks());
+    }
+    
+    /**
+     * Tests that the block counter returns the correct number of different type
+     * of blocks for the demo class.
+     */
+    @Test
+    public void testControlBlockDemoAllThroughStudent()
+    {
+        assertEquals("incorrect number of motion blocks", 17,
+                student4Demo.countMotionBlocks());
+        assertEquals("incorrect number of look blocks", 19,
+                student4Demo.countLooksBlocks());
+        assertEquals("incorrect number of sound blocks", 13,
+                student4Demo.countSoundBlocks());
+        assertEquals("incorrect number of pen blocks", 12,
+                student4Demo.countPenBlocks());
+        assertEquals("incorrect number of data blocks", 40,
+                student4Demo.countDataBlocks());
+        // NOTE: there are other events blocks in almost every script
+        assertEquals("incorrect number of cvent blocks", 18,
+                student4Demo.countEventBlocks());
+        assertEquals("incorrect number of control blocks", 11,
+                student4Demo.countControlBlocks());
+        assertEquals("incorrect number of sense blocks", 16,
+                student4Demo.countSenseBlocks());
+        //22 in apple and 1 in bass
+        assertEquals("incorrect number of more blocks", 22 + 1,
+                student4Demo.countMoreSectionBlocks());
+        //note: the more blocks sections has operators built in
+        assertEquals("incorrect number of operator blocks", 17 + 4,
+                student4Demo.countOperatorBlocks());
     }
 }

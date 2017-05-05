@@ -22,6 +22,8 @@ public class BlockData
     private static HashMap<String, Boolean> operBlockIDs;
     private static HashMap<String, Boolean> moreBlockIDs;
 
+    public boolean verbose = false;
+
     /** Script : <"name" : count>. */
     private HashMap<String, HashMap<String, Integer>> scripts;
     private Integer motionBlockCount = null;
@@ -82,7 +84,7 @@ public class BlockData
      * 
      * @return the number of identified control blocks
      */
-    private int countControlBlocks()
+    public int countControlBlocks()
     {
         if (controlBlockCount == null)
         {
@@ -96,7 +98,7 @@ public class BlockData
      * 
      * @return the number of blocks that occurred in the section cateogry.
      */
-    private int countMoreSectionBlocks()
+    public int countMoreSectionBlocks()
     {
         if (moreBlockCount == null)
         {
@@ -107,9 +109,10 @@ public class BlockData
 
     /**
      * Get the number of blocks that occured in the operator category.
+     * 
      * @return the number of blocks that occured in the operator category.
      */
-    private int countOperatorBlocks()
+    public int countOperatorBlocks()
     {
         if (operBlockCount == null)
         {
@@ -120,9 +123,10 @@ public class BlockData
 
     /**
      * Get the number of blocks that occurred in the sense category.
+     * 
      * @return the number of blocks that occurred in the sense category.
      */
-    private int countSenseBlocks()
+    public int countSenseBlocks()
     {
         if (senseBlockCount == null)
         {
@@ -133,9 +137,10 @@ public class BlockData
 
     /**
      * Get the number of blocks that occurred in the event category.
+     * 
      * @return the number of blocks that occurred in the event category.
      */
-    private int countEventBlocks()
+    public int countEventBlocks()
     {
         if (eventBlockCount == null)
         {
@@ -146,9 +151,10 @@ public class BlockData
 
     /**
      * Get the number of blocks that occurred in the data category.
+     * 
      * @return the number of blocks that occurred in the data category.
      */
-    private int countDataBlocks()
+    public int countDataBlocks()
     {
         if (dataBlockCount == null)
         {
@@ -162,7 +168,7 @@ public class BlockData
      * 
      * @return the number of block types in the pen category that occurred.
      */
-    private int countPenBlocks()
+    public int countPenBlocks()
     {
         if (penBlockCount == null)
         {
@@ -176,7 +182,7 @@ public class BlockData
      * 
      * @return the number of blocks in the sound category.
      */
-    private int countSoundBlocks()
+    public int countSoundBlocks()
     {
         if (soundBlockCount == null)
         {
@@ -190,7 +196,7 @@ public class BlockData
      * 
      * @return the number of blocks in the looks category
      */
-    private int countLooksBlocks()
+    public int countLooksBlocks()
     {
         if (lookBlockCount == null)
         {
@@ -230,6 +236,11 @@ public class BlockData
                 if (subsetOfBlockIDs.get(blockName) != null)
                 {
                     // add to the count the number of times this block occurred.
+                    if (verbose)
+                    {
+                        Integer amount = +script.get(blockName);
+                        System.out.println(blockName + ":" + amount);
+                    }
                     blockCount += script.get(blockName);
                 }
             }
@@ -267,28 +278,28 @@ public class BlockData
         moreBlockIDs = new HashMap<String, Boolean>();
 
         moreBlockIDs.put("procDef", true);
-        moreBlockIDs.put("LEGO WeDo\u001fwhenDistance", true);
-        moreBlockIDs.put("LEGO WeDo\u001fmotorOnFor", true);
-        moreBlockIDs.put("LEGO WeDo\u001fmotorOn", true);
-        moreBlockIDs.put("LEGO WeDo\u001fmotorOff", true);
-        moreBlockIDs.put("LEGO WeDo\u001fstartMotorPower", true);
-        moreBlockIDs.put("LEGO WeDo\u001fsetMotorDirection", true);
-        moreBlockIDs.put("LEGO WeDo\u001fwhenTilt", true);
-        moreBlockIDs.put("LEGO WeDo\u001fsetMotorDirection", true);
-        moreBlockIDs.put("LEGO WeDo 2.0\u001fwhenDistance", true);
-        moreBlockIDs.put("LEGO WeDo 2.0\u001fmotorOnFor", true);
-        moreBlockIDs.put("LEGO WeDo 2.0\u001fmotorOn", true);
-        moreBlockIDs.put("LEGO WeDo 2.0\u001fmotorOff", true);
-        moreBlockIDs.put("LEGO WeDo 2.0\u001fstartMotorPower", true);
-        moreBlockIDs.put("LEGO WeDo 2.0\u001fsetLED", true);
-        moreBlockIDs.put("LEGO WeDo 2.0\u001fplayNote", true);
-        moreBlockIDs.put("LEGO WeDo 2.0\u001fwhenTilted", true);
-        moreBlockIDs.put("LEGO WeDo 2.0\u001fisTilted", true);
-        moreBlockIDs.put("LEGO WeDo 2.0\u001fgetTilt", true);
-        moreBlockIDs.put("PicoBoard\u001fwhenSensorConnected", true);
-        moreBlockIDs.put("PicoBoard\u001fwhenSensorPass", true);
-        moreBlockIDs.put("PicoBoard\u001fsensorPressed", true);
-        moreBlockIDs.put("PicoBoard\u001fsensor", true);
+        moreBlockIDs.put("LEGO WeDo\\u001fwhenDistance", true);
+        moreBlockIDs.put("LEGO WeDo\\u001fmotorOnFor", true);
+        moreBlockIDs.put("LEGO WeDo\\u001fmotorOn", true);
+        moreBlockIDs.put("LEGO WeDo\\u001fmotorOff", true);
+        moreBlockIDs.put("LEGO WeDo\\u001fstartMotorPower", true);
+        moreBlockIDs.put("LEGO WeDo\\u001fsetMotorDirection", true);
+        moreBlockIDs.put("LEGO WeDo\\u001fwhenTilt", true);
+        moreBlockIDs.put("LEGO WeDo\\u001fsetMotorDirection", true);
+        moreBlockIDs.put("LEGO WeDo 2.0\\u001fwhenDistance", true);
+        moreBlockIDs.put("LEGO WeDo 2.0\\u001fmotorOnFor", true);
+        moreBlockIDs.put("LEGO WeDo 2.0\\u001fmotorOn", true);
+        moreBlockIDs.put("LEGO WeDo 2.0\\u001fmotorOff", true);
+        moreBlockIDs.put("LEGO WeDo 2.0\\u001fstartMotorPower", true);
+        moreBlockIDs.put("LEGO WeDo 2.0\\u001fsetLED", true);
+        moreBlockIDs.put("LEGO WeDo 2.0\\u001fplayNote", true);
+        moreBlockIDs.put("LEGO WeDo 2.0\\u001fwhenTilted", true);
+        moreBlockIDs.put("LEGO WeDo 2.0\\u001fisTilted", true);
+        moreBlockIDs.put("LEGO WeDo 2.0\\u001fgetTilt", true);
+        moreBlockIDs.put("PicoBoard\\u001fwhenSensorConnected", true);
+        moreBlockIDs.put("PicoBoard\\u001fwhenSensorPass", true);
+        moreBlockIDs.put("PicoBoard\\u001fsensorPressed", true);
+        moreBlockIDs.put("PicoBoard\\u001fsensor", true);
 
     }
 
@@ -485,7 +496,7 @@ public class BlockData
         motionBlockID.put("ypos:", true);
         motionBlockID.put("bounceOffEdge", true);
         motionBlockID.put("setRotationStyle", true);
-        // motionBlockID.put("xpos", true);
+        motionBlockID.put("xpos", true);
         motionBlockID.put("ypos", true);
         motionBlockID.put("heading", true);
     }
@@ -496,7 +507,7 @@ public class BlockData
     public static void loadControlBlockDataToMemory()
     {
         controlBlockID = new HashMap<String, Boolean>();
-        controlBlockID.put("wait:elapsed:from", true);
+        controlBlockID.put("wait:elapsed:from:", true);
         controlBlockID.put("doRepeat", true);
         controlBlockID.put("doIf", true);
         controlBlockID.put("doIfElse", true);

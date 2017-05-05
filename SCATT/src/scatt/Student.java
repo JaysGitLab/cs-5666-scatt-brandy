@@ -68,7 +68,7 @@ public class Student implements Gradeable
                 .getTotalNonUniqueVariables(jsonFile);
 
         numberOfLists = ListCounter.getListCount(jsonFile);
-        
+
         // clean up created directory
         unZipper.clean();
     }
@@ -96,7 +96,6 @@ public class Student implements Gradeable
     {
         return tempo;
     }
-
 
     /**
      * Get the number of script blocks that is in the student's project.
@@ -195,10 +194,116 @@ public class Student implements Gradeable
 
     /**
      * Get the number of lists in the student's project.
+     * 
      * @return the number of lists that were in the student's project. i
      */
     public int getNumberOfLists()
     {
         return numberOfLists;
     }
+
+    /**
+     * Get the motion block count.
+     * 
+     * @return get the motion block count.
+     */
+    public int countMotionBlocks()
+    {
+        return blockData.countMotionBlocks();
+    }
+
+    /**
+     * Get the look block count.
+     * 
+     * @return Get the look block count.
+     */
+    public int countLooksBlocks()
+    {
+        return blockData.countLooksBlocks();
+    }
+
+    /**
+     * Get the number of sound blocks.
+     * 
+     * @return get the number of sound blocks.
+     */
+    public int countSoundBlocks()
+    {
+        return blockData.countSoundBlocks();
+    }
+
+    /**
+     * Get the number of pen blocks.
+     * 
+     * @return get the number of pen blocks
+     */
+    public int countPenBlocks()
+    {
+        return blockData.countPenBlocks();
+    }
+
+    /**
+     * Get the number of data blocks.
+     * 
+     * @return the number of data blocks
+     */
+    public int countDataBlocks()
+    {
+        return blockData.countDataBlocks();
+    }
+
+    /**
+     * Get the number of event blocks.
+     * 
+     * @return get the number of event blocks.
+     */
+    public int countEventBlocks()
+    {
+        return blockData.countEventBlocks();
+    }
+
+    /**
+     * Get the number of control blocks.
+     * 
+     * @return get the number of control blocks.
+     */
+    public int countControlBlocks()
+    {
+        return blockData.countControlBlocks();
+    }
+
+    /**
+     * Get the number of blocks in the sense category.
+     * 
+     * @return Get the look block count.
+     */
+    public int countSenseBlocks()
+    {
+        return blockData.countSenseBlocks();
+    }
+
+    /**
+     * Get the number of special blocks that are in the "more section" e.g. lego
+     * blocks
+     * 
+     * @return Get the number of special blocks that are in the "more section"
+     *         e.g. lego blocks
+     */
+    public int countMoreSectionBlocks()
+    {
+        return blockData.countMoreSectionBlocks();
+    }
+
+    /**
+     * get the number of operator blocks in the file. Note, some blocks
+     * inherently have operators within (e.g. "more section" blocks); thus, this
+     * number may seem inflated.
+     * 
+     * @return the number of operator blocks that are in the project file.
+     */
+    public int countOperatorBlocks()
+    {
+        return blockData.countOperatorBlocks();
+    }
+
 }
