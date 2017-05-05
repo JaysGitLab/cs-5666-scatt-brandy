@@ -1,5 +1,6 @@
 package scatt.gui;
 
+import scatt.gradermodules.BlockGrader;
 import scatt.gradermodules.CostumeGrader;
 import scatt.gradermodules.ListGrader;
 import scatt.gradermodules.ScriptGrader;
@@ -29,7 +30,7 @@ public class GraderContextFactory
     {
         GraderContext ret = new GraderContext();
 
-        float totalNumberModules = 6;
+        float totalNumberModules = 7;
         float equalDistribute = 1 / totalNumberModules;
 
         // add and configure the sprite grader
@@ -56,7 +57,10 @@ public class GraderContextFactory
         TempoGrader tempoGrader = new TempoGrader(0f, 60);
         ret.addComponent(tempoGrader);
 
+        BlockGrader blockGrader = new BlockGrader(equalDistribute, 1, 2, 3, 4,
+                5, 6, 7, 9, 10, 0);
+        ret.addComponent(blockGrader);
+
         return ret;
     }
-
 }

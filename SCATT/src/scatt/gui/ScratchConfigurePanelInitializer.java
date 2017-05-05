@@ -28,6 +28,7 @@ public class ScratchConfigurePanelInitializer implements CFPanelInitializer
         new CostumeConfigurablePanel(context);
         new ListConfigurablePanel(context);
         new TempoConfigurablePanel(context);
+        new BlockConfigurablePanel(context);
     }
 
 }
